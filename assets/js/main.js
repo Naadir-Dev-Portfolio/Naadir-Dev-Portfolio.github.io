@@ -8,7 +8,7 @@
   const GITHUB  = 'https://github.com/Naadir-Dev-Portfolio';
   const IMGS    = 'assets/images/projects/';
   const AI_URL  = 'https://subtle-khapse-c232ff.netlify.app/.netlify/functions/gemini-proxy';
-  const AI_SYS  = `You are Naadir's AI Assistant. Professional and concise. Naadir builds automation tools, AI systems and data pipelines. Projects include: Spheria (AI desktop OS with multi-agent orchestration), Trading-Algo-Backtester (ML-powered backtester), Finance & Health PyQt6 dashboards, Illustrator export pipeline, Adobe Script Toolkit (ExtendScript/JSX automation for Illustrator & After Effects), ComfyUI Workflows (Stable Diffusion image generation pipelines with Python batch automation), Enterprise GenAI assistant, AI Quiz Bot, economic data scripts, educational web games, VBA/SAP automation tools, Power BI dashboards, crypto news aggregator, and more. Skills: Python, VBA/Excel, Power BI, Power Automate, JavaScript, AI/ML, prompt engineering, ExtendScript/JSX, ComfyUI, PyQt6, Streamlit. Keep answers brief and professional.`.trim();
+  const AI_SYS  = `You are Naadir's AI Assistant. Professional and concise. Naadir builds automation tools, AI systems, data pipelines and mobile apps. Projects include: Spheria (hero project — AI desktop OS with multi-agent orchestration, tool calling and persistent memory), Mobile Health Planner (React Native / Expo SDK 54 cross-platform health app for Android), Health Planner Desktop (PyQt6 + QWebEngineView hybrid desktop health app), Trading-Algo-Backtester (ML-powered backtester), Finance & Health PyQt6 dashboards, Adobe Script Toolkit (Python+COM sticker pack pipeline, JSX automation for Illustrator & After Effects), ComfyUI Workflows (Stable Diffusion image generation pipelines with Python batch automation), Enterprise GenAI assistant, AI Quiz Bot, Finance NL Query (natural language financial data interface), economic data scripts, educational web games, VBA/SAP automation tools, Power Query M templates, Power BI dashboards, crypto news aggregator, and more. Skills: Python, VBA/Excel, Power Query, Power BI, Power Automate, JavaScript, React Native, TypeScript, AI/ML, multi-agent systems, prompt engineering, ExtendScript/JSX, ComfyUI, PyQt6, Streamlit. Keep answers brief and professional.`.trim();
 
   /* ══════════════════════════════════════════════
      PROJECT DATA
@@ -26,12 +26,12 @@
         {n:4, title:'Mortgage Overpayment Tracker', img:'mortgageTrackerScreen.webp', desc:'Amortisation simulation tool — model overpayment scenarios, see interest saved and payoff date at a glance.', code:`${GITHUB}/Mortgage-Overpayment-Tracker/blob/main/main.py`, details:`${GITHUB}/Mortgage-Overpayment-Tracker/blob/main/README.md`, tags:['python','finance']},
         {n:5, title:'Income Prophet', img:'', desc:'Time-series income forecasting — models growth trajectories and projects future earnings using statistical modelling.', code:`${GITHUB}/Income-Prophet/blob/main/main.py`, details:`${GITHUB}/Income-Prophet/blob/main/README.md`, tags:['python','forecasting','finance']},
         {n:6, title:'Desktop Widgets', img:'', desc:'Collection of always-on-top PyQt6 overlay widgets — BTC ticker, SPY/FTSE/Treasuries charts, crypto alerts, news reader, health tracker, mortgage calc and more.', code:`${GITHUB}/Desktop-Widgets`, details:`${GITHUB}/Desktop-Widgets/blob/main/README.md`, tags:['python','pyqt','crypto','api']},
-        {n:7, title:'OCR Spin Extractor', img:'', desc:'Extracts spin session and exercise performance data from workout screenshots using an OCR pipeline, exported to CSV.', code:`${GITHUB}/OCR-Spin-Extractor/blob/main/main.py`, details:`${GITHUB}/OCR-Spin-Extractor/blob/main/README.md`, tags:['python','ocr','automation']}
+        {n:7, title:'OCR Spin Extractor', img:'', desc:'Extracts spin session and exercise performance data from workout screenshots using an OCR pipeline, exported to CSV.', code:`${GITHUB}/OCR-Spin-Extractor/blob/main/main.py`, details:`${GITHUB}/OCR-Spin-Extractor/blob/main/README.md`, tags:['python','ocr','automation']},
+        {n:8, title:'Health Planner Desktop', img:'', desc:'Cross-platform desktop health planner built with PyQt6 and QWebEngineView — hybrid Python/web UI for tracking workout regimens, health metrics and exercise logs.', code:`${GITHUB}/Health-Planner-Desktop/blob/main/main.py`, details:`${GITHUB}/Health-Planner-Desktop/blob/main/README.md`, tags:['python','pyqt','health','automation']}
       ],
       automation:[
-        {n:1, title:'Illustrator Export Automation', videoId:'JtVEtAiz0UU', desc:'Fully automated Illustrator batch export pipeline bridging Python and Adobe ExtendScript — zero manual steps, handles multi-artboard naming.', code:`${GITHUB}/Illustrator-Export-Automation/blob/main/main.py`, details:`${GITHUB}/Illustrator-Export-Automation/blob/main/README.md`, tags:['python','automation','extendscript']},
-        {n:2, title:'PDF Data Extractor', img:'', desc:'Batch PDF text and table extraction pipeline — processes folders of PDFs, pulls structured data into usable formats.', code:`${GITHUB}/PDF-Data-Extractor/blob/main/main.py`, details:`${GITHUB}/PDF-Data-Extractor/blob/main/README.md`, tags:['python','automation','ocr']},
-        {n:3, title:'Adobe Script Toolkit', img:'', desc:'ExtendScript (JSX) scripts for automating Adobe Illustrator and After Effects — batch artboard export, vectorize pipelines, sequential layer renaming, AE render queue automation and comp settings management.', code:`${GITHUB}/Adobe-Script-Toolkit`, details:`${GITHUB}/Adobe-Script-Toolkit/blob/main/README.md`, tags:['automation','extendscript','adobe','jsx']}
+        {n:1, title:'Adobe Script Toolkit', videoId:'JtVEtAiz0UU', desc:'Full Adobe automation toolkit — Python drives Illustrator via COM to run a complete sticker pack export pipeline (multi-size PNG/JPEG/SVG, watermarked previews, PDF sticker sheets, promo video). Plus native JSX scripts for Illustrator and After Effects: batch artboard export, vectorize, layer renaming, render queue automation.', code:`${GITHUB}/Adobe-Script-Toolkit/blob/main/illustrator/sticker_pack_export_pipeline.py`, details:`${GITHUB}/Adobe-Script-Toolkit/blob/main/README.md`, tags:['python','automation','extendscript','adobe','jsx']},
+        {n:2, title:'PDF Data Extractor', img:'', desc:'Batch PDF text and table extraction pipeline — processes folders of PDFs, pulls structured data into usable formats.', code:`${GITHUB}/PDF-Data-Extractor/blob/main/main.py`, details:`${GITHUB}/PDF-Data-Extractor/blob/main/README.md`, tags:['python','automation','ocr']}
       ],
       trading:[
         {n:1, title:'Trading Algo Backtester', img:'', desc:'Multi-strategy algorithmic trading backtester with a scikit-learn ML layer — runs historical analysis and live market signals on crypto and equities.', code:`${GITHUB}/Trading-Algo-Backtester/blob/main/main.py`, details:`${GITHUB}/Trading-Algo-Backtester/blob/main/README.md`, tags:['python','trading','ml','backtesting']},
@@ -43,14 +43,16 @@
       ]
     },
 
-    /* ── OFFICE 365 ───────────────────────────────────── */
-    office365:{
+    /* ── EXCEL & VBA ──────────────────────────────────── */
+    excelvba:{
       'vba-macros':[
         {n:1, title:'VBA Toolkit', img:'', desc:'General-purpose VBA macro library — reusable patterns for data processing, report formatting, file handling and Excel automation.', code:`${GITHUB}/VBA-Toolkit`, details:`${GITHUB}/VBA-Toolkit/blob/main/README.md`, tags:['vba','excel','automation']},
         {n:2, title:'VBA Report Automation', img:'', desc:'VBA macro suite automating end-to-end audit and operational reporting pipelines — from raw data extraction to formatted, distributable output.', code:`${GITHUB}/VBA-Report-Automation`, details:`${GITHUB}/VBA-Report-Automation/blob/main/README.md`, tags:['vba','excel','automation','reporting']},
-        {n:3, title:'SAP GUI Automation', img:'', desc:'SAP GUI scripting templates using VBA — automates standard SAP transactions, data pulls and form submissions.', code:`${GITHUB}/SAP-GUI-Automation`, details:`${GITHUB}/SAP-GUI-Automation/blob/main/README.md`, tags:['vba','sap','automation']},
-        {n:4, title:'Power Query Toolkit', img:'', desc:'Power Query M templates for common data transformation patterns — cleaning, reshaping, merging and loading data in Excel.', code:`${GITHUB}/Power-Query-Toolkit`, details:`${GITHUB}/Power-Query-Toolkit/blob/main/README.md`, tags:['excel','power-query','etl']},
-        {n:5, title:'Excel Report Templates', img:'', desc:'Collection of professional Excel workbook templates — operational reports, team analytics, financial tools and SAP-integrated extracts. Sanitised for public use.', code:`${GITHUB}/Excel-Report-Templates`, details:`${GITHUB}/Excel-Report-Templates/blob/main/README.md`, tags:['excel','vba','reporting']}
+        {n:3, title:'SAP GUI Automation', img:'', desc:'SAP GUI scripting templates using VBA — automates standard SAP transactions, data pulls and form submissions.', code:`${GITHUB}/SAP-GUI-Automation`, details:`${GITHUB}/SAP-GUI-Automation/blob/main/README.md`, tags:['vba','sap','automation']}
+      ],
+      'powerquery':[
+        {n:1, title:'Power Query Toolkit', img:'', desc:'Power Query M templates for common data transformation patterns — cleaning, reshaping, merging and loading data in Excel. Production-ready and reusable across projects.', code:`${GITHUB}/Power-Query-Toolkit`, details:`${GITHUB}/Power-Query-Toolkit/blob/main/README.md`, tags:['excel','power-query','etl']},
+        {n:2, title:'Excel Report Templates', img:'', desc:'Collection of professional Excel workbook templates — operational reports, team analytics, financial tools and SAP-integrated extracts. Sanitised for public use.', code:`${GITHUB}/Excel-Report-Templates`, details:`${GITHUB}/Excel-Report-Templates/blob/main/README.md`, tags:['excel','vba','reporting']}
       ],
       'power-automate':[]
     },
@@ -63,12 +65,15 @@
 
     /* ── AI PROJECTS ──────────────────────────────────── */
     ai:{
+      agents:[
+        {n:1, title:'Spheria', img:'', desc:'Hero project — AI desktop OS with multi-agent orchestration, tool calling, persistent memory, and a custom animated orb interface. A fully autonomous desktop AI built in Python and PyQt6.', code:`${GITHUB}/Spheria`, details:`${GITHUB}/Spheria/blob/main/README.md`, tags:['ai','multi-agent','python','pyqt']}
+      ],
       generativeai:[
-        {n:1, title:'Spheria', img:'', desc:'AI desktop OS — multi-agent orchestration with tool calling, persistent memory, and a custom animated orb interface. Built in Python and PyQt6.', code:`${GITHUB}/Spheria`, details:`${GITHUB}/Spheria/blob/main/README.md`, tags:['ai','multi-agent','python','pyqt']},
-        {n:2, title:'Enterprise GenAI Assistant', img:'ccmiChatbot_demo.webp', desc:'Custom enterprise chatbot leveraging Gemini 1.5 Flash — built and deployed for a team within days. RAG pipeline over internal documentation.', code:`${GITHUB}/Enterprise-GenAI-Assistant/blob/main/main.py`, demo:'https://ccmi-genai-chat.streamlit.app/', details:`${GITHUB}/Enterprise-GenAI-Assistant/blob/main/README.md`, tags:['ai','streamlit','gemini','prompt-eng']},
-        {n:3, title:'AI Quiz Bot', img:'aiQuizbot.webp', desc:'Interactive knowledge testing with adaptive questioning powered by Gemini 1.5 Flash — generates fresh quizzes on any topic.', code:`${GITHUB}/AI-Quizbot/blob/main/main.py`, demo:'https://aiquizbot.streamlit.app/', details:`${GITHUB}/AI-Quizbot/blob/main/README.md`, tags:['ai','streamlit','gemini','prompt-eng']},
-        {n:4, title:'Finance NL Query', img:'', desc:'Natural language interface for financial data — ask plain-English questions and get structured, queryable answers without writing code.', code:`${GITHUB}/Finance-NL-Query/blob/main/main.py`, details:`${GITHUB}/Finance-NL-Query/blob/main/README.md`, tags:['ai','nlp','finance','python']},
-        {n:5, title:'ComfyUI Workflows', img:'', desc:'ComfyUI node-graph workflows for AI image generation pipelines — txt2img, img2img with 4x ESRGAN upscaling, plus Python automation scripts for batch queuing and auto-renaming generated outputs.', code:`${GITHUB}/ComfyUI-Workflows`, details:`${GITHUB}/ComfyUI-Workflows/blob/main/README.md`, tags:['ai','comfyui','stable-diffusion','python']}
+        {n:1, title:'Enterprise GenAI Assistant', img:'ccmiChatbot_demo.webp', desc:'Custom enterprise chatbot leveraging Gemini 1.5 Flash — built and deployed for a team within days. RAG pipeline over internal documentation.', code:`${GITHUB}/Enterprise-GenAI-Assistant/blob/main/main.py`, demo:'https://ccmi-genai-chat.streamlit.app/', details:`${GITHUB}/Enterprise-GenAI-Assistant/blob/main/README.md`, tags:['ai','streamlit','gemini','prompt-eng']},
+        {n:2, title:'AI Quiz Bot', img:'aiQuizbot.webp', desc:'Interactive knowledge testing with adaptive questioning powered by Gemini 1.5 Flash — generates fresh quizzes on any topic.', code:`${GITHUB}/AI-Quizbot/blob/main/main.py`, demo:'https://aiquizbot.streamlit.app/', details:`${GITHUB}/AI-Quizbot/blob/main/README.md`, tags:['ai','streamlit','gemini','prompt-eng']},
+        {n:3, title:'Finance NL Query', img:'', desc:'Natural language interface for financial data — ask plain-English questions and get structured, queryable answers without writing code.', code:`${GITHUB}/Finance-NL-Query/blob/main/main.py`, details:`${GITHUB}/Finance-NL-Query/blob/main/README.md`, tags:['ai','nlp','finance','python']},
+        {n:4, title:'ComfyUI Workflows', img:'', desc:'ComfyUI node-graph workflows for AI image generation pipelines — txt2img, img2img with 4x ESRGAN upscaling, plus Python automation scripts for batch queuing and auto-renaming generated outputs.', code:`${GITHUB}/ComfyUI-Workflows`, details:`${GITHUB}/ComfyUI-Workflows/blob/main/README.md`, tags:['ai','comfyui','stable-diffusion','python']},
+        {n:5, title:'Portfolio AI Assistant', img:'', desc:'The AI assistant embedded in this portfolio — a Gemini-powered chat interface that knows my full project history and answers questions about my skills and experience in real time.', code:`${GITHUB}/Naadir-Dev-Portfolio.github.io`, details:`${GITHUB}/Naadir-Dev-Portfolio.github.io/blob/main/README.md`, tags:['ai','gemini','prompt-eng','js']}
       ],
       prompt:[
         {n:1, title:'AI Prompt Generator', img:'', desc:'Generates 1000+ diverse, categorised AI prompts and appends them to a master library — covers creative, technical, educational and analytical domains.', code:`${GITHUB}/AI-Prompt-Generator/blob/main/main.py`, details:`${GITHUB}/AI-Prompt-Generator/blob/main/README.md`, tags:['ai','prompt-eng','python']}
@@ -88,6 +93,13 @@
         {n:2, title:'Hexamatch Fractions', img:'hexamatchScreen.webp', desc:'Hexagonal tile-matching game that builds intuitive understanding of equivalent fractions through play.', code:`${GITHUB}/Hexamatch/blob/main/index.html`, demo:'https://hexamatch-by-naadir.netlify.app/', tags:['web','js','game']},
         {n:3, title:'AlgebraVerse', img:'algebraverseScreen.webp', desc:'Progressive algebra challenge system — from basic equations to multi-step problem solving, with difficulty scaling.', code:`${GITHUB}/Algebraverse/blob/main/index.html`, demo:'https://algebraverse-by-naadir.netlify.app/', tags:['web','js','game']},
         {n:4, title:'Logic Grid Boolean', img:'logicgridscreen.webp', desc:'Visual boolean logic gate puzzle — helps players build intuitive understanding of AND, OR and NOT operations.', code:`${GITHUB}/LogicGrid/blob/main/index.html`, demo:'https://logicgrid-by-naadir.netlify.app/', tags:['web','js','game']}
+      ]
+    },
+
+    /* ── MOBILE ───────────────────────────────────────── */
+    mobile:{
+      android:[
+        {n:1, title:'Mobile Health Planner', img:'', desc:'React Native health planning app for Android — workout logger, regimen tracker and health metrics built with Expo SDK 54 and TypeScript. Deep-link ready with custom URI scheme.', code:`${GITHUB}/Mobile-Health-Planner`, details:`${GITHUB}/Mobile-Health-Planner/blob/main/README.md`, tags:['react-native','mobile','health','typescript']}
       ]
     },
 
@@ -372,15 +384,15 @@
     }
     const defs=[
       {name:'Python',               cats:['python'],                    tags:['python','pyqt'],                base:22},
-      {name:'VBA / Excel',          cats:['office365'],                 tags:['vba','excel'],                  base:26},
+      {name:'VBA / Excel',          cats:['excelvba'],                  tags:['vba','excel'],                  base:26},
       {name:'Power BI',             cats:['powerbi'],                   tags:['powerbi'],                      base:21},
       {name:'JavaScript / Web',     cats:['web','browserextensions'],   tags:['js','web','html','css','game'], base:12},
       {name:'AI / Machine Learning',cats:['ai'],                        tags:['ai','gemini','streamlit'],      base:16},
       {name:'Automation',           cats:[],                            tags:['automation','extendscript'],    base:22},
       {name:'Prompt Engineering',   cats:[],                            tags:['prompt-eng'],                   base:19},
       {name:'Data Visualisation',   cats:[],                            tags:['data-viz','pyqt'],              base:16},
-      {name:'Writing & Comms',      cats:[],                            tags:[],                               base:14},
-      {name:'Power Automate',       cats:['office365'],                 tags:['power-automate'],               base:19}
+      {name:'React Native / Mobile',cats:['mobile'],                    tags:['react-native','mobile'],        base:8},
+      {name:'Power Automate',       cats:['excelvba'],                  tags:['power-automate'],               base:19}
     ];
     const scores=defs.map(d=>{
       let s=d.base;
