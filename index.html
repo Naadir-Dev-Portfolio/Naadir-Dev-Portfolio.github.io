@@ -1,240 +1,280 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Naadir | Portfolio</title>
-  <meta name="description" content="Naadir — Data Automation Specialist. Excel VBA, Python, AI systems, Power BI, Trading & Quant Finance.">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/main.css">
-  <link rel="stylesheet" href="assets/css/projects.css">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔷</text></svg>">
 </head>
 <body>
 
-  <!-- ── NAV ───────────────────────────────────────────────────── -->
-  <header class="site-header">
-    <a class="brand" href="#hero" aria-label="Back to hero">
-      <span class="brand-mark"></span>
-      <span class="brand-name">Naadir</span>
+  <!-- â•â•â• HEADER â•â•â• -->
+  <header class="site-header" id="site-header">
+    <a class="brand" href="#hero">
+      <span class="brand-mark"></span> Naadir
     </a>
-    <nav class="top-nav" aria-label="Primary">
-      <a href="#hero">Home</a>
-      <a href="#projects">Projects</a>
-      <a href="#econ">Economics</a>
-      <button class="nav-ai-btn" data-open-ai>✦ AI</button>
-      <a href="https://github.com/Naadir-Dev-Portfolio" target="_blank" rel="noreferrer">GitHub</a>
+    <button class="nav-toggle" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="top-nav">
+      <a href="#projects">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="7" height="7" rx="1"/><rect x="15" y="3" width="7" height="7" rx="1"/><rect x="2" y="14" width="7" height="7" rx="1"/><rect x="15" y="14" width="7" height="7" rx="1"/></svg>
+        Projects
+      </a>
+      <a href="#about">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        About
+      </a>
+      <a href="#books">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+        Books
+      </a>
+      <a href="https://github.com/Naadir-Dev-Portfolio" target="_blank" rel="noreferrer">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.49.5.09.68-.22.68-.48v-1.69c-2.78.6-3.37-1.34-3.37-1.34-.45-1.15-1.11-1.46-1.11-1.46-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.56 9.56 0 0112 6.8c.85.004 1.71.115 2.51.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.376.202 2.394.1 2.646.64.7 1.028 1.595 1.028 2.686 0 3.841-2.337 4.687-4.565 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.165 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+        GitHub
+      </a>
     </nav>
   </header>
 
   <main>
 
-    <!-- ── HERO ──────────────────────────────────────────────────── -->
+    <!-- â•â•â• HERO â•â•â• -->
     <section id="hero" class="hero">
-      <div class="hero-rail-wrap">
 
-        <div class="hero-copy">
-          <p class="hero-name" data-owner-name></p>
-          <h1>Inspiring teams to achieve more with seamless data automation.</h1>
-          <p>Excel VBA, Python &amp; AI systems that cut error, remove repetitive work, and return time for higher-value decisions.</p>
-          <div class="hero-cta-row">
-            <a class="btn-primary" href="#projects">View Projects</a>
-            <button class="btn-ghost" data-open-ai>Ask AI ✦</button>
-          </div>
-        </div>
+      <!-- Warm atmospheric background - amber glow, no blue/purple -->
+      <div class="hero-bg"></div>
 
-        <div class="hero-rail-shadow"></div>
+      <!-- Parallelogram rail - ALL panels use same skew (-8) for clean alignment -->
+      <div class="hero-rail-shell">
+        <div id="heroRail" class="hero-rail">
 
-        <div class="hero-rail-shell">
-          <div id="heroRail" class="hero-rail" aria-label="Skill areas">
+          <!-- Nature videos - update data-video IDs to swap to your own clips -->
+          <article class="hero-panel" data-skew="-8" data-video="NujWx4XkrQQ">
+            <div class="hero-panel-glass"></div>
+            <div class="hero-panel-content">
+              <span class="panel-num">01</span>
+              <h2>Ops Automation</h2>
+              <p>Reliable workflows from input to delivery</p>
+            </div>
+          </article>
 
-            <article class="hero-panel">
-              <img class="hero-panel-image" src="assets/images/hero/window-scenery.svg" alt="" loading="eager" decoding="async">
-              <div class="hero-panel-depth" aria-hidden="true"><span class="plane plane-front"></span></div>
-              <div class="hero-panel-content">
-                <a class="panel-link" href="#projects">
-                  <h2>Excel &amp; VBA</h2>
-                  <p>Enterprise macros, SAP automation &amp; Power Query pipelines.</p>
-                </a>
-              </div>
-            </article>
+          <article class="hero-panel" data-skew="-8" data-video="X2zbDC5HovM">
+            <div class="hero-panel-glass"></div>
+            <div class="hero-panel-content">
+              <span class="panel-num">02</span>
+              <h2>Reporting Systems</h2>
+              <p>Executive-ready visibility, less overhead</p>
+            </div>
+          </article>
 
-            <article class="hero-panel">
-              <img class="hero-panel-image" src="assets/images/hero/window-02.svg" alt="" loading="eager" decoding="async">
-              <div class="hero-panel-depth" aria-hidden="true"><span class="plane plane-front"></span></div>
-              <div class="hero-panel-content">
-                <a class="panel-link" href="#projects">
-                  <h2>Python Apps</h2>
-                  <p>PyQt6 dashboards, data tools &amp; automation pipelines.</p>
-                </a>
-              </div>
-            </article>
+          <article class="hero-panel" data-skew="-8" data-video="9HaU8NjH7bI">
+            <div class="hero-panel-glass"></div>
+            <div class="hero-panel-content">
+              <span class="panel-num">03</span>
+              <h2>Excel + Python</h2>
+              <p>Scripts that remove the repetitive grind</p>
+            </div>
+          </article>
 
-            <article class="hero-panel">
-              <img class="hero-panel-image" src="assets/images/hero/window-03.svg" alt="" loading="eager" decoding="async">
-              <div class="hero-panel-depth" aria-hidden="true"><span class="plane plane-front"></span></div>
-              <div class="hero-panel-content">
-                <a class="panel-link" href="#projects">
-                  <h2>AI &amp; Agents</h2>
-                  <p>Gemini-powered multi-agent systems &amp; GenAI tools.</p>
-                </a>
-              </div>
-            </article>
+          <article class="hero-panel" data-skew="-8" data-video="kiWxR-8xTEU">
+            <div class="hero-panel-glass"></div>
+            <div class="hero-panel-content">
+              <span class="panel-num">04</span>
+              <h2>Team Enablement</h2>
+              <p>Tools that let people focus on strategy</p>
+            </div>
+          </article>
 
-            <article class="hero-panel">
-              <img class="hero-panel-image" src="assets/images/hero/window-04.svg" alt="" loading="eager" decoding="async">
-              <div class="hero-panel-depth" aria-hidden="true"><span class="plane plane-front"></span></div>
-              <div class="hero-panel-content">
-                <a class="panel-link" href="#projects">
-                  <h2>Trading &amp; Quant</h2>
-                  <p>Algo backtesting, live data feeds &amp; forecasting models.</p>
-                </a>
-              </div>
-            </article>
+          <article class="hero-panel" data-skew="-8" data-video="WklvHSS0kRk">
+            <div class="hero-panel-glass"></div>
+            <div class="hero-panel-content">
+              <span class="panel-num">05</span>
+              <h2>Measured Impact</h2>
+              <p>Dozens of hours returned every month</p>
+            </div>
+          </article>
 
-            <article class="hero-panel">
-              <img class="hero-panel-image" src="assets/images/hero/window-05.svg" alt="" loading="eager" decoding="async">
-              <div class="hero-panel-depth" aria-hidden="true"><span class="plane plane-front"></span></div>
-              <div class="hero-panel-content">
-                <a class="panel-link" href="#projects">
-                  <h2>Web &amp; Games</h2>
-                  <p>Team sites, tools &amp; HTML5 cognitive games.</p>
-                </a>
-              </div>
-            </article>
-
-          </div>
         </div>
       </div>
-    </section>
 
-    <!-- ── SKILLS STRIP ──────────────────────────────────────────── -->
-    <div class="skills-strip">
-      <span class="skills-label">Stack</span>
-      <span class="skill-pill sp-excel">Excel / VBA</span>
-      <span class="skill-pill sp-excel">Power Query</span>
-      <span class="skill-pill sp-pbi">Power BI</span>
-      <span class="skill-pill sp-excel">SAP GUI Scripting</span>
-      <span class="skill-pill sp-python">Python</span>
-      <span class="skill-pill sp-python">PyQt6</span>
-      <span class="skill-pill sp-python">Pandas</span>
-      <span class="skill-pill sp-ai">Gemini AI</span>
-      <span class="skill-pill sp-ai">Multi-Agent Systems</span>
-      <span class="skill-pill sp-python">vectorbt</span>
-      <span class="skill-pill sp-python">Prophet / ARIMA</span>
-      <span class="skill-pill sp-python">Streamlit</span>
-      <span class="skill-pill">HTML / CSS / JS</span>
-      <span class="skill-pill">Netlify</span>
-    </div>
-
-    <!-- ── FEATURED SPOTLIGHT ────────────────────────────────────── -->
-    <section class="section" id="featured">
-      <p class="section-eyebrow">Spotlight</p>
-      <h2 class="section-heading">Flagship &amp; Featured Projects</h2>
-      <p class="section-desc">The projects that best represent the depth and breadth of my work.</p>
-      <div id="featured-grid" class="featured-grid">
-        <!-- Populated by app.js -->
-      </div>
-    </section>
-
-    <!-- ── ALL PROJECTS ──────────────────────────────────────────── -->
-    <section id="projects">
-      <div class="section-header-pad">
-        <p class="section-eyebrow">All Work</p>
-        <h2 class="section-heading">Browse by Category</h2>
-      </div>
-
-      <div id="cat-tabs" class="cat-tabs" role="tablist"></div>
-      <div id="sub-tabs-area"></div>
-      <div class="projects-area">
-        <div id="projects-grid-area"></div>
-      </div>
-    </section>
-
-    <!-- ── ECONOMIC DASHBOARD TEASER ─────────────────────────────── -->
-    <section class="econ-section" id="econ">
-      <div class="econ-inner">
-        <div>
-          <div class="econ-wip-badge">
-            <span class="econ-wip-dot"></span>
-            In Development
-          </div>
-          <p class="section-eyebrow">Coming Soon</p>
-          <h2 class="section-heading">Global Economic Intelligence Dashboard</h2>
-          <p class="section-desc">
-            A live web dashboard tracking 20+ macroeconomic indicators across 8 countries — yield curves,
-            housing markets, unemployment, Shiller CAPE, credit spreads and more. All powered by
-            Python data pipelines feeding a dynamic front-end.
-          </p>
-          <div class="tag-row" style="margin-bottom:1.4rem">
-            <span class="tag tag-accent">FRED API</span>
-            <span class="tag tag-green">Python</span>
-            <span class="tag tag-accent">Plotly</span>
-            <span class="tag">8 Countries</span>
-            <span class="tag">20+ Indicators</span>
-          </div>
-          <a class="btn-ghost" href="https://github.com/Naadir-Dev-Portfolio/Python-Economic-Dashboard" target="_blank" rel="noreferrer">
-            Follow on GitHub →
+      <!-- Left overlay - name is the hero, tagline beneath -->
+      <div class="hero-overlay">
+        <div class="hero-identity">
+          <span class="hero-name-tag">Naadir Surname</span>
+          <span class="hero-role-tag">Automation &amp; Data Engineer</span>
+        </div>
+        <h1>Seamless automation,<br>measurable results.</h1>
+        <div class="hero-cta-row">
+          <a href="#projects" class="btn btn-pearl">
+            Explore Work
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
+          <a href="#about" class="btn btn-ghost">About Me</a>
         </div>
-        <div id="econ-grid" class="econ-grid-preview"></div>
+      </div>
+
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="section reveal-section">
+      <div class="container">
+        <div class="section-head">
+          <h2 class="section-title">What I've Built</h2>
+          <p class="section-subtitle" id="proj-subtitle">Python desktop apps, automation pipelines, quantitative tools and more - built to solve real problems.</p>
+        </div>
+
+        <div class="tabs-bar" id="proj-tabs">
+          <button class="tab-btn active" data-target="python" data-desc="Python desktop apps, automation pipelines, quantitative tools and more - built to solve real problems.">Python</button>
+          <button class="tab-btn" data-target="office365" data-desc="VBA macros, Excel automation and Power Automate flows that eliminate repetitive manual work.">Office 365</button>
+          <button class="tab-btn" data-target="powerbi" data-desc="Interactive Power BI dashboards and dataflow pipelines giving teams instant clarity.">Power BI</button>
+          <button class="tab-btn" data-target="ai" data-desc="Generative AI chatbots, quiz engines, and prompt-engineered tools powered by Gemini.">AI Projects</button>
+          <button class="tab-btn" data-target="web" data-desc="Professional team sites, interactive utilities, and browser-based cognitive games.">Web Apps</button>
+          <button class="tab-btn" data-target="browserextensions" data-desc="Chrome extensions that add productivity directly to the browser workflow.">Extensions</button>
+        </div>
+
+        <div class="sub-nav-wrapper">
+          <div class="sub-nav open" id="sub-python">
+            <button class="sub-btn active" data-subtarget="desktop">Desktop Apps</button>
+            <button class="sub-btn" data-subtarget="automation">Automation</button>
+            <button class="sub-btn" data-subtarget="trading">Trading</button>
+            <button class="sub-btn" data-subtarget="quant">Quant Finance</button>
+          </div>
+          <div class="sub-nav" id="sub-office365">
+            <button class="sub-btn active" data-subtarget="vba-macros">VBA / Macros</button>
+            <button class="sub-btn" data-subtarget="power-automate">Power Automate</button>
+          </div>
+          <div class="sub-nav" id="sub-powerbi">
+            <button class="sub-btn active" data-subtarget="dashboards">Dashboards</button>
+            <button class="sub-btn" data-subtarget="dataflow">Dataflow</button>
+          </div>
+          <div class="sub-nav" id="sub-ai">
+            <button class="sub-btn active" data-subtarget="generativeai">Generative AI</button>
+            <button class="sub-btn" data-subtarget="prompt">Prompt Engineering</button>
+          </div>
+          <div class="sub-nav" id="sub-web">
+            <button class="sub-btn active" data-subtarget="teamsites">Team Sites</button>
+            <button class="sub-btn" data-subtarget="tools">Utilities</button>
+            <button class="sub-btn" data-subtarget="cognitive">Cognitive</button>
+          </div>
+          <div class="sub-nav" id="sub-browserextensions">
+            <button class="sub-btn active" data-subtarget="google-chrome">Chrome</button>
+          </div>
+        </div>
+
+        <div class="panels-container">
+          <div class="tab-panel active" id="panel-python-desktop"><div class="projects-grid" id="grid-python-desktop"></div></div>
+          <div class="tab-panel" id="panel-python-automation"><div class="projects-grid" id="grid-python-automation"></div></div>
+          <div class="tab-panel" id="panel-python-trading"><div class="projects-grid" id="grid-python-trading"></div></div>
+          <div class="tab-panel" id="panel-python-quant"><div class="projects-grid" id="grid-python-quant"></div></div>
+          <div class="tab-panel" id="panel-office365-vba-macros"><div class="projects-grid" id="grid-office365-vba-macros"></div></div>
+          <div class="tab-panel" id="panel-office365-power-automate"><div class="projects-grid" id="grid-office365-power-automate"></div></div>
+          <div class="tab-panel" id="panel-powerbi-dashboards"><div class="projects-grid" id="grid-powerbi-dashboards"></div></div>
+          <div class="tab-panel" id="panel-powerbi-dataflow"><div class="projects-grid" id="grid-powerbi-dataflow"></div></div>
+          <div class="tab-panel" id="panel-ai-generativeai"><div class="projects-grid" id="grid-ai-generativeai"></div></div>
+          <div class="tab-panel" id="panel-ai-prompt"><div class="projects-grid" id="grid-ai-prompt"></div></div>
+          <div class="tab-panel" id="panel-web-teamsites"><div class="projects-grid" id="grid-web-teamsites"></div></div>
+          <div class="tab-panel" id="panel-web-tools"><div class="projects-grid" id="grid-web-tools"></div></div>
+          <div class="tab-panel" id="panel-web-cognitive"><div class="projects-grid" id="grid-web-cognitive"></div></div>
+          <div class="tab-panel" id="panel-browserextensions-google-chrome"><div class="projects-grid" id="grid-browserextensions-google-chrome"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- â”€â”€ Parallax strip #1 - thin window into a layer beneath â”€â”€ -->
+    <div class="parallax-strip" role="presentation" aria-hidden="true"></div>
+
+    <!-- â•â•â• ABOUT â•â•â• -->
+    <section id="about" class="section reveal-section">
+      <div class="container">
+        <div class="section-head">
+          <h2 class="section-title">About</h2>
+          <p class="about-blurb">Hands-on experience leading automation projects and managing developer teams. I build macros, Python scripts, and workflow tools that save dozens of hours each month - then make sure the team can use them without me.</p>
+        </div>
+        <div class="about-roles">
+          <span class="role-tag">Automation</span>
+          <span class="role-tag">Reporting &amp; BI</span>
+          <span class="role-tag">Python &amp; VBA</span>
+          <span class="role-tag">AI Tools</span>
+          <span class="role-tag">Team Enablement</span>
+        </div>
+        <div class="skills-panel">
+          <p class="skills-note">Skill breakdown - auto-calculated from project portfolio</p>
+          <div class="skills-grid" id="skills-grid"></div>
+        </div>
+        <div class="stack-ribbon">
+          <div class="stack-ribbon-track">
+            <span>Python</span><span>NumPy</span><span>Pandas</span><span>Matplotlib</span><span>PyQt6</span><span>Streamlit</span><span>FastAPI</span><span>Gemini API</span><span>Power BI</span><span>Power Automate</span><span>VBA / Excel</span><span>HTML</span><span>CSS</span><span>JavaScript</span><span>Prompt Engineering</span><span>ExtendScript</span><span>scikit-learn</span><span>OpenAI API</span>
+            <span>Python</span><span>NumPy</span><span>Pandas</span><span>Matplotlib</span><span>PyQt6</span><span>Streamlit</span><span>FastAPI</span><span>Gemini API</span><span>Power BI</span><span>Power Automate</span><span>VBA / Excel</span><span>HTML</span><span>CSS</span><span>JavaScript</span><span>Prompt Engineering</span><span>ExtendScript</span><span>scikit-learn</span><span>OpenAI API</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- â”€â”€ Parallax strip #2 â”€â”€ -->
+    <div class="parallax-strip parallax-strip-b" role="presentation" aria-hidden="true"></div>
+
+    <!-- â•â•â• BOOKS â•â•â• -->
+    <section id="books" class="section reveal-section">
+      <div class="container">
+        <div class="section-head">
+          <h2 class="section-title">Books in Progress</h2>
+        </div>
+        <div class="books-carousel-wrap">
+          <button class="carousel-btn carousel-prev" aria-label="Previous">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <div class="books-viewport">
+            <div class="books-track" id="booksTrack"></div>
+          </div>
+          <button class="carousel-btn carousel-next" aria-label="Next">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </div>
       </div>
     </section>
 
   </main>
 
-  <!-- ── FOOTER ───────────────────────────────────────────────── -->
+  <!-- â•â•â• FOOTER â•â•â• -->
   <footer class="site-footer">
-    <div class="footer-links">
-      <a href="https://github.com/Naadir-Dev-Portfolio" target="_blank" rel="noreferrer">GitHub</a>
-      <a href="#featured">Projects</a>
-      <button data-open-ai>AI Assistant ✦</button>
-    </div>
-    <p class="footer-copy">Built with HTML, CSS &amp; JavaScript · Powered by Gemini AI · Hosted on GitHub Pages</p>
-  </footer>
-
-  <!-- ── AI ASSISTANT ──────────────────────────────────────────── -->
-  <button class="ai-fab" id="ai-fab" aria-label="Open AI assistant">
-    <svg class="ai-fab-icon" viewBox="0 0 24 24" aria-hidden="true">
-      <circle cx="12" cy="12" r="4" fill="currentColor" opacity="0.4"/>
-      <circle cx="12" cy="12" r="1.5" fill="currentColor"/>
-      <path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.93 4.93l2.12 2.12M16.95 16.95l2.12 2.12M4.93 19.07l2.12-2.12M16.95 7.05l2.12-2.12"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/>
-    </svg>
-    <svg class="ai-fab-close" viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M18 6 6 18M6 6l12 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-    </svg>
-  </button>
-
-  <div class="ai-panel" id="ai-panel" role="dialog" aria-label="AI Portfolio Assistant">
-    <div class="ai-panel-header">
-      <div class="ai-panel-dot"></div>
-      <div>
-        <div class="ai-panel-title">Portfolio Assistant ✦</div>
-        <div class="ai-panel-sub">Ask me anything about Naadir's work</div>
+    <div class="footer-inner">
+      <span class="footer-copy">&copy; <span id="year"></span> Naadir</span>
+      <div class="footer-links">
+        <a href="#projects">Projects</a>
+        <a href="#about">About</a>
+        <a href="https://github.com/Naadir-Dev-Portfolio" target="_blank" rel="noreferrer">GitHub</a>
       </div>
     </div>
-    <div class="ai-messages" id="ai-messages" aria-live="polite"></div>
-    <div class="ai-input-row">
-      <textarea class="ai-input" id="ai-input" placeholder="Ask about a project, skill or technology…" rows="1"></textarea>
-      <button class="ai-send" id="ai-send" aria-label="Send">
-        <svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>
+  </footer>
+
+  <!-- â•â•â• FLOATING AI â•â•â• -->
+  <button class="ai-fab" id="ai-fab" aria-label="Chat with AI">
+    <span class="ai-fab-ring r1"></span>
+    <span class="ai-fab-ring r2"></span>
+    <span class="ai-fab-label">AI</span>
+  </button>
+  <div class="ai-chat" id="ai-chat">
+    <div class="ai-chat-header">
+      <span class="ai-dot"></span>
+      <span>Naadir's AI</span>
+      <button class="ai-close" id="ai-close" aria-label="Close">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
       </button>
     </div>
-  </div>
-
-  <!-- ── VIDEO MODAL ──────────────────────────────────────────── -->
-  <div class="modal-overlay" id="video-modal" role="dialog" aria-modal="true">
-    <div class="modal-video-wrap">
-      <button class="modal-close" aria-label="Close">✕</button>
-      <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen title="Project demo"></iframe>
+    <div class="ai-messages" id="ai-messages">
+      <div class="ai-msg ai-msg-bot"><span class="ai-msg-text" id="ai-initial-text"></span><span class="ai-cursor"></span></div>
     </div>
+    <form class="ai-input-row" id="ai-form" autocomplete="off">
+      <input type="text" id="ai-input" placeholder="Ask about my work..." autocomplete="off">
+      <button type="submit" id="ai-send" aria-label="Send">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+      </button>
+    </form>
   </div>
 
-  <!-- ── SCRIPTS (data first) ─────────────────────────────────── -->
-  <script src="assets/data/projects.js"></script>
   <script src="assets/js/main.js"></script>
-  <script src="assets/js/app.js"></script>
-
 </body>
 </html>
+
+
