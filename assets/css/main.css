@@ -712,11 +712,13 @@ button{font:inherit;cursor:pointer}
 /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    AI CHAT â€” Floating, breathing rings
    â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-.ai-fab{position:fixed;bottom:1.25rem;right:1.25rem;z-index:90;width:52px;height:52px;border-radius:50%;background:var(--card);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .2s var(--ease);box-shadow:0 4px 20px rgba(0,0,0,.38)}
-.ai-fab:hover{transform:scale(1.08)}
+.ai-fab{position:fixed;bottom:1.6rem;right:1.6rem;z-index:90;width:52px;height:52px;border-radius:50%;background:linear-gradient(145deg,#f0ede8 0%,#ddd8d0 100%);border:1px solid rgba(255,255,255,.55);display:flex;align-items:center;justify-content:center;cursor:pointer;overflow:hidden;transition:transform .2s var(--ease),box-shadow .2s var(--ease);box-shadow:0 4px 20px rgba(0,0,0,.28),0 1px 0 rgba(255,255,255,.5) inset}
+.ai-fab:hover{transform:scale(1.08);box-shadow:0 8px 28px rgba(0,0,0,.35),0 1px 0 rgba(255,255,255,.5) inset}
 .ai-fab.hidden{display:none}
-.ai-fab-label{font-size:.7rem;font-weight:800;letter-spacing:.08em;color:var(--acc);z-index:1;position:relative}
-.ai-fab-ring{position:absolute;inset:-5px;border-radius:50%;border:1.5px solid var(--acc);pointer-events:none;animation:fabBreathe 2.2s ease-in-out infinite}
+.ai-fab::after{content:'';position:absolute;inset:0;border-radius:50%;background:linear-gradient(110deg,transparent 20%,rgba(255,255,255,.55) 50%,transparent 80%);transform:translateX(-110%);transition:transform .6s var(--ease);pointer-events:none;}
+.ai-fab:hover::after{transform:translateX(110%)}
+.ai-fab-label{font-size:.7rem;font-weight:800;letter-spacing:.08em;color:#3a3028;z-index:1;position:relative}
+.ai-fab-ring{position:absolute;inset:-5px;border-radius:50%;border:1.5px solid rgba(58,48,40,.25);pointer-events:none;animation:fabBreathe 2.2s ease-in-out infinite}
 .ai-fab-ring.r2{inset:-12px;animation-delay:.7s;animation-duration:2.7s;opacity:.45}
 @keyframes fabBreathe{0%,100%{transform:scale(.82);opacity:0}35%{opacity:.8}55%{transform:scale(1.22);opacity:.25}}
 
