@@ -533,7 +533,7 @@ button{font:inherit;cursor:pointer}
 }
 .card.card-featured:hover{
   border-color:rgba(154,163,173,.22);
-  box-shadow:0 14px 40px rgba(0,0,0,.42);
+  box-shadow:0 22px 52px rgba(0,0,0,.62), 0 6px 16px rgba(0,0,0,.4);
 }
 .card-editorial-body{
   padding:1.8rem 1.6rem;
@@ -598,7 +598,7 @@ button{font:inherit;cursor:pointer}
 .card.card-gallery:hover>img{transform:scale(1.06);filter:brightness(.52)}
 /* Overlay: title+desc always visible at bottom, links revealed on hover */
 .card-gal-body{
-  position:absolute;inset:0;padding:.9rem;
+  position:absolute;inset:0 0 -6px 0;padding:.9rem;
   display:flex;flex-direction:column;justify-content:flex-end;
   background:linear-gradient(0deg,rgba(10,8,4,.92) 0%,rgba(10,8,4,.6) 45%,transparent 80%);
   transition:transform .38s var(--ease);
