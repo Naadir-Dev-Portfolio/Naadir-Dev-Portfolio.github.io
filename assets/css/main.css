@@ -388,8 +388,8 @@ button{font:inherit;cursor:pointer}
   background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1800&q=80');
 }
 .parallax-books-contact{
-  background-image: url('https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1800&q=80');
-  background-position:center 40%;
+  background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1800&q=80');
+  background-position:center 55%;
 }
 .parallax-strip .parallax-inner{ display:none; }
 /* iOS Safari: fixed-attachment doesn't work on touch â€” fall back to scroll */
@@ -428,7 +428,7 @@ button{font:inherit;cursor:pointer}
 }
 .section-subtitle{
   margin:0;max-width:72ch;margin-inline:auto;
-  font-size:.88rem;color:var(--ink-soft);line-height:1.6;
+  font-size:.93rem;font-weight:500;color:var(--ink-soft);line-height:1.7;
 }
 #proj-subtitle{
   height:calc(1.6em * 2);   /* line-height:1.6 × 2 lines — never shifts */
@@ -439,7 +439,7 @@ button{font:inherit;cursor:pointer}
 }
 .about-blurb{
   margin:0;max-width:720px;margin-inline:auto;
-  font-size:.88rem;color:var(--ink-soft);line-height:1.6;
+  font-size:.93rem;font-weight:500;color:var(--ink-soft);line-height:1.7;
 }
 
 .reveal-section{
@@ -460,12 +460,21 @@ button{font:inherit;cursor:pointer}
   gap:.3rem;margin-bottom:.5rem;
 }
 .tab-btn{
+  position:relative;overflow:hidden;
   padding:.4rem .95rem;font-size:.79rem;font-weight:500;
   color:var(--ink-soft);
   border:1px solid var(--border);border-radius:20px;
   background:rgba(0,0,0,.04);
   transition:all .2s;
 }
+.tab-btn::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(110deg,transparent 25%,rgba(255,255,255,.28) 50%,transparent 75%);
+  transform:translateX(-110%);
+  transition:transform .55s var(--ease);
+  pointer-events:none;
+}
+.tab-btn:hover::after{transform:translateX(110%)}
 .tab-btn:hover{color:var(--ink);background:rgba(0,0,0,.07);border-color:rgba(0,0,0,.15)}
 .tab-btn.active{
   color:#fff;background:var(--ink);border-color:var(--ink);
@@ -477,11 +486,14 @@ button{font:inherit;cursor:pointer}
 .sub-nav.open{display:flex}
 .sub-btn{
   padding:.22rem .65rem;font-size:.74rem;font-weight:500;
-  color:var(--muted);border:1px solid transparent;
+  color:var(--ink-soft);border:1px solid transparent;
   border-radius:5px;background:transparent;transition:all .2s;
 }
-.sub-btn:hover{color:var(--ink-soft);background:rgba(0,0,0,.05)}
-.sub-btn.active{color:var(--acc);border-color:var(--acc-dim);background:var(--acc-dim)}
+.sub-btn:hover{color:var(--ink);background:rgba(0,0,0,.06);border-color:rgba(0,0,0,.1)}
+.sub-btn.active{
+  color:var(--ink);font-weight:600;
+  border-color:rgba(0,0,0,.22);background:rgba(0,0,0,.09);
+}
 
 @keyframes slideIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
 
@@ -728,11 +740,11 @@ button{font:inherit;cursor:pointer}
 /* ── BOOKS DESCRIPTION ── */
 .books-note{
   text-align:center;max-width:68ch;margin:0 auto 1.4rem;
-  font-size:.88rem;color:var(--on-dark-m);line-height:1.6;
+  font-size:.93rem;font-weight:500;color:#c4cad1;line-height:1.7;
 }
 
 /* ── CONTACT ── */
-#contact.section{background:var(--page);border-radius:40px;margin-top:0}
+#contact.section{background:var(--page);border-radius:40px 40px 0 0;margin-top:0}
 .contact-row{
   display:flex;flex-wrap:wrap;justify-content:center;
   gap:1rem;margin-top:.5rem;
