@@ -740,7 +740,7 @@ button{font:inherit;cursor:pointer}
 /* ── BOOKS DESCRIPTION ── */
 .books-note{
   text-align:center;max-width:68ch;margin:0 auto 1.4rem;
-  font-size:.93rem;font-weight:500;color:#c4cad1;line-height:1.7;
+  font-size:.93rem;font-weight:500;color:var(--ink-soft);line-height:1.7;
 }
 
 /* ── CONTACT ── */
