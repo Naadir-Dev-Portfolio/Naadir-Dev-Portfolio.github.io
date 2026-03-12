@@ -480,11 +480,13 @@ button{font:inherit;cursor:pointer}
 
 .panels-container{height:840px;overflow:hidden}
 .tab-panel{display:none;animation:fadeUp .3s var(--ease)}
-.tab-panel.active{display:block}
+.tab-panel.active{display:flex;flex-direction:column;height:100%}
 @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 
 /* Grid â€” 3 col; featured spans all */
-.projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;min-height:560px;align-content:start}
+.projects-grid{display:flex;flex-direction:column;gap:1rem}
+.gallery-wrap{flex:1;display:flex;flex-direction:column}
+.gallery-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;flex:1;align-content:start}
 
 /* â”€â”€ FEATURED CARD â€” editorial horizontal split â”€â”€ */
 .card.card-featured{
@@ -602,10 +604,11 @@ button{font:inherit;cursor:pointer}
 
 /* ── PAGINATION ── */
 .pagination{
-  grid-column:1/-1;
   display:flex;align-items:center;justify-content:center;
   gap:.8rem;padding:.9rem 0 .2rem;
+  margin-top:auto;
 }
+.pagination-spacer{visibility:hidden;pointer-events:none}
 .page-btn{
   width:30px;height:30px;border-radius:50%;
   border:1px solid var(--border);
@@ -777,7 +780,7 @@ button{font:inherit;cursor:pointer}
   .top-nav a{padding:.55rem .8rem;font-size:.88rem}
   .nav-toggle{display:flex}
 
-  .projects-grid{grid-template-columns:1fr 1fr}
+  .gallery-cards{grid-template-columns:1fr 1fr}
   .card.card-featured{grid-template-columns:1fr}
   .card-editorial-img{height:200px}
   .skills-grid{grid-template-columns:1fr}
@@ -790,7 +793,7 @@ button{font:inherit;cursor:pointer}
   .section+.section{padding-top:.5rem}
   .container{padding:1.2rem;border-radius:20px}
   .tab-btn{padding:.32rem .65rem;font-size:.73rem}
-  .projects-grid{grid-template-columns:1fr}
+  .gallery-cards{grid-template-columns:1fr}
   .card.card-featured{grid-template-columns:1fr}
   .card-editorial-img{height:180px}
   .hero-cta-row{flex-direction:column}

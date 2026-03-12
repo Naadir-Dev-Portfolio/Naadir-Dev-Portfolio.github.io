@@ -283,8 +283,19 @@
 
   /* initGrid — renders featured card + paginated gallery (6 per page) */
   function initGrid(g, arr){
+    const EMPTY_PAGINATION = `
+      <div class="pagination pagination-spacer">
+        <button class="page-btn page-prev" disabled>
+          <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <span class="page-dots"></span>
+        <button class="page-btn page-next" disabled>
+          <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+      </div>`;
+
     if(!arr.length){
-      g.innerHTML = '<div class="card placeholder-card"><div><h3>Coming Soon</h3><p>Projects arriving shortly.</p></div></div>';
+      g.innerHTML = `<div class="gallery-wrap"><div class="gallery-cards"><div class="card placeholder-card"><div><h3>Coming Soon</h3><p>Projects arriving shortly.</p></div></div></div>${EMPTY_PAGINATION}</div>`;
       return;
     }
     const featured = arr.filter(p => p.n === 1);
@@ -297,18 +308,24 @@
       const dots = Array.from({length:totalPages}, (_,i) =>
         `<span class="page-dot${i===page?' active':''}" data-p="${i}"></span>`
       ).join('');
-      const paginator = totalPages > 1 ? `
-        <div class="pagination">
+      /* Pagination is ALWAYS rendered — even on page 1 of 1 (visibility:hidden)
+         so the dots row always occupies its reserved space at the bottom */
+      const paginator = `
+        <div class="pagination${totalPages <= 1 ? ' pagination-spacer' : ''}">
           <button class="page-btn page-prev"${page===0?' disabled':''}>
             <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
           </button>
-          <span class="page-dots">${dots}</span>
+          <span class="page-dots">${totalPages > 1 ? dots : ''}</span>
           <button class="page-btn page-next"${page===totalPages-1?' disabled':''}>
             <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
           </button>
-        </div>` : '';
+        </div>`;
 
-      g.innerHTML = [...featured.map(buildCard), ...slice.map(buildCard), paginator].join('');
+      const galHtml = slice.map(buildCard).join('');
+      g.innerHTML = [
+        ...featured.map(buildCard),
+        `<div class="gallery-wrap"><div class="gallery-cards">${galHtml}</div>${paginator}</div>`
+      ].join('');
 
       g.querySelector('.page-prev')?.addEventListener('click', ()=>render(page-1));
       g.querySelector('.page-next')?.addEventListener('click', ()=>render(page+1));
@@ -371,8 +388,8 @@
       });
     });
 
-    showTab('ai', bar.querySelector('[data-target="ai"]')?.dataset.desc||'');
-    showSub('ai','agents');
+    showTab('python', bar.querySelector('[data-target="python"]')?.dataset.desc||'');
+    showSub('python','desktop');
   }
 
   /* Click gallery/featured card video to open YouTube */
