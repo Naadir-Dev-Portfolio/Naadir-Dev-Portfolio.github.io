@@ -235,29 +235,14 @@
      2. TABS & EDITORIAL CARDS
      ══════════════════════════════════════════════ */
 
-  /* Featured card (n===1) — editorial horizontal split.
-     If project has imgs[] array, renders 3 shots side-by-side.
-     Falls back to single image or YouTube thumbnail. */
+  /* Featured card (n===1) — editorial horizontal split, single image. */
   function buildFeaturedCard(p){
-    let imgPanel;
-    if(p.imgs && p.imgs.length >= 3){
-      // 3 shots of the project spanning the image panel
-      imgPanel = `
-        <div class="card-editorial-imgs">
-          <img src="${IMGS}${p.imgs[0]}" alt="${p.title} — view 1" loading="lazy">
-          <img src="${IMGS}${p.imgs[1]}" alt="${p.title} — view 2" loading="lazy">
-          <img src="${IMGS}${p.imgs[2]}" alt="${p.title} — view 3" loading="lazy">
-        </div>`;
-    } else {
-      const src = p.videoId
-        ? `https://img.youtube.com/vi/${p.videoId}/hqdefault.jpg`
-        : `${IMGS}${p.img}`;
-      imgPanel = `<img src="${src}" alt="${p.title}" loading="lazy">`;
-    }
+    const src = p.videoId
+      ? `https://img.youtube.com/vi/${p.videoId}/hqdefault.jpg`
+      : `${IMGS}${p.img || (p.imgs && p.imgs[0]) || ''}`;
     return `
       <div class="card card-featured" ${p.videoId?`data-vid="${p.videoId}"`:''}>
         <div class="card-editorial-body">
-          <span class="card-editorial-num">${String(p.n).padStart(2,'0')}</span>
           <h3>${p.title}</h3>
           <p>${p.desc}</p>
           <div class="card-links">
@@ -267,28 +252,29 @@
           </div>
         </div>
         <div class="card-editorial-img">
-          ${imgPanel}
+          <img src="${src}" alt="${p.title}" loading="lazy">
         </div>
       </div>`;
   }
 
-  /* Gallery cards (n>1) — image fill, hover reveals text */
+  /* Gallery cards (n>1) — landscape split: text left, image right */
   function buildGalleryCard(p){
     const src = p.videoId
       ? `https://img.youtube.com/vi/${p.videoId}/hqdefault.jpg`
       : `${IMGS}${p.img}`;
     return `
       <div class="card card-gallery" ${p.videoId?`data-vid="${p.videoId}"`:''}>
-        <img src="${src}" alt="${p.title}" loading="lazy">
-        <span class="card-gal-num">${String(p.n).padStart(2,'0')}</span>
         <div class="card-gal-body">
           <h3>${p.title}</h3>
           <p>${p.desc}</p>
-          <div class="card-links">
+          <div class="card-links card-links-hover">
             ${p.demo?`<a href="${p.demo}" target="_blank" rel="noreferrer">Live</a>`:''}
             ${p.code?`<a href="${p.code}" target="_blank" rel="noreferrer">Code</a>`:''}
             ${p.details?`<a href="${p.details}" target="_blank" rel="noreferrer">Details</a>`:''}
           </div>
+        </div>
+        <div class="card-gal-img">
+          <img src="${src}" alt="${p.title}" loading="lazy">
         </div>
       </div>`;
   }
@@ -297,14 +283,51 @@
     return p.n === 1 ? buildFeaturedCard(p) : buildGalleryCard(p);
   }
 
+  /* initGrid — renders featured card + paginated gallery (6 per page) */
+  function initGrid(g, arr){
+    if(!arr.length){
+      g.innerHTML = '<div class="card placeholder-card"><div><h3>Coming Soon</h3><p>Projects arriving shortly.</p></div></div>';
+      return;
+    }
+    const featured = arr.filter(p => p.n === 1);
+    const rest     = arr.filter(p => p.n !== 1);
+    const PAGE = 6;
+
+    function render(page){
+      const totalPages = Math.max(1, Math.ceil(rest.length / PAGE));
+      const slice = rest.slice(page * PAGE, page * PAGE + PAGE);
+      const dots = Array.from({length:totalPages}, (_,i) =>
+        `<span class="page-dot${i===page?' active':''}" data-p="${i}"></span>`
+      ).join('');
+      const paginator = totalPages > 1 ? `
+        <div class="pagination">
+          <button class="page-btn page-prev"${page===0?' disabled':''}>
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <span class="page-dots">${dots}</span>
+          <button class="page-btn page-next"${page===totalPages-1?' disabled':''}>
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </div>` : '';
+
+      g.innerHTML = [...featured.map(buildCard), ...slice.map(buildCard), paginator].join('');
+
+      g.querySelector('.page-prev')?.addEventListener('click', ()=>render(page-1));
+      g.querySelector('.page-next')?.addEventListener('click', ()=>render(page+1));
+      g.querySelectorAll('.page-dot').forEach(d =>
+        d.addEventListener('click', () => render(+d.dataset.p))
+      );
+    }
+
+    render(0);
+  }
+
   function populateGrids(){
     for(const [cat,subs] of Object.entries(DATA)){
       for(const [sub,arr] of Object.entries(subs)){
         const g = document.getElementById(`grid-${cat}-${sub}`);
         if(!g) continue;
-        g.innerHTML = arr.length
-          ? arr.map(buildCard).join('')
-          : '<div class="card placeholder-card"><div><h3>Coming Soon</h3><p>Projects arriving shortly.</p></div></div>';
+        initGrid(g, arr);
       }
     }
   }
@@ -350,8 +373,8 @@
       });
     });
 
-    showTab('python', bar.querySelector('[data-target="python"]')?.dataset.desc||'');
-    showSub('python','desktop');
+    showTab('ai', bar.querySelector('[data-target="ai"]')?.dataset.desc||'');
+    showSub('ai','agents');
   }
 
   /* Click gallery/featured card video to open YouTube */
