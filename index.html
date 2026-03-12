@@ -34,6 +34,10 @@
         <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.49.5.09.68-.22.68-.48v-1.69c-2.78.6-3.37-1.34-3.37-1.34-.45-1.15-1.11-1.46-1.11-1.46-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.56 9.56 0 0112 6.8c.85.004 1.71.115 2.51.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.376.202 2.394.1 2.646.64.7 1.028 1.595 1.028 2.686 0 3.841-2.337 4.687-4.565 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.165 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
         GitHub
       </a>
+      <a href="https://linkedin.com/in/naadir" target="_blank" rel="noreferrer">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+        LinkedIn
+      </a>
     </nav>
   </header>
 
@@ -125,17 +129,17 @@
         </div>
 
         <div class="tabs-bar" id="proj-tabs">
-          <button class="tab-btn active" data-target="python" data-desc="Python desktop apps, automation pipelines, quantitative tools and more - built to solve real problems.">Python</button>
+          <button class="tab-btn" data-target="python" data-desc="Python desktop apps, automation pipelines, quantitative tools and more - built to solve real problems.">Python</button>
           <button class="tab-btn" data-target="excelvba" data-desc="VBA macros, Power Query transformations and Excel automation tools that eliminate repetitive manual work.">Excel &amp; VBA</button>
           <button class="tab-btn" data-target="powerbi" data-desc="Interactive Power BI dashboards and dataflow pipelines giving teams instant clarity.">Power BI</button>
-          <button class="tab-btn" data-target="ai" data-desc="AI agents, generative AI tools, and prompt-engineered systems powered by Gemini and Python.">AI Projects</button>
+          <button class="tab-btn active" data-target="ai" data-desc="AI agents, generative AI tools, and prompt-engineered systems powered by Gemini and Python.">AI Projects</button>
           <button class="tab-btn" data-target="web" data-desc="Professional team sites, interactive utilities, and browser-based cognitive games.">Web Apps</button>
           <button class="tab-btn" data-target="mobile" data-desc="Cross-platform mobile apps built with React Native and Expo — from concept to Android APK.">Mobile</button>
           <button class="tab-btn" data-target="browserextensions" data-desc="Chrome extensions that add productivity directly to the browser workflow.">Extensions</button>
         </div>
 
         <div class="sub-nav-wrapper">
-          <div class="sub-nav open" id="sub-python">
+          <div class="sub-nav" id="sub-python">
             <button class="sub-btn active" data-subtarget="desktop">Desktop Apps</button>
             <button class="sub-btn" data-subtarget="automation">Automation</button>
             <button class="sub-btn" data-subtarget="trading">Trading</button>
@@ -150,7 +154,7 @@
             <button class="sub-btn active" data-subtarget="dashboards">Dashboards</button>
             <button class="sub-btn" data-subtarget="dataflow">Dataflow</button>
           </div>
-          <div class="sub-nav" id="sub-ai">
+          <div class="sub-nav open" id="sub-ai">
             <button class="sub-btn active" data-subtarget="agents">Agents</button>
             <button class="sub-btn" data-subtarget="generativeai">Generative AI</button>
             <button class="sub-btn" data-subtarget="prompt">Prompt Engineering</button>
@@ -169,7 +173,7 @@
         </div>
 
         <div class="panels-container">
-          <div class="tab-panel active" id="panel-python-desktop"><div class="projects-grid" id="grid-python-desktop"></div></div>
+          <div class="tab-panel" id="panel-python-desktop"><div class="projects-grid" id="grid-python-desktop"></div></div>
           <div class="tab-panel" id="panel-python-automation"><div class="projects-grid" id="grid-python-automation"></div></div>
           <div class="tab-panel" id="panel-python-trading"><div class="projects-grid" id="grid-python-trading"></div></div>
           <div class="tab-panel" id="panel-python-quant"><div class="projects-grid" id="grid-python-quant"></div></div>
@@ -178,7 +182,7 @@
           <div class="tab-panel" id="panel-excelvba-power-automate"><div class="projects-grid" id="grid-excelvba-power-automate"></div></div>
           <div class="tab-panel" id="panel-powerbi-dashboards"><div class="projects-grid" id="grid-powerbi-dashboards"></div></div>
           <div class="tab-panel" id="panel-powerbi-dataflow"><div class="projects-grid" id="grid-powerbi-dataflow"></div></div>
-          <div class="tab-panel" id="panel-ai-agents"><div class="projects-grid" id="grid-ai-agents"></div></div>
+          <div class="tab-panel active" id="panel-ai-agents"><div class="projects-grid" id="grid-ai-agents"></div></div>
           <div class="tab-panel" id="panel-ai-generativeai"><div class="projects-grid" id="grid-ai-generativeai"></div></div>
           <div class="tab-panel" id="panel-ai-prompt"><div class="projects-grid" id="grid-ai-prompt"></div></div>
           <div class="tab-panel" id="panel-web-teamsites"><div class="projects-grid" id="grid-web-teamsites"></div></div>
@@ -198,14 +202,16 @@
       <div class="container">
         <div class="section-head">
           <h2 class="section-title">About</h2>
-          <p class="about-blurb">Hands-on experience leading automation projects and managing developer teams. I build macros, Python scripts, and workflow tools that save dozens of hours each month - then make sure the team can use them without me.</p>
+          <p class="about-blurb">7 years in technical operations and data engineering roles — building automation solutions, dashboards and reporting systems that are still in active use today. Day-to-day that means writing Python and VBA to eliminate manual workflows, troubleshooting and optimising others' Power BI models, Power Query transforms and VBA logic, building executive dashboards that track KPIs from call handling to customer complaint scoring, and implementing data governance policies that keep reporting reliable across teams. I also manage and mentor developer teams, making sure tools get built right — and that the team doesn't need me to use them.</p>
         </div>
         <div class="about-roles">
-          <span class="role-tag">Automation</span>
-          <span class="role-tag">Reporting &amp; BI</span>
           <span class="role-tag">Python &amp; VBA</span>
+          <span class="role-tag">Power BI &amp; Query</span>
+          <span class="role-tag">Automation</span>
+          <span class="role-tag">Data Governance</span>
           <span class="role-tag">AI Tools</span>
-          <span class="role-tag">Team Enablement</span>
+          <span class="role-tag">Dashboard Design</span>
+          <span class="role-tag">Team Leadership</span>
         </div>
         <div class="skills-panel">
           <p class="skills-note">Skill breakdown - auto-calculated from project portfolio</p>
@@ -227,8 +233,9 @@
     <section id="books" class="section reveal-section">
       <div class="container">
         <div class="section-head">
-          <h2 class="section-title">Books in Progress</h2>
+          <h2 class="section-title">Books</h2>
         </div>
+        <p class="books-note">Writing is how I share what I've learned on the job. These books cover practical tech skills that anyone can use — AI workflows, Excel automation, scripting and learning faster with technology. A personal passion, not a side hustle.</p>
         <div class="books-carousel-wrap">
           <button class="carousel-btn carousel-prev" aria-label="Previous">
             <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
@@ -243,6 +250,30 @@
       </div>
     </section>
 
+    <!-- Contact Section -->
+    <section id="contact" class="section reveal-section">
+      <div class="container">
+        <div class="section-head">
+          <h2 class="section-title">Get In Touch</h2>
+          <p class="section-subtitle">Open to new opportunities, freelance projects and collaborations. Drop me a line.</p>
+        </div>
+        <div class="contact-row">
+          <a href="mailto:hello@naadir.dev" class="contact-card">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
+            hello@naadir.dev
+          </a>
+          <a href="https://linkedin.com/in/naadir" target="_blank" rel="noreferrer" class="contact-card">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+            LinkedIn
+          </a>
+          <a href="https://github.com/Naadir-Dev-Portfolio" target="_blank" rel="noreferrer" class="contact-card">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.49.5.09.68-.22.68-.48v-1.69c-2.78.6-3.37-1.34-3.37-1.34-.45-1.15-1.11-1.46-1.11-1.46-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.56 9.56 0 0112 6.8c.85.004 1.71.115 2.51.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.376.202 2.394.1 2.646.64.7 1.028 1.595 1.028 2.686 0 3.841-2.337 4.687-4.565 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.165 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <!-- â•â•â• FOOTER â•â•â• -->
@@ -252,6 +283,8 @@
       <div class="footer-links">
         <a href="#projects">Projects</a>
         <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+        <a href="https://linkedin.com/in/naadir" target="_blank" rel="noreferrer">LinkedIn</a>
         <a href="https://github.com/Naadir-Dev-Portfolio" target="_blank" rel="noreferrer">GitHub</a>
       </div>
     </div>
