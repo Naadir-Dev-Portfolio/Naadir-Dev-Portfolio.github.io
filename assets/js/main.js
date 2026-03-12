@@ -264,17 +264,15 @@
       : `${IMGS}${p.img}`;
     return `
       <div class="card card-gallery" ${p.videoId?`data-vid="${p.videoId}"`:''}>
+        <img src="${src}" alt="${p.title}" loading="lazy">
         <div class="card-gal-body">
           <h3>${p.title}</h3>
           <p>${p.desc}</p>
-          <div class="card-links card-links-hover">
+          <div class="card-links">
             ${p.demo?`<a href="${p.demo}" target="_blank" rel="noreferrer">Live</a>`:''}
             ${p.code?`<a href="${p.code}" target="_blank" rel="noreferrer">Code</a>`:''}
             ${p.details?`<a href="${p.details}" target="_blank" rel="noreferrer">Details</a>`:''}
           </div>
-        </div>
-        <div class="card-gal-img">
-          <img src="${src}" alt="${p.title}" loading="lazy">
         </div>
       </div>`;
   }
@@ -446,7 +444,7 @@
     const all=[...BOOKS,...BOOKS,...BOOKS];
     track.innerHTML=all.map(b=>`
       <div class="book-card"><a href="#">
-        <img src="${IMGS}${b.img}" alt="${b.title}" loading="lazy">
+        <img src="${IMGS}${b.img}" alt="${b.title}">
         <span>${b.title}</span>
       </a></div>`).join('');
     let pos=0,spd=0.2,tgt=0.2,drag=false,dx0=0,dp0=0,vel=0,lx=0,lt=0,held=false;
