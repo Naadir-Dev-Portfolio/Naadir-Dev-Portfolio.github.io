@@ -118,13 +118,30 @@ def fetch_json_content(repo_name: str, file_path: str) -> dict | None:
 
 # ── Main compile logic ─────────────────────────────────────────────────────────
 
+def get_org_repos() -> list:
+    """Fetch all repos in the org using Search API (no read:org permission needed)."""
+    results = []
+    page = 1
+    while True:
+        url = f'/search/repositories?q=org:{ORG}&per_page=100&page={page}'
+        data = gh_request(url)
+        if not data or 'items' not in data:
+            break
+        items = data['items']
+        results.extend(items)
+        if len(items) < 100:
+            break
+        page += 1
+    return results
+
+
 def compile_all() -> dict:
     """Return the full DATA dict by scanning all org repos."""
     import copy
     data = copy.deepcopy(SKELETON)
 
     print(f'Fetching repos for org: {ORG}')
-    repos = gh_request(f'/orgs/{ORG}/repos?type=all')
+    repos = get_org_repos()
     if not repos:
         print('ERROR: could not fetch repos list. Exiting.', file=sys.stderr)
         sys.exit(1)
