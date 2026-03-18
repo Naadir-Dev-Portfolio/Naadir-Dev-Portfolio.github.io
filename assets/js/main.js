@@ -538,6 +538,8 @@
       inp.focus();
     });
     close.addEventListener('click',()=>{open=false;chat.classList.remove('open');fab.classList.remove('hidden')});
+    // Hero CTA "AI Assistant" button — same as clicking the FAB
+    document.getElementById('hero-ai-btn')?.addEventListener('click',()=>fab.click());
 
     form.addEventListener('submit',async e=>{
       e.preventDefault();if(typing)return;

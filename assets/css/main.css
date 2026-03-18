@@ -269,7 +269,7 @@ button{font:inherit;cursor:pointer}
   position:absolute;
   bottom:8%;left:9%;right:11%;
   z-index:3;
-  background:rgba(6,8,14,.72);
+  background:rgba(6,8,14,.48);
   border:1px solid rgba(255,255,255,.13);
   border-radius:12px;
   padding:1rem 1.2rem .9rem;
@@ -900,14 +900,14 @@ a.hero-panel-content:focus-visible{
   .hero-overlay{width:100%;min-width:0;inset:auto 0 0 0;padding:1.5rem 1.2rem 3rem;background:linear-gradient(0deg,rgba(14,13,12,.98) 0%,rgba(14,13,12,.88) 50%,transparent 100%);justify-content:flex-end}
   .hero h1{font-size:clamp(1.1rem,4vw,1.5rem)}
   .hero-name-tag{font-size:clamp(1.6rem,5.5vw,2.6rem)}
-  .hero-panel{flex-basis:78vw}
+  .hero-panel{flex-basis:86vw}
   /* On mobile the card is near the top (top:8%) where the parallelogram diagonal
      cuts in by ~var(--panel-offset-x) on both left and right. We start the card
      past that cut so text isn't clipped by the polygon shape. */
   .hero-panel-content{
     top:8%;bottom:auto;
-    left:calc(var(--panel-offset-x,64px) + 8px);
-    right:calc(var(--panel-offset-x,64px) + 8px);
+    left:calc(var(--panel-offset-x,64px) + 4px);
+    right:14px;
   }
   .hero-panel h2{font-size:clamp(.95rem,3.8vw,1.3rem);margin-bottom:0}
   /* Hide description — too cramped on narrow panels; title only on mobile */
@@ -965,8 +965,8 @@ a.hero-panel-content:focus-visible{
     background:var(--page);
     border-top-left-radius:36px;
     border-top-right-radius:36px;
-    border-bottom-left-radius:36px;
-    border-bottom-right-radius:36px;
+    border-bottom-left-radius:0;
+    border-bottom-right-radius:0;
     overflow:visible;
   }
   .btn{justify-content:center}
@@ -1008,15 +1008,17 @@ a.hero-panel-content:focus-visible{
    Strips sit between sections as clean horizontal photo bands.
    No negative margins — sections don't overlap the strips. */
 @media(max-width:900px){
-  #projects.section{border-bottom-left-radius:36px;border-bottom-right-radius:36px;margin-bottom:0}
-  #about.section{border-radius:36px;padding-top:2rem;padding-bottom:2rem;margin-top:0;margin-bottom:0}
-  #books.section{border-radius:36px;padding-top:2rem;padding-bottom:2rem;margin-top:0;margin-bottom:0}
+  /* Flatten bottom corners of sections adjacent to parallax strips so the thin
+     strip sits flush — avoids misaligned gap where section curve > strip height */
+  #projects.section{border-bottom-left-radius:0;border-bottom-right-radius:0;margin-bottom:0}
+  #about.section{border-top-left-radius:36px;border-top-right-radius:36px;border-bottom-left-radius:0;border-bottom-right-radius:0;padding-top:2rem;padding-bottom:2rem;margin-top:0;margin-bottom:0}
+  #books.section{border-top-left-radius:36px;border-top-right-radius:36px;border-bottom-left-radius:0;border-bottom-right-radius:0;padding-top:2rem;padding-bottom:2rem;margin-top:0;margin-bottom:0}
   #contact.section{border-radius:28px;margin-top:0;margin-bottom:1rem}
 }
 @media(max-width:600px){
-  #projects.section{border-bottom-left-radius:24px;border-bottom-right-radius:24px;margin-bottom:0}
-  #about.section{border-radius:24px;padding-top:1.5rem;padding-bottom:1.5rem;margin-top:0;margin-bottom:0}
-  #books.section{border-radius:24px;padding-top:1.5rem;padding-bottom:1.5rem;margin-top:0;margin-bottom:0}
+  #projects.section{border-bottom-left-radius:0;border-bottom-right-radius:0;margin-bottom:0}
+  #about.section{border-top-left-radius:24px;border-top-right-radius:24px;border-bottom-left-radius:0;border-bottom-right-radius:0;padding-top:1.5rem;padding-bottom:1.5rem;margin-top:0;margin-bottom:0}
+  #books.section{border-top-left-radius:24px;border-top-right-radius:24px;border-bottom-left-radius:0;border-bottom-right-radius:0;padding-top:1.5rem;padding-bottom:1.5rem;margin-top:0;margin-bottom:0}
   #contact.section{border-radius:20px;margin-top:0;margin-bottom:1.25rem}
 }
 
