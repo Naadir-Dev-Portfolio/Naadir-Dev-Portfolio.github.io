@@ -711,6 +711,15 @@ a.hero-panel-content:focus-visible{
 }
 .card.card-gallery:hover .card-links{opacity:1;transform:none}
 
+/* Touch devices: disable hover lift/shadow (no hover concept, and shadows get
+   clipped by the overflow:auto scroll container). Show links always instead. */
+@media(hover:none){
+  .card.card-gallery:hover{transform:none;box-shadow:none;border-color:rgba(255,255,255,.05)}
+  .card.card-gallery:hover>img{transform:none;filter:brightness(.78)}
+  .card.card-gallery:hover .card-gal-body{transform:none}
+  .card.card-gallery .card-links{opacity:1;transform:none}
+}
+
 .card-links{display:flex;gap:.3rem;flex-wrap:wrap}
 .card-links a{
   font-size:.68rem;font-weight:600;
