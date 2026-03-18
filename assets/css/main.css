@@ -38,6 +38,10 @@
   --max:         1060px;
   --pad:         clamp(1.5rem,4vw,2.5rem);
   --ease:        cubic-bezier(0.25,1,0.5,1);
+
+  /* ── Parallax strip image ── set automatically by JS.
+     Drop parallax.webp / .jpg / .jpeg / .png into assets/images/ — no code change needed. */
+  --parallax-img: none;
 }
 
 /* â”€â”€ Reset â”€â”€ */
@@ -50,7 +54,7 @@ body{
   background:
     radial-gradient(ellipse 70% 50% at 92% 4%,  rgba(154,163,173,.10), transparent 55%),
     radial-gradient(ellipse 35% 25% at 50% 50%,  rgba(154,163,173,.04), transparent 70%),
-    url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1800&q=80');
+    var(--parallax-img);
   background-size: auto, auto, cover;
   background-position: center;
   background-attachment:fixed;
@@ -101,10 +105,11 @@ button{font:inherit;cursor:pointer}
   color:var(--on-dark);text-decoration:none;
   font-weight:700;font-size:1.35rem;
 }
-.brand-mark{
-  width:17px;height:17px;
-  transform:skewX(-24deg);border-radius:2px;
-  background:var(--acc);
+.brand-logo{
+  width:26px;height:26px;
+  object-fit:contain;
+  display:block;
+  flex-shrink:0;
 }
 
 .top-nav{display:flex;align-items:center;gap:.2rem;margin-left:auto}
@@ -167,7 +172,13 @@ button{font:inherit;cursor:pointer}
 }
 
 /* Parallelogram rail */
-.hero-rail-shell{position:absolute;inset:0;z-index:6;overflow:hidden}
+.hero-rail-shell{
+  position:absolute;inset:0;z-index:6;overflow:hidden;
+  /* contain:paint tells Chrome to restrict repaints to this boundary,
+     which prevents clip-path polygon repainting from propagating up the
+     layer tree on every frame. */
+  contain:paint;
+}
 .hero-rail{
   width:100%;height:100%;
   overflow:hidden;
@@ -178,61 +189,103 @@ button{font:inherit;cursor:pointer}
 
 .hero-track{
   display:flex;align-items:stretch;
-  gap:1rem;height:100%;
+  gap:0;height:100%;
   will-change:transform;
 }
+/* CSS keyframe — runs entirely on the compositor thread (no JS per-frame cost).
+   --hero-loop-w and --hero-scroll-dur are set by JS after measuring panel widths.
+   JS adds .is-scrolling to engage; removes it during drag, re-adds on release. */
+@keyframes hero-auto-scroll{
+  to{ transform:translate3d(calc(-1 * var(--hero-loop-w, 2000px)),0,0); }
+}
+.hero-track.is-scrolling{
+  animation:hero-auto-scroll var(--hero-scroll-dur, 60s) linear infinite;
+}
 
-/* Panels â€” uniform -8deg skew so they're all consistently aligned */
+/* Panels — parallelogram shape via clip-path, no transform on the panel itself.
+   --panel-offset-x is set in JS (measure → updateClipPath) as tan(8°) × panelHeight px.
+   Fallback 64px ≈ tan(8°) × min-height(~456px) so it looks right before JS runs.
+   The negative margin-right pulls each panel left by the same offset amount — this
+   exactly closes the geometric gap that clip-path creates between adjacent panels. */
 .hero-panel{
-  --sk:-8deg;
   position:relative;
-  /* Wide panels â€” ~2.2 visible at once, bold parallelogram presence */
   flex:0 0 min(88vw, 960px);
   min-height:100%;
-  border-radius:14px;
-  overflow:hidden;
-  transform:skewX(var(--sk)) translateZ(0);
-  border:1px solid rgba(154,163,173,.06);
+  margin-right:calc(12px - var(--panel-offset-x, 64px));
+  clip-path:polygon(
+    var(--panel-offset-x, 64px) 0%,
+    100% 0%,
+    calc(100% - var(--panel-offset-x, 64px)) 100%,
+    0% 100%
+  );
+  border:none;
   background:rgba(20,16,10,.65);
-  contain:layout style paint;
-  transition:border-color .35s, box-shadow .35s;
+  cursor:pointer;
+  /* Promote each panel to its own compositor layer. Chrome then applies
+     clip-path natively in the GPU compositing stage — no intermediate
+     surface. Without this, nested GPU-promoted video children + clip-path
+     force Chrome to blit an off-screen buffer every video frame (~5fps). */
+  will-change:transform;
 }
-.hero-panel:hover{
-  border-color:rgba(154,163,173,.18);
-  box-shadow:0 0 28px rgba(154,163,173,.07), 0 0 50px rgba(154,163,173,.04);
-}
-
-/* Per-panel video iframe â€” fills the parallelogram area */
-.hero-panel > iframe.panel-iframe{
+/* MP4 panel background — fills rectangular box, clip-path masks to parallelogram.
+   opacity:0.85 keeps near-original video colour quality while letting a thin slice
+   of the panel's dark background tint through. No CSS filter — filter forces the
+   GPU to process every decoded frame and kills smoothness. */
+.hero-panel > .panel-media{
   position:absolute;
-  top:50%;left:50%;
-  /* 300% width ensures video fills the tall panel at 16:9 */
-  width:300%;
+  inset:0;
+  width:100%;
   height:100%;
-  transform:translate(-50%,-50%);
-  border:0;
+  object-fit:cover;
   pointer-events:none;
-  opacity:0.45;
-  filter:brightness(.62) saturate(1.25);
+  opacity:0.85;
   z-index:0;
+  display:block;
+  /* No GPU layer promotion on the video itself. The panel (parent) is the
+     compositor layer. Video renders into the panel layer as a plain child.
+     Nested layer promotion (video inside clip-path'd panel) forces Chrome
+     to create an intermediate surface → the ~5fps issue. */
 }
 
-/* Glass inner frame â€” sits above video */
+/* Gradient overlay — darkens top edge subtly + bottom strongly for text legibility.
+   Slightly heavier than before to compensate for the brighter video. */
 .hero-panel-glass{
-  position:absolute;inset:5px;
-  border-radius:10px;
-  border:1px solid rgba(154,163,173,.05);
-  background:linear-gradient(to bottom, rgba(0,0,0,0) 40%, rgba(0,0,0,0.12) 62%, rgba(0,0,0,0.52) 100%);
-  box-shadow:inset 0 0 16px rgba(0,0,0,.25);
+  position:absolute;inset:0;
+  background:linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.18) 0%,
+    rgba(0,0,0,0)     28%,
+    rgba(0,0,0,0.10)  55%,
+    rgba(0,0,0,0.60)  100%
+  );
   pointer-events:none;z-index:2;
 }
 
+/* Panel content — solid glass card.
+   NO backdrop-filter: blur() — it forces a repaint every frame on a moving
+   carousel and is the single biggest GPU cost on this page. A solid
+   semi-transparent background gives the same "glass" look at zero cost. */
 .hero-panel-content{
   position:absolute;
   bottom:8%;left:9%;right:11%;
   z-index:3;
-  transform:skewX(calc(var(--sk)*-1));
-  text-shadow:0 2px 14px rgba(0,0,0,.75);
+  background:rgba(6,8,14,.72);
+  border:1px solid rgba(255,255,255,.13);
+  border-radius:12px;
+  padding:1rem 1.2rem .9rem;
+  box-shadow:
+    0 6px 28px rgba(0,0,0,.55),
+    inset 0 1px 0 rgba(255,255,255,.09);
+}
+/* When content is used as a link */
+a.hero-panel-content{
+  display:block;
+  text-decoration:none;
+  color:inherit;
+}
+a.hero-panel-content:focus-visible{
+  outline:2px solid rgba(255,255,255,.5);
+  outline-offset:3px;
 }
 .panel-num{
   display:none;
@@ -241,10 +294,22 @@ button{font:inherit;cursor:pointer}
   margin:0 0 .35rem;
   font-size:clamp(1.3rem,2.4vw,2rem);
   font-weight:700;line-height:1.15;color:var(--on-dark);
+  text-shadow:0 1px 8px rgba(0,0,0,.5);
 }
 .hero-panel p{
   margin:0;font-size:clamp(.8rem,1.2vw,1rem);
-  color:rgba(237,232,222,.65);
+  color:rgba(237,232,222,.72);
+  text-shadow:0 1px 6px rgba(0,0,0,.4);
+}
+
+/* Inner glass frame — inset border visible above the video */
+.panel-inner-frame{
+  position:absolute;
+  inset:14px 20px;
+  border:1px solid rgba(255,255,255,.10);
+  pointer-events:none;
+  z-index:1;
+  border-radius:4px;
 }
 
 /* â”€â”€ Left overlay â€” name is the biggest text â”€â”€ */
@@ -351,8 +416,8 @@ button{font:inherit;cursor:pointer}
   padding-top:40px;
   margin-top:0;
   background:var(--page);
-  border-top-left-radius:80px;
-  border-top-right-radius:80px;
+  border-top-left-radius:40px;
+  border-top-right-radius:40px;
   border-bottom-left-radius:40px;
   border-bottom-right-radius:40px;
   box-shadow:inset 0 0 0 1px rgba(255,255,255,.06);
@@ -363,8 +428,6 @@ button{font:inherit;cursor:pointer}
 
 #projects .container{
   position:relative;
-  border-top-left-radius:60px;
-  border-top-right-radius:60px;
   z-index:1;
 }
 
@@ -376,25 +439,55 @@ button{font:inherit;cursor:pointer}
    No gradients. Clean, sharp edges.
    â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .parallax-strip{
-  height:28px;
-  /* Sample landscape â€” replace with your own photo URL */
-  background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1800&q=80');
+  height:22px;
+  position:relative;
+  overflow:hidden;
+  background-image: var(--parallax-img);
   background-attachment:fixed;
   background-size:cover;
   background-position:center;
 }
 /* Second strip â€” different photo for variety */
 .parallax-strip-b{
-  background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1800&q=80');
+  background-image: var(--parallax-img);
 }
 .parallax-books-contact{
-  background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1800&q=80');
+  background-image: var(--parallax-img);
   background-position:center 55%;
 }
-.parallax-strip .parallax-inner{ display:none; }
-/* iOS Safari: fixed-attachment doesn't work on touch â€” fall back to scroll */
+
+/* .parallax-inner — mobile substitute for fixed-attachment parallax.
+   Taller than the strip so JS can shift it up/down to reveal different
+   parts of the photo as the user scrolls. Hidden on desktop. */
+.parallax-strip .parallax-inner{
+  display:none;
+  position:absolute;
+  width:100%;
+  /* 300% tall + top:-100% centres the inner and gives exactly one strip-height
+     of overflow above and below — enough room for the JS ±18px scroll shift
+     without ever clipping to a blank edge. */
+  height:300%;
+  top:-100%;
+  left:0;
+  background-size:cover;
+  background-position:center;
+  background-image: var(--parallax-img);
+  will-change:transform;
+  pointer-events:none;
+}
+.parallax-strip-b .parallax-inner{
+  background-image: var(--parallax-img);
+}
+.parallax-books-contact .parallax-inner{
+  background-image: var(--parallax-img);
+  background-position:center 55%;
+}
+
+/* iOS Safari / touch: background-attachment:fixed is broken on scroll.
+   Hide the parent bg, show the JS-driven inner div instead. */
 @media (pointer:coarse){
-  .parallax-strip{background-attachment:scroll}
+  .parallax-strip{background:none;}
+  .parallax-strip .parallax-inner{display:block;}
 }
 
 /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
@@ -413,11 +506,12 @@ button{font:inherit;cursor:pointer}
 .container{
   max-width:var(--max);margin:0 auto;
   background:
-    radial-gradient(ellipse 70% 55% at 28% 12%, rgba(255,255,255,.62) 0%, transparent 65%),
-    radial-gradient(ellipse 50% 40% at 75% 88%, rgba(195,203,215,.38) 0%, transparent 60%),
-    linear-gradient(155deg, #edf1f7 0%, #e1e6ee 55%, #d9dfe9 100%);
+    radial-gradient(ellipse 60% 50% at 18% 8%, rgba(255,255,255,.68) 0%, transparent 55%),
+    radial-gradient(ellipse 45% 35% at 82% 92%, rgba(180,190,205,.32) 0%, transparent 50%),
+    radial-gradient(circle at 50% 45%, rgba(210,215,225,.28) 0%, transparent 70%),
+    linear-gradient(168deg, #eef2f8 0%, #e6eaf2 30%, #dde2ec 60%, #d5dbe7 100%);
   border:1px solid rgba(255,255,255,.04);
-  border-radius:60px 60px 28px 28px; /* large top echoes outer section curve */
+  border-radius:28px;
   padding:var(--pad);
   box-shadow:0 8px 56px rgba(0,0,0,.48), 0 1px 0 rgba(255,255,255,.06), 0 -2px 24px rgba(154,163,173,.06);
 }
@@ -516,7 +610,7 @@ button{font:inherit;cursor:pointer}
 
 /* Grid â€” 3 col; featured spans all */
 .projects-grid{display:flex;flex-direction:column;gap:1rem;flex:1}
-.gallery-wrap{flex:1;display:flex;flex-direction:column}
+.gallery-wrap{flex:1;display:flex;flex-direction:column;position:relative;padding-bottom:54px}
 .gallery-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;align-content:start}
 
 /* â”€â”€ FEATURED CARD â€” editorial horizontal split â”€â”€ */
@@ -634,25 +728,27 @@ button{font:inherit;cursor:pointer}
 .card-editorial-body .card-links a{border-color:rgba(255,255,255,.1);color:var(--card-muted);background:rgba(255,255,255,.04)}
 
 /* ── PAGINATION ── */
+/* Absolutely pinned to bottom of .gallery-wrap so it never moves regardless of card count */
 .pagination{
+  position:absolute;bottom:0;left:0;right:0;
   display:flex;align-items:center;justify-content:center;
-  gap:.8rem;padding:.9rem 0 .2rem;
-  margin-top:auto;
+  gap:1.1rem;padding:.6rem 0;
 }
 .pagination-spacer{visibility:hidden;pointer-events:none}
 .page-btn{
-  width:30px;height:30px;border-radius:50%;
-  border:1px solid var(--border);
-  background:rgba(0,0,0,.05);
-  color:var(--ink-soft);
+  width:34px;height:34px;border-radius:50%;
+  border:1px solid var(--ink);
+  background:var(--ink);
+  color:#fff;
   display:flex;align-items:center;justify-content:center;
   transition:all .2s;
 }
-.page-btn:hover:not(:disabled){background:var(--ink);color:#fff;border-color:var(--ink);transform:scale(1.08)}
+.page-btn svg{width:16px;height:16px}
+.page-btn:hover:not(:disabled){background:rgba(0,0,0,.05);color:var(--ink-soft);border-color:var(--border);transform:scale(1.08)}
 .page-btn:disabled{opacity:.28;cursor:default}
-.page-dots{display:flex;gap:.38rem;align-items:center}
+.page-dots{display:flex;gap:.55rem;align-items:center}
 .page-dot{
-  width:6px;height:6px;border-radius:50%;
+  width:7px;height:7px;border-radius:50%;
   background:var(--muted);cursor:pointer;
   transition:all .2s;
 }
@@ -706,21 +802,23 @@ button{font:inherit;cursor:pointer}
 .book-card img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:10px}
 .book-card span{display:none}
 
-.carousel-btn{flex-shrink:0;width:32px;height:32px;border-radius:50%;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);display:flex;align-items:center;justify-content:center;transition:all .2s;color:var(--ink-soft)}
-.carousel-btn:hover{background:var(--card);color:var(--card-text);border-color:rgba(255,255,255,.2);transform:scale(1.05)}
+.carousel-btn{flex-shrink:0;width:32px;height:32px;border-radius:50%;border:1px solid var(--ink);background:var(--ink);display:flex;align-items:center;justify-content:center;transition:all .2s;color:#fff}
+.carousel-btn:hover{background:rgba(255,255,255,.05);color:var(--ink-soft);border-color:rgba(255,255,255,.12);transform:scale(1.05)}
 
 /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    AI CHAT â€” Floating, breathing rings
    â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-.ai-fab{position:fixed;bottom:1.6rem;right:1.6rem;z-index:90;width:52px;height:52px;border-radius:50%;background:linear-gradient(145deg,#f0ede8 0%,#ddd8d0 100%);border:1px solid rgba(255,255,255,.55);display:flex;align-items:center;justify-content:center;cursor:pointer;overflow:hidden;transition:transform .2s var(--ease),box-shadow .2s var(--ease);box-shadow:0 4px 20px rgba(0,0,0,.28),0 1px 0 rgba(255,255,255,.5) inset}
-.ai-fab:hover{transform:scale(1.08);box-shadow:0 8px 28px rgba(0,0,0,.35),0 1px 0 rgba(255,255,255,.5) inset}
+.ai-fab{position:fixed;bottom:1.6rem;right:1.6rem;z-index:90;width:54px;height:54px;border-radius:50%;background:linear-gradient(145deg,#f0ede8 0%,#ddd8d0 100%);border:1px solid rgba(255,255,255,.55);display:flex;align-items:center;justify-content:center;cursor:pointer;overflow:hidden;transition:transform .25s var(--ease),box-shadow .25s var(--ease);box-shadow:0 4px 22px rgba(0,0,0,.28),0 1px 0 rgba(255,255,255,.5) inset;animation:fabGlow 3s ease-in-out infinite}
+.ai-fab:hover{transform:scale(1.12);box-shadow:0 8px 32px rgba(0,0,0,.32),0 1px 0 rgba(255,255,255,.5) inset}
 .ai-fab.hidden{display:none}
-.ai-fab::after{content:'';position:absolute;inset:0;border-radius:50%;background:linear-gradient(110deg,transparent 20%,rgba(255,255,255,.55) 50%,transparent 80%);transform:translateX(-110%);transition:transform .6s var(--ease);pointer-events:none;}
+.ai-fab::after{content:'';position:absolute;inset:0;border-radius:50%;background:linear-gradient(110deg,transparent 20%,rgba(255,255,255,.55) 50%,transparent 80%);transform:translateX(-110%);transition:transform .6s var(--ease);pointer-events:none}
 .ai-fab:hover::after{transform:translateX(110%)}
-.ai-fab-label{font-size:.7rem;font-weight:800;letter-spacing:.08em;color:#3a3028;z-index:1;position:relative}
-.ai-fab-ring{position:absolute;inset:-5px;border-radius:50%;border:1.5px solid rgba(58,48,40,.25);pointer-events:none;animation:fabBreathe 2.2s ease-in-out infinite}
-.ai-fab-ring.r2{inset:-12px;animation-delay:.7s;animation-duration:2.7s;opacity:.45}
+.ai-fab-icon{width:26px;height:26px;object-fit:contain;z-index:1;position:relative;transition:transform .3s var(--ease)}
+.ai-fab:hover .ai-fab-icon{transform:rotate(12deg) scale(1.08)}
+.ai-fab-ring{position:absolute;inset:-5px;border-radius:50%;border:1.5px solid rgba(58,48,40,.22);pointer-events:none;animation:fabBreathe 2.2s ease-in-out infinite}
+.ai-fab-ring.r2{inset:-13px;animation-delay:.7s;animation-duration:2.7s;opacity:.45}
 @keyframes fabBreathe{0%,100%{transform:scale(.82);opacity:0}35%{opacity:.8}55%{transform:scale(1.22);opacity:.25}}
+@keyframes fabGlow{0%,100%{box-shadow:0 4px 22px rgba(0,0,0,.28),0 1px 0 rgba(255,255,255,.5) inset}50%{box-shadow:0 6px 28px rgba(0,0,0,.34),0 0 12px rgba(200,185,170,.35),0 1px 0 rgba(255,255,255,.5) inset}}
 
 .ai-chat{position:fixed;bottom:1.25rem;right:1.25rem;z-index:91;width:340px;max-height:450px;border-radius:16px;border:1px solid rgba(255,255,255,.08);background:var(--container);box-shadow:0 12px 44px rgba(0,0,0,.35);display:none;flex-direction:column;overflow:hidden;animation:chatIn .25s var(--ease)}
 .ai-chat.open{display:flex}
@@ -794,19 +892,35 @@ button{font:inherit;cursor:pointer}
   .hero h1{font-size:clamp(1.1rem,4vw,1.5rem)}
   .hero-name-tag{font-size:clamp(1.6rem,5.5vw,2.6rem)}
   .hero-panel{flex-basis:78vw}
-  .hero-panel-content{top:8%;bottom:auto}
+  /* On mobile the card is near the top (top:8%) where the parallelogram diagonal
+     cuts in by ~var(--panel-offset-x) on both left and right. We start the card
+     past that cut so text isn't clipped by the polygon shape. */
+  .hero-panel-content{
+    top:8%;bottom:auto;
+    left:calc(var(--panel-offset-x,64px) + 8px);
+    right:calc(var(--panel-offset-x,64px) + 8px);
+  }
+  .hero-panel h2{font-size:clamp(.95rem,3.8vw,1.3rem);margin-bottom:0}
+  /* Hide description — too cramped on narrow panels; title only on mobile */
+  .hero-panel p{display:none}
+  .hero-panel-content{padding:.6rem .8rem}
   .hero-panel-glass{background:linear-gradient(to bottom, rgba(0,0,0,0.52) 0%, rgba(0,0,0,0.12) 38%, rgba(0,0,0,0) 60%)}
-  .hero-track{gap:.65rem}
+  .hero-track{gap:0}
   .hero-rail{padding:5.25rem .2rem 1.25rem}
   #projects.section{
     padding-top:36px;
     margin-top:0;
     background:var(--page);
-    border-top-left-radius:64px;
-    border-top-right-radius:64px;
-    border-bottom-left-radius:60px;
-    border-bottom-right-radius:60px;
+    border-top-left-radius:40px;
+    border-top-right-radius:40px;
+    border-bottom-left-radius:40px;
+    border-bottom-right-radius:40px;
+    /* Let cards overflow the fixed 840px container height on mobile */
+    overflow:visible;
   }
+  /* Let the projects panel grow to fit all cards on mobile */
+  .panels-container{height:auto;min-height:0}
+  .tab-panel.active{height:auto}
 
   .top-nav{display:none;position:fixed;top:72px;left:0;right:0;flex-direction:column;background:rgba(31,36,41,.98);backdrop-filter:blur(18px);padding:.6rem;border-bottom:1px solid rgba(255,255,255,.06);gap:.15rem;z-index:99}
   .top-nav.show{display:flex}
@@ -818,7 +932,7 @@ button{font:inherit;cursor:pointer}
   .card-editorial-img{height:200px}
   .skills-grid{grid-template-columns:1fr}
   .ai-chat{width:calc(100vw - 1.5rem);right:.75rem;bottom:.75rem}
-  .parallax-strip{height:22px}
+  .parallax-strip{height:26px}
 }
 
 @media(max-width:600px){
@@ -834,18 +948,25 @@ button{font:inherit;cursor:pointer}
     padding-top:28px;
     margin-top:0;
     background:var(--page);
-    border-top-left-radius:48px;
-    border-top-right-radius:48px;
-    border-bottom-left-radius:44px;
-    border-bottom-right-radius:44px;
+    border-top-left-radius:36px;
+    border-top-right-radius:36px;
+    border-bottom-left-radius:36px;
+    border-bottom-right-radius:36px;
+    overflow:visible;
   }
-  #projects .container{border-top-left-radius:40px;border-top-right-radius:40px}
   .btn{justify-content:center}
   .book-card{flex-basis:145px}
-  .parallax-strip{height:16px}
+  .parallax-strip{height:20px}
 }
 
 /* â•â• Utilities â•â• */
+
+/* Sections sit above parallax strips in z-order so their rounded corners
+   cleanly cap the strip photo edges on mobile (negative-margin overlap). */
+#projects.section,#about.section,#books.section,#contact.section{
+  position:relative;
+  z-index:1;
+}
 
 /* About + Books: full pill-shaped sections — large curve top & bottom,
    parallax strip between them reveals the background photo */
@@ -868,16 +989,20 @@ button{font:inherit;cursor:pointer}
   box-shadow:inset 0 0 0 1px rgba(255,255,255,.06);
 }
 
-/* Responsive pill sections */
+/* Responsive pill sections.
+   Strips sit between sections as clean horizontal photo bands.
+   No negative margins — sections don't overlap the strips. */
 @media(max-width:900px){
-  #about.section{border-radius:36px;padding-top:2rem;padding-bottom:2rem}
-  #books.section{border-radius:36px;padding-top:2rem;padding-bottom:2rem}
-  #projects.section{border-bottom-left-radius:36px;border-bottom-right-radius:36px}
+  #projects.section{border-bottom-left-radius:36px;border-bottom-right-radius:36px;margin-bottom:0}
+  #about.section{border-radius:36px;padding-top:2rem;padding-bottom:2rem;margin-top:0;margin-bottom:0}
+  #books.section{border-radius:36px;padding-top:2rem;padding-bottom:2rem;margin-top:0;margin-bottom:0}
+  #contact.section{border-radius:28px;margin-top:0;margin-bottom:1rem}
 }
 @media(max-width:600px){
-  #about.section{border-radius:28px;padding-top:1.5rem;padding-bottom:1.5rem}
-  #books.section{border-radius:28px;padding-top:1.5rem;padding-bottom:1.5rem}
-  #projects.section{border-bottom-left-radius:28px;border-bottom-right-radius:28px}
+  #projects.section{border-bottom-left-radius:24px;border-bottom-right-radius:24px;margin-bottom:0}
+  #about.section{border-radius:24px;padding-top:1.5rem;padding-bottom:1.5rem;margin-top:0;margin-bottom:0}
+  #books.section{border-radius:24px;padding-top:1.5rem;padding-bottom:1.5rem;margin-top:0;margin-bottom:0}
+  #contact.section{border-radius:20px;margin-top:0;margin-bottom:1.25rem}
 }
 
 ::selection{background:rgba(154,163,173,.2)}

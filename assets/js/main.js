@@ -117,17 +117,11 @@
 
   /* ══════════════════════════════════════════════
      1. HERO RAIL — smooth infinite carousel
-        + staggered per-panel video injection
+        + staggered per-panel MP4 injection
      ══════════════════════════════════════════════ */
   function initHeroRail(){
     const rail = document.getElementById('heroRail');
     if(!rail) return;
-
-    // Apply per-panel skew
-    rail.querySelectorAll('.hero-panel').forEach(p=>{
-      const sk = p.dataset.skew||'-8';
-      p.style.setProperty('--sk', sk+'deg');
-    });
 
     // Build infinite loop track from original panels
     const orig = Array.from(rail.querySelectorAll('.hero-panel'));
@@ -137,98 +131,137 @@
     orig.forEach(p=>{ const c=p.cloneNode(true); c.setAttribute('aria-hidden','true'); track.appendChild(c); });
     rail.appendChild(track);
 
-    const all   = track.querySelectorAll('.hero-panel');
+    const all        = track.querySelectorAll('.hero-panel');
     const firstClone = all[orig.length];
 
-    let x=0, loopW=1, spd=0, drag=false, dx0=0, off0=0;
-    let prev=0;
-    const TARGET = window.matchMedia('(pointer:coarse)').matches ? 24 : 32;
+    let x=0, loopW=1;
+    let drag=false, dx0=0, off0=0, hasDragged=false;
+    const PX_PER_SEC = window.matchMedia('(pointer:coarse)').matches ? 24 : 32;
+
+    /* Compute the parallelogram clip-path offset in px from actual panel height.
+       tan(8°) ≈ 0.14054. Set as a CSS custom property so the clip-path in CSS
+       stays accurate at every viewport size. Called once on init and on resize. */
+    function updateClipPath(){
+      const panel = all[0];
+      if(!panel) return;
+      const offset = Math.round(Math.tan(8 * Math.PI / 180) * panel.offsetHeight);
+      document.documentElement.style.setProperty('--panel-offset-x', offset + 'px');
+    }
+
+    /* startScroll — engages the compositor-thread CSS animation from position x.
+       A negative animationDelay offsets the keyframe so the carousel starts
+       exactly at x pixels into the loop — no visible jump on resume after drag. */
+    function startScroll(){
+      const dur = loopW / PX_PER_SEC;
+      document.documentElement.style.setProperty('--hero-loop-w', loopW + 'px');
+      document.documentElement.style.setProperty('--hero-scroll-dur', dur + 's');
+      track.style.transform = '';
+      track.style.animationDelay = (-(x / loopW) * dur) + 's';
+      track.classList.add('is-scrolling');
+    }
 
     function measure(){
       if(!firstClone||!all[0]) return;
-      loopW = Math.max(1, firstClone.offsetLeft - all[0].offsetLeft);
+      // updateClipPath MUST run before reading offsetLeft.
+      // Setting --panel-offset-x changes margin-right on every panel
+      // (margin-right: calc(12px - var(--panel-offset-x))), so loopW
+      // must be computed AFTER the variable is updated — reading
+      // offsetLeft here forces a synchronous reflow so the new margin
+      // is already in effect.
+      updateClipPath();
+      loopW = Math.max(1, Math.round(firstClone.offsetLeft - all[0].offsetLeft));
       x = ((x%loopW)+loopW)%loopW;
-    }
-
-    function tick(ts){
-      if(!prev) prev=ts;
-      const dt = Math.min(30, ts-prev)/1000;
-      prev=ts;
-      if(loopW<=1) measure();
-      const tgt = drag ? 0 : TARGET;
-      spd += (tgt-spd)*0.05;
-      if(!drag && Math.abs(spd)>0.05){
-        x += spd*dt;
-        x = ((x%loopW)+loopW)%loopW;
-      }
-      track.style.transform = `translate3d(${-x}px,0,0)`;
-      requestAnimationFrame(tick);
+      if(!drag) startScroll();
     }
 
     rail.addEventListener('pointerdown', e=>{
       if(e.pointerType==='mouse'&&e.button!==0) return;
-      drag=true; dx0=e.clientX; off0=x;
+      // Read the current compositor position before killing the animation —
+      // getComputedStyle returns the live animated matrix value synchronously.
+      const mat = new DOMMatrix(getComputedStyle(track).transform);
+      x = ((-mat.m41 % loopW) + loopW) % loopW;
+      track.classList.remove('is-scrolling');
+      track.style.transform = `translate3d(${-Math.round(x)}px,0,0)`;
+      drag=true; hasDragged=false; dx0=e.clientX; off0=x;
       rail.classList.add('dragging');
       rail.setPointerCapture(e.pointerId);
     });
     rail.addEventListener('pointermove', e=>{
       if(!drag) return;
+      if(Math.abs(e.clientX - dx0) > 5) hasDragged = true;
       x = ((off0-(e.clientX-dx0)*1.4)%loopW+loopW)%loopW;
+      track.style.transform = `translate3d(${-Math.round(x)}px,0,0)`;
       e.preventDefault();
     });
     function stopDrag(){
       if(!drag) return;
       drag=false; rail.classList.remove('dragging');
+      startScroll();
     }
+    /* Prevent panel content links from navigating when user was dragging */
+    rail.addEventListener('click', e=>{
+      if(hasDragged){
+        const link = e.target.closest('a.hero-panel-content');
+        if(link){ e.preventDefault(); }
+        hasDragged = false;
+      }
+    });
     rail.addEventListener('pointerup', stopDrag);
     rail.addEventListener('pointercancel', stopDrag);
     rail.addEventListener('lostpointercapture', stopDrag);
     rail.addEventListener('touchstart',()=>{ drag=true; },{passive:true});
-    rail.addEventListener('touchend',  ()=>{ drag=false; },{passive:true});
+    rail.addEventListener('touchend', stopDrag ,{passive:true});
 
     measure();
     window.addEventListener('resize', measure, {passive:true});
-    requestAnimationFrame(tick);
 
-    // Inject videos into originals AND their clones simultaneously so both
-    // instances play the same video — seamless on ultra-wide screens.
+    // Originals first, then clones after a delay so originals always win the
+    // decode queue — clones are the mirror for wide-screen loop continuity.
     const clones = Array.from(all).slice(orig.length);
-    injectPanelVideos(orig, clones);
+    injectPanelMedia(orig, clones);
   }
 
-  /* Inject one YouTube iframe per original panel AND its clone in parallel.
-     Both fire at the same stagger slot so wide screens see continuous playback.
-     Notes:
-       • vq=large  → requests 480p quality to save bandwidth
-       • NO loading="lazy" — lazy-load blocks off-viewport iframes immediately
-       • Full allow= string required by Chrome autoplay policy
-       • Stagger starts at 600ms so first panels get video quickly          */
-  function injectPanelVideos(panels, mirrors){
-    const PARAMS = 'autoplay=1&mute=1&loop=1&controls=0&disablekb=1&fs=0&iv_load_policy=3&modestbranding=1&playsinline=1&rel=0&showinfo=0&enablejsapi=0&vq=large';
+  /* injectPanelMedia — MP4/WebM video injection for hero parallelograms.
+     Originals stagger at 150ms intervals starting immediately.
+     Clones stagger at 150ms intervals starting after all originals have begun,
+     so the browser prioritises the visible panels on initial load.            */
+  function injectPanelMedia(panels, mirrors){
 
-    function makeIframe(vid, targetPanel){
-      if(targetPanel.querySelector('.panel-iframe')) return;
-      const iframe = document.createElement('iframe');
-      iframe.src = `https://www.youtube.com/embed/${vid}?${PARAMS}&playlist=${vid}`;
-      // Full allow string — Chrome requires all of these for muted autoplay
-      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
-      iframe.tabIndex = -1;
-      iframe.className = 'panel-iframe';
-      targetPanel.insertBefore(iframe, targetPanel.querySelector('.hero-panel-glass'));
+    function makeVideo(targetPanel){
+      if(targetPanel.querySelector('.panel-media')) return;
+      const src = targetPanel.dataset.media;
+      if(!src) return;
+
+      const video = document.createElement('video');
+      video.src         = src;
+      video.autoplay    = true;
+      video.muted       = true;
+      video.loop        = true;
+      video.playsInline = true;
+      video.setAttribute('autoplay','');
+      video.setAttribute('muted','');
+      video.setAttribute('loop','');
+      video.setAttribute('playsinline','');
+      video.setAttribute('aria-hidden','true');
+      video.className   = 'panel-media';
+
+      targetPanel.insertBefore(video, targetPanel.querySelector('.hero-panel-glass'));
+      video.play().catch(()=>{});
     }
 
+    // Originals: 0ms, 150ms, 300ms, 450ms, 600ms
     panels.forEach((panel, i)=>{
-      const vid = panel.dataset.video;
-      if(!vid) return;
-
-      // Stagger: 600ms, 1200ms, 1800ms, 2400ms, 3000ms
-      // Original and its clone both injected at the same moment
-      setTimeout(()=>{
-        makeIframe(vid, panel);
-        const mirror = mirrors && mirrors[i];
-        if(mirror) makeIframe(vid, mirror);
-      }, 600 + i * 600);
+      if(!panel.dataset.media) return;
+      setTimeout(()=>{ makeVideo(panel); }, i * 150);
     });
+
+    // Clones: start after all originals (750ms base), same 150ms cadence
+    if(mirrors){
+      mirrors.forEach((panel, i)=>{
+        if(!panel.dataset.media) return;
+        setTimeout(()=>{ makeVideo(panel); }, 750 + i * 150);
+      });
+    }
   }
 
   /* ══════════════════════════════════════════════
@@ -576,9 +609,61 @@
     });
   }
 
+  /* ══════════════════════════════════════════════
+     7. MOBILE PARALLAX — scroll-driven inner div
+        (replaces broken background-attachment:fixed on touch)
+     ══════════════════════════════════════════════ */
+  function initMobileParallax(){
+    if(!window.matchMedia('(pointer:coarse)').matches) return;
+    const inners = document.querySelectorAll('.parallax-strip .parallax-inner');
+    if(!inners.length) return;
+    function update(){
+      inners.forEach(inner=>{
+        const strip = inner.parentElement;
+        const rect  = strip.getBoundingClientRect();
+        // progress 0→1 as strip travels from viewport-bottom to viewport-top
+        const progress = 1 - (rect.bottom / (window.innerHeight + rect.height));
+        // shift the inner div ±18px — stays within the 300%/top:-100% overflow margin
+        inner.style.transform = `translateY(${(progress - 0.5) * 36}px)`;
+      });
+    }
+    window.addEventListener('scroll', update, {passive:true});
+    update();
+  }
+
+  /* ══ 8. PARALLAX IMAGE AUTO-DETECT ══════════════════════════════════
+     Probes assets/images/ for parallax.webp → .jpg → .jpeg → .png in
+     order of compression efficiency.  First one that loads wins and is
+     written into --parallax-img so every strip updates instantly.
+     Drop any of those four files into the folder — no code change needed.
+     ══════════════════════════════════════════════════════════════════ */
+  function initParallaxImage(){
+    const candidates = [
+      'assets/images/parallax.webp',
+      'assets/images/parallax.jpg',
+      'assets/images/parallax.jpeg',
+      'assets/images/parallax.png'
+    ];
+    function tryNext(i){
+      if(i >= candidates.length) return; // none found — CSS default stands
+      const img = new Image();
+      img.onload = ()=>{
+        // img.src is the browser-resolved absolute URL — safe for use in CSS
+        // regardless of where the stylesheet lives relative to the document.
+        document.documentElement.style.setProperty(
+          '--parallax-img', `url('${img.src}')`
+        );
+      };
+      img.onerror = ()=> tryNext(i + 1);
+      img.src = candidates[i];
+    }
+    tryNext(0);
+  }
+
   /* ══ INIT ══ */
   function init(){
     const y=document.getElementById('year');if(y) y.textContent=new Date().getFullYear();
+    initParallaxImage();
     initHeader();
     initHeroRail();
     populateGrids();
@@ -588,6 +673,7 @@
     initBooks();
     initAI();
     initReveal();
+    initMobileParallax();
   }
 
   document.readyState==='loading' ? document.addEventListener('DOMContentLoaded',init) : init();
