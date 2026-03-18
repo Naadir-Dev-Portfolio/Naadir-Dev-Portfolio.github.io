@@ -364,6 +364,7 @@ a.hero-panel-content:focus-visible{
 }
 
 .hero-cta-row{display:flex;gap:.5rem;margin-top:.1rem}
+.hero-cta-secondary{margin-top:.4rem}
 
 /* Buttons â€” portfolio-appropriate frosted glass, NO amber fill */
 .btn{
@@ -463,11 +464,10 @@ a.hero-panel-content:focus-visible{
   display:none;
   position:absolute;
   width:100%;
-  /* 300% tall + top:-100% centres the inner and gives exactly one strip-height
-     of overflow above and below — enough room for the JS ±18px scroll shift
-     without ever clipping to a blank edge. */
-  height:300%;
-  top:-100%;
+  /* 600% tall + top:-250% centres the inner and gives ~2.5× strip-height
+     of overflow above/below — room for the JS ±60px scroll shift. */
+  height:600%;
+  top:-250%;
   left:0;
   background-size:cover;
   background-position:center;
@@ -483,9 +483,9 @@ a.hero-panel-content:focus-visible{
   background-position:center 55%;
 }
 
-/* iOS Safari / touch: background-attachment:fixed is broken on scroll.
-   Hide the parent bg, show the JS-driven inner div instead. */
-@media (pointer:coarse){
+/* Mobile: background-attachment:fixed is broken on touch/iOS.
+   Switch to the JS-driven inner div on narrow viewports. */
+@media (max-width:900px){
   .parallax-strip{background:none;}
   .parallax-strip .parallax-inner{display:block;}
 }

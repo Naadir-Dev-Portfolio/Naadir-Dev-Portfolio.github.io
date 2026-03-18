@@ -538,8 +538,10 @@
       inp.focus();
     });
     close.addEventListener('click',()=>{open=false;chat.classList.remove('open');fab.classList.remove('hidden')});
-    // Hero CTA "AI Assistant" button — same as clicking the FAB
-    document.getElementById('hero-ai-btn')?.addEventListener('click',()=>fab.click());
+    // Hero CTA "AI Assistant" button — toggles chat open/closed
+    document.getElementById('hero-ai-btn')?.addEventListener('click',()=>{
+      chat.classList.contains('open') ? close.click() : fab.click();
+    });
 
     form.addEventListener('submit',async e=>{
       e.preventDefault();if(typing)return;
@@ -616,7 +618,7 @@
         (replaces broken background-attachment:fixed on touch)
      ══════════════════════════════════════════════ */
   function initMobileParallax(){
-    if(!window.matchMedia('(pointer:coarse)').matches) return;
+    if(!window.matchMedia('(max-width:900px)').matches) return;
     const inners = document.querySelectorAll('.parallax-strip .parallax-inner');
     if(!inners.length) return;
     function update(){
@@ -625,8 +627,8 @@
         const rect  = strip.getBoundingClientRect();
         // progress 0→1 as strip travels from viewport-bottom to viewport-top
         const progress = 1 - (rect.bottom / (window.innerHeight + rect.height));
-        // shift the inner div ±18px — stays within the 300%/top:-100% overflow margin
-        inner.style.transform = `translateY(${(progress - 0.5) * 36}px)`;
+        // shift ±60px — well within the 600%/top:-250% overflow margin
+        inner.style.transform = `translateY(${(progress - 0.5) * 120}px)`;
       });
     }
     window.addEventListener('scroll', update, {passive:true});
