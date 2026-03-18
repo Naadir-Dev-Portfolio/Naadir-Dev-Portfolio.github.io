@@ -808,12 +808,12 @@ a.hero-panel-content:focus-visible{
 /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    AI CHAT â€” Floating, breathing rings
    â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-.ai-fab{position:fixed;bottom:1.6rem;right:1.6rem;z-index:90;width:54px;height:54px;border-radius:50%;background:linear-gradient(145deg,#f0ede8 0%,#ddd8d0 100%);border:1px solid rgba(255,255,255,.55);display:flex;align-items:center;justify-content:center;cursor:pointer;overflow:hidden;transition:transform .25s var(--ease),box-shadow .25s var(--ease);box-shadow:0 4px 22px rgba(0,0,0,.28),0 1px 0 rgba(255,255,255,.5) inset;animation:fabGlow 3s ease-in-out infinite}
+.ai-fab{position:fixed;bottom:2.6rem;right:2.4rem;z-index:90;width:54px;height:54px;border-radius:50%;background:linear-gradient(145deg,#f0ede8 0%,#ddd8d0 100%);border:1px solid rgba(255,255,255,.55);display:flex;align-items:center;justify-content:center;cursor:pointer;overflow:hidden;transition:transform .25s var(--ease),box-shadow .25s var(--ease);box-shadow:0 4px 22px rgba(0,0,0,.28),0 1px 0 rgba(255,255,255,.5) inset;animation:fabGlow 3s ease-in-out infinite}
 .ai-fab:hover{transform:scale(1.12);box-shadow:0 8px 32px rgba(0,0,0,.32),0 1px 0 rgba(255,255,255,.5) inset}
 .ai-fab.hidden{display:none}
 .ai-fab::after{content:'';position:absolute;inset:0;border-radius:50%;background:linear-gradient(110deg,transparent 20%,rgba(255,255,255,.55) 50%,transparent 80%);transform:translateX(-110%);transition:transform .6s var(--ease);pointer-events:none}
 .ai-fab:hover::after{transform:translateX(110%)}
-.ai-fab-icon{width:26px;height:26px;object-fit:contain;z-index:1;position:relative;transition:transform .3s var(--ease)}
+.ai-fab-icon{width:32px;height:32px;object-fit:contain;z-index:1;position:relative;display:block;margin:auto;transition:transform .3s var(--ease)}
 .ai-fab:hover .ai-fab-icon{transform:rotate(12deg) scale(1.08)}
 .ai-fab-ring{position:absolute;inset:-5px;border-radius:50%;border:1.5px solid rgba(58,48,40,.22);pointer-events:none;animation:fabBreathe 2.2s ease-in-out infinite}
 .ai-fab-ring.r2{inset:-13px;animation-delay:.7s;animation-duration:2.7s;opacity:.45}
@@ -927,7 +927,10 @@ a.hero-panel-content:focus-visible{
   .top-nav a{padding:.55rem .8rem;font-size:.88rem}
   .nav-toggle{display:flex}
 
-  .gallery-cards{grid-template-columns:1fr 1fr}
+  /* Horizontal swipe carousel on tablet/mobile */
+  .gallery-cards{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;gap:.75rem;padding:.25rem 0 .5rem;align-content:unset}
+  .gallery-cards::-webkit-scrollbar{display:none}
+  .card.card-gallery{flex:0 0 calc(50% - .5rem);scroll-snap-align:start;width:auto}
   .card.card-featured{grid-template-columns:1fr}
   .card-editorial-img{height:200px}
   .skills-grid{grid-template-columns:1fr}
@@ -940,7 +943,9 @@ a.hero-panel-content:focus-visible{
   .section+.section{padding-top:.5rem}
   .container{padding:1.2rem;border-radius:20px}
   .tab-btn{padding:.32rem .65rem;font-size:.73rem}
-  .gallery-cards{grid-template-columns:1fr}
+  /* Narrower cards on small phone — one card visible with clear peek of next */
+  .gallery-cards{padding:.25rem 0 .5rem}
+  .card.card-gallery{flex:0 0 76vw}
   .card.card-featured{grid-template-columns:1fr}
   .card-editorial-img{height:180px}
   .hero-cta-row{flex-direction:column}
@@ -1003,6 +1008,18 @@ a.hero-panel-content:focus-visible{
   #about.section{border-radius:24px;padding-top:1.5rem;padding-bottom:1.5rem;margin-top:0;margin-bottom:0}
   #books.section{border-radius:24px;padding-top:1.5rem;padding-bottom:1.5rem;margin-top:0;margin-bottom:0}
   #contact.section{border-radius:20px;margin-top:0;margin-bottom:1.25rem}
+}
+
+/* ── Mobile carousel scroll-hint: right-edge fade ── */
+@media(max-width:900px){
+  /* Fade overlay signals more cards to the right */
+  .gallery-wrap::after{
+    content:'';
+    position:absolute;right:0;top:0;bottom:54px;
+    width:40px;
+    background:linear-gradient(to right,transparent,#dde2ec);
+    pointer-events:none;z-index:2;
+  }
 }
 
 ::selection{background:rgba(154,163,173,.2)}
