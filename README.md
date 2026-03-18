@@ -1,112 +1,163 @@
-# Portfolio 2.0 — Naadir Dev Portfolio
+# Naadir Dev Portfolio
 
-> Dark glassmorphism · Dynamic JSON-driven · Gemini AI assistant · Netlify deployed
+> Dark editorial design · GitHub Actions–compiled · Gemini AI assistant · GitHub Pages
 
-Live site: **[your-netlify-url.netlify.app]**
+**Live site:** [naadir-dev-portfolio.github.io](https://naadir-dev-portfolio.github.io)
 
 ---
 
-## ✅ How to Add a New Project (30 seconds)
+## Overview
 
-1. Open `assets/data/projects.js`
-2. Find the correct category array (e.g. `python > desktop`)
-3. Copy-paste a project block and fill in your fields:
+This is a fully dynamic portfolio site. Project cards are **not hardcoded** — they are pulled automatically from individual project repositories and compiled into a single JavaScript file by a GitHub Actions workflow.
 
-```js
+```
+Each project repo
+  └── portfolio/
+        └── <project-name>.json   ← you edit this per project
+
+GitHub Actions (nightly 2am UTC or manual trigger)
+  └── reads all portfolio/*.json files across all repos
+  └── compiles them into assets/js/data.js
+  └── commits data.js back to this repo
+
+GitHub Pages serves the updated site automatically.
+```
+
+---
+
+## How to Add or Update a Project Card
+
+1. In the project's GitHub repo, create or edit the file `portfolio/<project-name>.json`
+2. Go to **Actions → Compile Portfolio Data → Run workflow** to see it live immediately (or wait for the nightly 2am UTC auto-run)
+
+That's it. No touching this repo directly.
+
+---
+
+## portfolio/*.json Schema
+
+Each JSON file = one project card on the site. Multiple JSON files in one repo = multiple cards (useful for toolkits with several distinct tools).
+
+```json
 {
-  id: "my-new-project",              // unique slug, no spaces
-  title: "My New Project",
-  tags: ["Python", "PyQt6"],         // up to 4 tags shown
-  description: "What it does.",
-  image: "my-new-project.png",       // filename only — drop image in assets/images/projects/
-  github: "https://github.com/Naadir-Dev-Portfolio/...",
-  demo: null,                        // or a live URL
-  videoId: null,                     // YouTube video ID if you have one
-  status: "live"                     // "live" | "wip" | "coming-soon"
+  "section":   "python",
+  "category":  "desktop",
+  "n":         1,
+  "title":     "My Project",
+  "img":       "screenshot.webp",
+  "videoId":   "JtVEtAiz0UU",
+  "desc":      "One-line description of what this project does.",
+  "demo":      "https://my-live-site.netlify.app",
+  "code":      "https://github.com/Naadir-Dev-Portfolio/my-repo/blob/main/main.py",
+  "details":   "https://github.com/Naadir-Dev-Portfolio/my-repo/blob/main/README.md",
+  "tags":      ["python", "pyqt", "data-viz"]
 }
 ```
 
-4. Drop a screenshot into `assets/images/projects/my-new-project.png`
-5. Commit and push — Netlify auto-deploys in ~30 seconds.
+### Field Reference
 
-> **No screenshot yet?** Leave `image: null` — a styled placeholder card will show until you add one.
+| Field | Required | Description |
+|---|---|---|
+| `section` | Yes | Top-level tab key — see sections table below |
+| `category` | Yes | Sub-tab key — see sections table below |
+| `n` | Yes | Sort order. `n:1` = featured editorial card (large, full-width). `n:2+` = gallery swipe cards |
+| `title` | Yes | Card title |
+| `img` | No | Screenshot filename from `assets/images/projects/` in this repo |
+| `videoId` | No | YouTube video ID (e.g. `JtVEtAiz0UU`). Shows Video button and uses YouTube thumbnail |
+| `video` | No | Full YouTube URL — alternative to `videoId`, either works |
+| `desc` | No | One-line project description shown on the card |
+| `demo` | No | Live site URL — shows **Live** button |
+| `code` | No | Direct link to main source file on GitHub — shows **Code** button |
+| `details` | No | Link to README or docs — shows **Details** button |
+| `tags` | No | Array of technology tags shown as pills on the card |
+
+### Card Click Behaviour
+Clicking the card body (not a button) opens the first available link in this priority order:
+**Live → Video → Details → Code**
 
 ---
 
-## 🌟 Featured / Spotlight Section
+## Sections & Categories
 
-To feature a project in the top spotlight section, add it to the `featured` array in `projects.js`:
+| `section` | `category` | Description |
+|---|---|---|
+| `python` | `desktop` | PyQt6 / Tkinter desktop apps |
+| `python` | `automation` | Scripts, pipelines, batch tools |
+| `python` | `trading` | Trading bots, crypto tools |
+| `python` | `quant` | Quantitative finance, forecasting |
+| `excelvba` | `vba-macros` | Excel VBA macros |
+| `excelvba` | `powerquery` | Power Query M templates |
+| `excelvba` | `power-automate` | Power Automate flows |
+| `powerbi` | `dashboards` | Power BI dashboards |
+| `powerbi` | `dataflow` | Dataflows and data models |
+| `ai` | `agents` | Multi-agent systems, AI OS |
+| `ai` | `generativeai` | LLM apps, Streamlit tools |
+| `ai` | `prompt` | Prompt engineering tools |
+| `web` | `teamsites` | Internal team portals |
+| `web` | `tools` | Utility web tools |
+| `web` | `cognitive` | Educational games |
+| `mobile` | `android` | React Native / Android apps |
+| `browserextensions` | `google-chrome` | Chrome extensions |
 
-```js
-featured: [
-  {
-    id: "eso-spheria",
-    featured: true,
-    highlights: ["Key point 1", "Key point 2"],  // shows as bullet points in spotlight
-    ...
-  }
-]
+---
+
+## Screenshot Images
+
+Project screenshots live in `assets/images/projects/` in **this repo**. When adding a new project:
+1. Add the screenshot file to that folder
+2. Reference just the filename in the JSON: `"img": "my-screenshot.webp"`
+
+Preferred format: `.webp` for performance. `.png` and `.jpg` also work.
+
+---
+
+## GitHub Actions — Compile Workflow
+
+File: `.github/workflows/compile-portfolio.yml`
+
+- Runs **automatically every night at 2am UTC**
+- Can be **triggered manually** any time: Actions tab → Compile Portfolio Data → Run workflow
+- Requires a secret `PORTFOLIO_TOKEN` (classic GitHub PAT with `repo` and `read:org` scopes) stored in this repo's Settings → Secrets → Actions
+
+The workflow runs `scripts/compile_projects.py` which:
+1. Fetches all repos in the `Naadir-Dev-Portfolio` org via the GitHub Search API
+2. For each repo, looks for `portfolio/*.json` files
+3. Compiles all found cards into `assets/js/data.js`
+4. Commits and pushes the updated file back to this repo
+
+---
+
+## Folder Structure
+
 ```
-
-The **first** item in `featured` gets the full-width hero treatment. The rest get smaller cards.
-
----
-
-## 🗂️ Categories & Subcategories
-
-| Category Key | Label          | Subcategories                              |
-|--------------|----------------|--------------------------------------------|
-| `excel`      | Excel & VBA    | `vba`, `powerquery`, `powerautomate`, `powerbi` |
-| `python`     | Python         | `desktop`, `automation`, `utilities`       |
-| `ai`         | AI & ML        | `agents`, `generativeai`, `nlp`, `prompt`  |
-| `trading`    | Trading & Quant| `backtesting`, `livedata`, `forecasting`   |
-| `web`        | Web & Games    | `teamsites`, `tools`, `cognitive`          |
-
----
-
-## 🤖 AI Assistant
-
-The AI assistant calls `/.netlify/functions/ask` — which lives in `Portfolio-Backend-API` (the renamed `secret-service` repo).
-
-To update the AI's knowledge about you, edit `SITE_CONFIG.aiSystemPrompt` in `projects.js`.
-
----
-
-## 🚀 Deployment (Netlify)
-
-1. Push this repo to GitHub as `Portfolio-v2`
-2. In Netlify: New site → Import from GitHub → select `Portfolio-v2`
-3. Build command: *(leave blank — static site)*
-4. Publish directory: `/` (root)
-5. Done.
-
-**Environment variables** (for the AI assistant backend — set in `Portfolio-Backend-API`):
-- `GEMINI_API_KEY` — your Google Gemini API key
-
----
-
-## 📁 Folder Structure
-
-```
-Portfolio-v2/
-├── index.html                    # ← the whole site lives here
+Naadir-Dev-Portfolio.github.io/
+├── index.html
 ├── assets/
 │   ├── css/
-│   │   └── style.css             # ← full design system
+│   │   └── main.css
 │   ├── js/
-│   │   └── app.js                # ← dynamic rendering engine
-│   ├── data/
-│   │   └── projects.js           # ← ✏️ EDIT THIS to add projects
-│   └── images/
-│       └── projects/             # ← drop screenshots here
-│           └── [project-name].png
-└── README.md
+│   │   ├── data.js          ← AUTO-GENERATED by GitHub Actions. Do not edit manually.
+│   │   └── main.js          ← site logic, card rendering, AI chat, parallax
+│   ├── images/
+│   │   ├── projects/        ← drop project screenshots here
+│   │   └── [hero images, logos etc.]
+│   └── videos/              ← hero section background videos
+├── scripts/
+│   ├── compile_projects.py  ← GitHub Actions runs this
+│   ├── seed_portfolios.py   ← one-time bootstrap (already run)
+│   └── test_token.py        ← local diagnostics for the API token
+└── .github/
+    └── workflows/
+        └── compile-portfolio.yml
 ```
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - Pure HTML5 / CSS3 / Vanilla JavaScript — zero dependencies, zero build step
-- Gemini AI via Netlify Functions (Portfolio-Backend-API)
-- Hosted on Netlify (free tier)
+- Gemini AI via Netlify Functions proxy (external backend)
+- Hosted on GitHub Pages (free)
+- GitHub Actions for nightly data compilation
+
+---
