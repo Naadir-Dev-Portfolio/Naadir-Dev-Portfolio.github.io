@@ -959,6 +959,7 @@ a.hero-panel-content:focus-visible{
   .card.card-featured{grid-template-columns:1fr}
   .card-editorial-img{height:180px}
   .hero-cta-row{flex-direction:column}
+  .hero-cta-secondary{display:flex;flex-direction:column}
   #projects.section{
     padding-top:28px;
     margin-top:0;
