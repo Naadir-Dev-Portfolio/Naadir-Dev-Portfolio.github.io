@@ -821,14 +821,12 @@ a.hero-panel-content:focus-visible{
     inset 0 0 0 1px rgba(0,0,0,.07),
     0 1px 0 rgba(255,255,255,.09);
 }
-/* overflow-x:clip clips horizontal track travel; overflow-y:visible lets card shadows escape downward
-   (unlike overflow:hidden, clip doesn't force the other axis to auto — shadows fully visible, books centred) */
-.books-viewport{flex:1;overflow-x:clip;overflow-y:visible;border-radius:10px;padding:10px 0 10px;mask-image:linear-gradient(90deg,transparent,black 4%,black 96%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,black 4%,black 96%,transparent)}
+.books-viewport{flex:1;overflow:hidden;border-radius:10px;padding:16px 0 16px;mask-image:linear-gradient(90deg,transparent,black 4%,black 96%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,black 4%,black 96%,transparent)}
 .books-track{display:flex;gap:.9rem;padding:0;will-change:transform;cursor:grab;user-select:none;backface-visibility:hidden;-webkit-backface-visibility:hidden;transform:translateZ(0)}
 .books-track.dragging{cursor:grabbing}
 
 .book-card{flex:0 0 170px;border-radius:10px;overflow:hidden;border:none;background:transparent;transition:transform .3s var(--ease),box-shadow .3s}
-.book-card:hover{transform:translateY(-6px);box-shadow:0 14px 32px rgba(0,0,0,.5),0 4px 10px rgba(0,0,0,.28)}
+.book-card:hover{transform:translateY(-4px);box-shadow:0 6px 14px rgba(0,0,0,.44),0 2px 5px rgba(0,0,0,.22)}
 .book-card a{text-decoration:none;color:inherit;display:flex;flex-direction:column}
 .book-card img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:10px}
 .book-card span{display:none}
