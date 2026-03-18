@@ -173,20 +173,40 @@
      2. TABS & EDITORIAL CARDS
      ══════════════════════════════════════════════ */
 
+  /* Resolve video href + thumbnail ID from card data.
+     Accepts either: videoId:"ABC" (YouTube ID) or video:"https://youtu.be/ABC" (full URL). */
+  function resolveVideo(p){
+    if(p.videoId) return { id: p.videoId, href: `https://www.youtube.com/watch?v=${p.videoId}` };
+    if(p.video){
+      const m = p.video.match(/(?:v=|youtu\.be\/)([A-Za-z0-9_-]{11})/);
+      const id = m ? m[1] : null;
+      return { id, href: p.video };
+    }
+    return null;
+  }
+
+  /* Priority href when user clicks a card body (not a button): live > video > details > code */
+  function cardHref(p){
+    const vid = resolveVideo(p);
+    return p.demo || (vid && vid.href) || p.details || p.code || null;
+  }
+
   /* Featured card (n===1) — editorial horizontal split, single image. */
   function buildFeaturedCard(p){
-    const src = p.videoId
-      ? `https://img.youtube.com/vi/${p.videoId}/hqdefault.jpg`
-      : `${IMGS}${p.img || (p.imgs && p.imgs[0]) || ''}`;
+    const vid = resolveVideo(p);
+    const src = vid ? `https://img.youtube.com/vi/${vid.id}/hqdefault.jpg`
+                    : `${IMGS}${p.img || (p.imgs && p.imgs[0]) || ''}`;
+    const href = cardHref(p);
     return `
-      <div class="card card-featured" ${p.videoId?`data-vid="${p.videoId}"`:''}>
+      <div class="card card-featured"${href?` data-href="${href}"`:''}>
         <div class="card-editorial-body">
           <h3>${p.title}</h3>
           <p>${p.desc}</p>
           <div class="card-links">
             ${p.demo?`<a href="${p.demo}" target="_blank" rel="noreferrer">Live</a>`:''}
-            ${p.code?`<a href="${p.code}" target="_blank" rel="noreferrer">Code</a>`:''}
+            ${vid?`<a href="${vid.href}" target="_blank" rel="noreferrer">Video</a>`:''}
             ${p.details?`<a href="${p.details}" target="_blank" rel="noreferrer">Details</a>`:''}
+            ${p.code?`<a href="${p.code}" target="_blank" rel="noreferrer">Code</a>`:''}
           </div>
         </div>
         <div class="card-editorial-img">
@@ -197,19 +217,21 @@
 
   /* Gallery cards (n>1) — landscape split: text left, image right */
   function buildGalleryCard(p){
-    const src = p.videoId
-      ? `https://img.youtube.com/vi/${p.videoId}/hqdefault.jpg`
-      : `${IMGS}${p.img}`;
+    const vid = resolveVideo(p);
+    const src = vid ? `https://img.youtube.com/vi/${vid.id}/hqdefault.jpg`
+                    : `${IMGS}${p.img}`;
+    const href = cardHref(p);
     return `
-      <div class="card card-gallery" ${p.videoId?`data-vid="${p.videoId}"`:''}>
+      <div class="card card-gallery"${href?` data-href="${href}"`:''}>
         <img src="${src}" alt="${p.title}" loading="lazy">
         <div class="card-gal-body">
           <h3>${p.title}</h3>
           <p>${p.desc}</p>
           <div class="card-links">
             ${p.demo?`<a href="${p.demo}" target="_blank" rel="noreferrer">Live</a>`:''}
-            ${p.code?`<a href="${p.code}" target="_blank" rel="noreferrer">Code</a>`:''}
+            ${vid?`<a href="${vid.href}" target="_blank" rel="noreferrer">Video</a>`:''}
             ${p.details?`<a href="${p.details}" target="_blank" rel="noreferrer">Details</a>`:''}
+            ${p.code?`<a href="${p.code}" target="_blank" rel="noreferrer">Code</a>`:''}
           </div>
         </div>
       </div>`;
@@ -330,16 +352,14 @@
     showSub('python','desktop');
   }
 
-  /* Click gallery/featured card video to open YouTube */
+  /* Click a card body (not a button) → open priority link: live > video > details > code */
   function initVideoCards(){
     document.addEventListener('click', e=>{
-      const card = e.target.closest('[data-vid]');
+      const card = e.target.closest('[data-href]');
       if(!card) return;
-      // Open YouTube in new tab (gallery cards don't inline-play — keeps layout clean)
-      const vid = card.dataset.vid;
-      if(vid && !e.target.closest('.card-links')){
-        window.open(`https://www.youtube.com/watch?v=${vid}`, '_blank', 'noreferrer');
-      }
+      if(e.target.closest('.card-links')) return; // let buttons handle themselves
+      const href = card.dataset.href;
+      if(href) window.open(href, '_blank', 'noreferrer');
     });
   }
 

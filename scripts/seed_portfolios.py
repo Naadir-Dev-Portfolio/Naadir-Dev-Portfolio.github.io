@@ -4,6 +4,26 @@ seed_portfolios.py
 ==================
 ONE-TIME bootstrap script.
 
+JSON schema for each portfolio/*.json file:
+  {
+    "section":   "python",          // top-level tab key (required)
+    "category":  "desktop",         // sub-tab key       (required)
+    "n":         1,                 // sort order — n:1 = featured editorial card (full-width),
+                                    //              n:2+ = gallery swipe cards
+    "title":     "My Project",      // card title (REQUIRED)
+    "img":       "screenshot.webp", // thumbnail filename in assets/images/projects/
+    "videoId":   "JtVEtAiz0UU",     // YouTube video ID  (card shows Video button + uses thumbnail)
+    "video":     "https://youtu.be/JtVEtAiz0UU", // OR full YouTube URL (either videoId or video works)
+    "desc":      "One-line blurb.",
+    "demo":      "https://...",     // Live button
+    "code":      "https://github.com/...", // Code button
+    "details":   "https://github.com/.../README.md", // Details button
+    "tags":      ["python","pyqt"]
+  }
+
+  Card click priority (clicking the card body, not a button):
+    Live > Video > Details > Code
+
 Reads the current hardcoded project data from assets/js/data.js
 (which still holds all your existing projects) and creates the
 corresponding  portfolio/<slug>.json  file in each GitHub repo
