@@ -928,7 +928,8 @@ a.hero-panel-content:focus-visible{
   .nav-toggle{display:flex}
 
   /* Horizontal swipe carousel on tablet/mobile */
-  .gallery-cards{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;gap:.75rem;padding:.25rem 0 .5rem;align-content:unset}
+  /* padding gives card box-shadows room inside the scroll container (overflow:auto clips shadows) */
+  .gallery-cards{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;gap:.75rem;padding:8px 4px 14px;align-content:unset}
   .gallery-cards::-webkit-scrollbar{display:none}
   .card.card-gallery{flex:0 0 calc(50% - .5rem);scroll-snap-align:start;width:auto}
   .card.card-featured{grid-template-columns:1fr}
@@ -944,7 +945,7 @@ a.hero-panel-content:focus-visible{
   .container{padding:1.2rem;border-radius:20px}
   .tab-btn{padding:.32rem .65rem;font-size:.73rem}
   /* Narrower cards on small phone — one card visible with clear peek of next */
-  .gallery-cards{padding:.25rem 0 .5rem}
+  .gallery-cards{padding:8px 4px 14px}
   .card.card-gallery{flex:0 0 76vw}
   .card.card-featured{grid-template-columns:1fr}
   .card-editorial-img{height:180px}
