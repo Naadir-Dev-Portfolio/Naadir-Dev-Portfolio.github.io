@@ -6,7 +6,8 @@
   'use strict';
 
   const GITHUB  = 'https://github.com/Naadir-Dev-Portfolio';
-  const IMGS    = 'assets/images/projects/';
+  const IMGS      = 'assets/images/projects/';
+  const BOOK_IMGS = 'assets/images/books/';
   const AI_URL  = 'https://subtle-khapse-c232ff.netlify.app/.netlify/functions/gemini-proxy';
   const AI_SYS  = `You are Naadir's AI Assistant. Professional and concise. Naadir builds automation tools, AI systems, data pipelines and mobile apps. Projects include: Spheria (hero project — AI desktop OS with multi-agent orchestration, tool calling and persistent memory), Mobile Health Planner (React Native / Expo SDK 54 cross-platform health app for Android), Health Planner Desktop (PyQt6 + QWebEngineView hybrid desktop health app), Trading-Algo-Backtester (ML-powered backtester), Finance & Health PyQt6 dashboards, Adobe Script Toolkit (Python+COM sticker pack pipeline, JSX automation for Illustrator & After Effects), ComfyUI Workflows (Stable Diffusion image generation pipelines with Python batch automation), Enterprise GenAI assistant, AI Quiz Bot, Finance NL Query (natural language financial data interface), economic data scripts, educational web games, VBA/SAP automation tools, Power Query M templates, Power BI dashboards, crypto news aggregator, and more. Skills: Python, VBA/Excel, Power Query, Power BI, Power Automate, JavaScript, React Native, TypeScript, AI/ML, multi-agent systems, prompt engineering, ExtendScript/JSX, ComfyUI, PyQt6, Streamlit. Keep answers brief and professional.`.trim();
 
@@ -419,7 +420,7 @@
     const all=[...BOOKS,...BOOKS,...BOOKS];
     track.innerHTML=all.map(b=>`
       <div class="book-card"><a href="#">
-        <img src="${IMGS}${b.img}" alt="${b.title}">
+        <img src="${BOOK_IMGS}${b.img}" alt="${b.title}">
         <span>${b.title}</span>
       </a></div>`).join('');
     let pos=0,spd=0.2,tgt=0.2,drag=false,dx0=0,dp0=0,vel=0,lx=0,lt=0,held=false;
