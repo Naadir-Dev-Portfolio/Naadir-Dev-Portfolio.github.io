@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-      contents: write   # needed to commit data.js back to the repo
+      contents: write   # needed to commit data.js and images back to the repo
 
     steps:
       - name: Checkout portfolio repo
@@ -30,14 +30,14 @@ jobs:
           PORTFOLIO_TOKEN: ${{ secrets.PORTFOLIO_TOKEN }}
         run: python scripts/compile_projects.py
 
-      - name: Commit updated data.js (if changed)
+      - name: Commit updated data.js and project images (if changed)
         run: |
           git config user.name  "Naadir-Dev-Portfolio"
           git config user.email "Naadir-Dev-Portfolio@users.noreply.github.com"
-          git add assets/js/data.js
+          git add assets/js/data.js assets/images/projects/
           # Only commit if there are actual changes
           if git diff --cached --quiet; then
-            echo "No changes to data.js — nothing to commit."
+            echo "No changes — nothing to commit."
           else
             git commit -m "chore: recompile portfolio data [skip ci]"
             git push

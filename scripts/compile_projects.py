@@ -6,6 +6,9 @@ Scans every repo in the Naadir-Dev-Portfolio GitHub organisation for a
 `portfolio/` directory, fetches all files matching `portfolio/*.json`,
 and compiles them into `assets/js/data.js`.
 
+Also downloads any image files referenced in the JSON `img` / `imgs` fields
+from each repo's `portfolio/` folder and saves them to `assets/images/projects/`.
+
 Each JSON file = one project card.  Multiple JSON files in the same repo =
 multiple cards for that repo (great for toolkits / mono-repos).
 
@@ -15,7 +18,7 @@ JSON schema (all fields optional except `title`):
     "category": "desktop",          // sub-category key        (default: "desktop")
     "n":        1,                  // sort order within category (default: 99)
     "title":    "My Project",       // card title (REQUIRED)
-    "img":      "screenshot.webp",  // filename in assets/images/projects/
+    "img":      "screenshot.webp",  // image file in THIS repo's portfolio/ folder
     "imgs":     ["a.png","b.png"],  // additional images (editorial card)
     "videoId":  "YouTubeID",        // YouTube video ID (automation cards)
     "desc":     "One-line blurb.",
@@ -25,29 +28,38 @@ JSON schema (all fields optional except `title`):
     "tags":     ["python","pyqt"]
   }
 
+Image workflow:
+  Place the screenshot in the repo's portfolio/ folder with the same filename
+  as the `img` field (e.g. portfolio/screenshot.webp). This script downloads
+  it automatically and saves it to assets/images/projects/ in the portfolio repo.
+  No manual copying required.
+
 Run locally:
   PORTFOLIO_TOKEN=ghp_xxx python scripts/compile_projects.py
 
 GitHub Actions sets PORTFOLIO_TOKEN automatically via secrets.
 """
 
+import base64
 import json
 import os
 import re
 import sys
+from pathlib import Path
 from datetime import datetime, timezone
 from urllib.request import Request, urlopen
 from urllib.error import HTTPError, URLError
 
 # ── Config ────────────────────────────────────────────────────────────────────
 ORG           = 'Naadir-Dev-Portfolio'
-PORTFOLIO_DIR = 'portfolio'          # folder inside each repo
+PORTFOLIO_DIR = 'portfolio'
 JSON_PATTERN  = re.compile(r'^portfolio/[^/]+\.json$', re.IGNORECASE)
+IMG_EXTS      = {'.webp', '.png', '.jpg', '.jpeg'}
 OUTPUT_FILE   = 'assets/js/data.js'
+IMAGES_DIR    = 'assets/images/projects'
 TOKEN         = os.environ.get('PORTFOLIO_TOKEN', '')
 
 # ── Canonical section / category skeleton ─────────────────────────────────────
-# Keys must match exactly what main.js expects.
 SKELETON = {
     'python':            {'desktop': [], 'automation': [], 'trading': [], 'quant': []},
     'excelvba':          {'vba-macros': [], 'powerquery': [], 'power-automate': []},
@@ -81,7 +93,6 @@ def gh_request(path: str) -> list | dict | None:
                 link_header = resp.headers.get('Link', '')
                 if isinstance(data, list):
                     results.extend(data)
-                    # Follow pagination
                     next_url = None
                     for part in link_header.split(','):
                         part = part.strip()
@@ -89,7 +100,7 @@ def gh_request(path: str) -> list | dict | None:
                             next_url = part.split(';')[0].strip().strip('<>')
                     url = next_url
                 else:
-                    return data          # single object response
+                    return data
         except HTTPError as e:
             if e.code == 404:
                 return None
@@ -107,13 +118,52 @@ def fetch_json_content(repo_name: str, file_path: str) -> dict | None:
     data = gh_request(f'/repos/{ORG}/{repo_name}/contents/{file_path}')
     if not data or 'content' not in data:
         return None
-    import base64
     raw = base64.b64decode(data['content']).decode('utf-8')
     try:
         return json.loads(raw)
     except json.JSONDecodeError as e:
         print(f'  JSON parse error in {repo_name}/{file_path}: {e}', file=sys.stderr)
         return None
+
+
+def fetch_image(repo_name: str, filename: str) -> bool:
+    """
+    Download portfolio/{filename} from the repo and save to assets/images/projects/.
+    Returns True if the image was saved successfully.
+    """
+    file_path = f'{PORTFOLIO_DIR}/{filename}'
+    data = gh_request(f'/repos/{ORG}/{repo_name}/contents/{file_path}')
+    if not data:
+        print(f'    ⚠  Image not found in {repo_name}/portfolio/{filename}', file=sys.stderr)
+        return False
+
+    out_path = Path(IMAGES_DIR) / filename
+
+    # GitHub contents API returns base64 for files under ~1MB
+    if data.get('encoding') == 'base64' and 'content' in data:
+        raw = base64.b64decode(data['content'])
+        out_path.write_bytes(raw)
+        print(f'    ↓ image: {filename} ({len(raw):,} bytes)')
+        return True
+
+    # Larger files: fetch via download_url
+    download_url = data.get('download_url')
+    if download_url:
+        try:
+            req = Request(download_url)
+            if TOKEN:
+                req.add_header('Authorization', f'Bearer {TOKEN}')
+            with urlopen(req, timeout=60) as resp:
+                raw = resp.read()
+            out_path.write_bytes(raw)
+            print(f'    ↓ image (large): {filename} ({len(raw):,} bytes)')
+            return True
+        except Exception as e:
+            print(f'    ⚠  Could not download {filename}: {e}', file=sys.stderr)
+            return False
+
+    print(f'    ⚠  No content or download_url for {filename}', file=sys.stderr)
+    return False
 
 
 # ── Main compile logic ─────────────────────────────────────────────────────────
@@ -140,6 +190,9 @@ def compile_all() -> dict:
     import copy
     data = copy.deepcopy(SKELETON)
 
+    # Ensure images output directory exists
+    Path(IMAGES_DIR).mkdir(parents=True, exist_ok=True)
+
     print(f'Fetching repos for org: {ORG}')
     repos = get_org_repos()
     if not repos:
@@ -151,7 +204,6 @@ def compile_all() -> dict:
     for repo in repos:
         repo_name = repo['name']
 
-        # Check if portfolio/ directory exists
         tree = gh_request(f'/repos/{ORG}/{repo_name}/git/trees/HEAD?recursive=1')
         if not tree or 'tree' not in tree:
             continue
@@ -181,10 +233,22 @@ def compile_all() -> dict:
             if category not in data[section]:
                 data[section][category] = []
 
+            # ── Download images from the repo's portfolio/ folder ──────────────
+            # Single image
+            img = card.get('img', '').strip()
+            if img and Path(img).suffix.lower() in IMG_EXTS:
+                fetch_image(repo_name, img)
+
+            # Multiple images (editorial card)
+            for extra_img in card.get('imgs', []):
+                extra_img = extra_img.strip()
+                if extra_img and Path(extra_img).suffix.lower() in IMG_EXTS:
+                    fetch_image(repo_name, extra_img)
+
             data[section][category].append(card)
             print(f'    + {section}/{category}: {card.get("title","(untitled)")}')
 
-    # Sort each category list by 'n' field (default 99 so unsorted items go last)
+    # Sort each category list by 'n' field
     for section in data.values():
         for cat_key, cards in section.items():
             section[cat_key] = sorted(cards, key=lambda c: c.get('n', 99))
@@ -202,7 +266,6 @@ def to_js_value(obj, indent=0) -> str:
             return '{}'
         lines = []
         for k, v in obj.items():
-            # Quote key if needed
             key = k if re.match(r'^[a-zA-Z_$][a-zA-Z0-9_$]*$', k) else f"'{k}'"
             lines.append(f'{pad1}{key}:{to_js_value(v, indent + 1)}')
         return '{\n' + ',\n'.join(lines) + '\n' + pad + '}'
@@ -222,7 +285,6 @@ def to_js_value(obj, indent=0) -> str:
     if obj is None:
         return 'null'
 
-    # String — escape for JS
     s = str(obj)
     s = s.replace('\\', '\\\\').replace("'", "\\'").replace('\n', '\\n').replace('\r', '')
     return f"'{s}'"
@@ -237,6 +299,7 @@ def write_data_js(data: dict):
    Auto-regenerated by GitHub Actions (.github/workflows/compile-portfolio.yml).
    DO NOT edit this file manually — your changes will be overwritten.
    To add/update a project, edit portfolio/*.json in that project's repo.
+   Project images are auto-downloaded from each repo's portfolio/ folder.
    Last compiled: {timestamp}
    ============================================================ */
 window.__PORTFOLIO = {{
