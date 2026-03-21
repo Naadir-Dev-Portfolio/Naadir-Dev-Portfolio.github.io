@@ -1058,3 +1058,234 @@ a.hero-panel-content:focus-visible{
 ::selection{background:rgba(154,163,173,.2)}
 :focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 
+
+/* ═══════════════════════════════════════════════════════════
+   DESIGN REFRESH — grain texture, larger type, experience,
+   about metadata, improved mobile readability
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── GRAIN TEXTURE OVERLAY ──────────────────────────────────
+   Subtle animated film-grain that sits above dark sections
+   but below nav (z-index 100) and AI chat (z-index 90+).   */
+.grain-overlay {
+  position: fixed;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  background-image: url('../images/texture.png');
+  background-repeat: repeat;
+  background-size: 256px 256px;
+  opacity: 0.55;
+  pointer-events: none;
+  z-index: 3;
+  animation: grain-shift 8s steps(4) infinite;
+  mix-blend-mode: overlay;
+}
+@keyframes grain-shift {
+  0%   { transform: translate(0%,   0%);   }
+  25%  { transform: translate(-4%,  -5%);  }
+  50%  { transform: translate(-8%,   4%);  }
+  75%  { transform: translate( 4%,  -7%);  }
+  100% { transform: translate(0%,   0%);   }
+}
+
+/* ── FONT SIZE BUMPS ────────────────────────────────────────
+   Override default small values for better mobile legibility */
+.section-title {
+  font-size: clamp(1.7rem, 2.8vw, 2.3rem);
+}
+.section-subtitle,
+.about-blurb,
+.books-note {
+  font-size: 1.03rem;
+  line-height: 1.75;
+}
+.tab-btn    { font-size: .9rem; }
+.sub-btn    { font-size: .83rem; }
+.role-tag   { font-size: .82rem; padding: .32rem .85rem; }
+.card-editorial-body h3 { font-size: 1.08rem; }
+.card-editorial-body p  { font-size: .92rem; line-height: 1.55; }
+.card-gal-body h3       { font-size: .95rem; }
+.card-gal-body p        { font-size: .84rem; }
+.stack-ribbon-track span { font-size: .8rem; }
+.contact-card { font-size: .96rem; }
+.skills-note  { font-size: .88rem; }
+.skill-label-row { font-size: .76rem; }
+.sub-section-text { font-size: 1rem; }
+
+/* ── ABOUT METADATA ROW ────────────────────────────────────
+   Stats block inspired by Manus — Location / Years / Stack  */
+.about-meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .8rem 2.5rem;
+  margin: 1.6rem auto 1.8rem;
+  padding: 1.2rem 1.5rem;
+  max-width: 680px;
+  background: rgba(0,0,0,.05);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+}
+.about-meta-item { text-align: center; }
+.meta-value {
+  display: block;
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--ink);
+  line-height: 1;
+  margin-bottom: .2rem;
+}
+.meta-label {
+  display: block;
+  font-size: .7rem;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: .07em;
+}
+
+/* ── EXPERIENCE SECTION ─────────────────────────────────── */
+#experience.section {
+  background: var(--page);
+  border-radius: 40px;
+}
+
+/* Add z-index context so experience sits above parallax strips */
+#experience.section {
+  position: relative;
+  z-index: 1;
+}
+
+.exp-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: .5rem;
+}
+
+.exp-item {
+  display: grid;
+  grid-template-columns: min(32%, 210px) 1fr;
+  gap: 0 2rem;
+  align-items: start;
+  padding: 1.3rem 1.4rem;
+  border-radius: 16px;
+  background: rgba(0,0,0,.04);
+  border: 1px solid var(--border);
+  transition: border-color .2s, background .2s;
+}
+.exp-item:hover {
+  background: rgba(0,0,0,.07);
+  border-color: rgba(0,0,0,.18);
+}
+
+.exp-meta { padding-top: .1rem; }
+
+.exp-date-pill {
+  display: inline-block;
+  font-size: .73rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+  letter-spacing: .04em;
+  padding: .22rem .6rem;
+  background: rgba(0,0,0,.07);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  margin-bottom: .6rem;
+  white-space: nowrap;
+}
+
+.exp-role {
+  margin: 0 0 .22rem;
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.3;
+}
+
+.exp-company {
+  display: block;
+  font-size: .76rem;
+  color: var(--muted);
+  font-weight: 500;
+  letter-spacing: .02em;
+}
+
+.exp-bullets {
+  margin: 0;
+  padding: .1rem 0 0 1.1rem;
+  list-style: disc;
+}
+.exp-bullets li {
+  font-size: .9rem;
+  color: var(--ink-soft);
+  line-height: 1.68;
+  margin-bottom: .28rem;
+}
+.exp-bullets li::marker { color: var(--muted); }
+
+/* Mobile: stack meta above bullets */
+@media (max-width: 700px) {
+  .exp-item {
+    grid-template-columns: 1fr;
+    gap: .7rem;
+    padding: 1rem 1.1rem;
+  }
+  .exp-date-pill { margin-bottom: .4rem; }
+}
+
+/* ── EXPERIENCE IN RESPONSIVE PILL RULES ─────────────────── */
+#experience.section {
+  border-radius: 40px;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.06);
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+}
+
+@media(max-width:900px){
+  #experience.section {
+    border-top-left-radius: 36px;
+    border-top-right-radius: 36px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
+@media(max-width:600px){
+  #experience.section {
+    border-top-left-radius: 24px;
+    border-top-right-radius: 24px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+  .exp-item { gap: .5rem; }
+  .exp-bullets li { font-size: .85rem; }
+}
+
+/* ── PARALLAX STRIP C (between experience and books) ──────── */
+.parallax-strip-c {
+  background-image: var(--parallax-img);
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+}
+.parallax-strip-c .parallax-inner {
+  background-image: var(--parallax-img);
+}
+@media(max-width:900px){
+  .parallax-strip-c { background: none; }
+  .parallax-strip-c .parallax-inner { display: block; }
+}
+
+/* ── MOBILE: gallery fade uses correct experience colour ───── */
+@media(max-width:900px){
+  .gallery-wrap::after {
+    background: linear-gradient(to right, transparent, var(--page));
+  }
+}

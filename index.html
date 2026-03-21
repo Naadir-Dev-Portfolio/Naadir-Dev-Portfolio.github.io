@@ -11,6 +11,9 @@
 </head>
 <body>
 
+  <!-- Grain texture overlay -->
+  <div class="grain-overlay" aria-hidden="true"></div>
+
   <!-- â•â•â• HEADER â•â•â• -->
   <header class="site-header" id="site-header">
     <a class="brand" href="#hero">
@@ -27,6 +30,10 @@
       <a href="#about">
         <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
         About
+      </a>
+      <a href="#experience">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>
+        Experience
       </a>
       <a href="#books">
         <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
@@ -217,16 +224,30 @@
       <div class="container">
         <div class="section-head">
           <h2 class="section-title">About</h2>
-          <p class="about-blurb">I have 7 years of experience in technical operations and data engineering, building automation, reporting systems, and dashboards that deliver lasting value. I use Python, VBA, Power BI, and Power Query to streamline manual processes, improve reporting accuracy, and create executive-ready KPI insights. Alongside hands-on delivery, I lead and mentor developer teams to build reliable tools that are scalable, practical, and easy for others to use.</p>
+          <p class="about-blurb">I am passionate about building things that actually work — not just technically, but for the people who depend on them every day. Seven years of enterprise experience across MI reporting, senior development, and data &amp; technology leadership have sharpened my instinct for what matters: clean automation, reliable reporting, and tools that save real time. Mostly self-taught across Python, VBA, Power BI, React Native, and AI, I bring a maker's curiosity and a no-limits mindset to every project. Whether it's a Python pipeline that frees a team from hours of manual work or an AI-powered dashboard that turns data into decisions, I build things that last.</p>
+        </div>
+        <div class="about-meta">
+          <div class="about-meta-item">
+            <span class="meta-value">7+</span>
+            <span class="meta-label">Years Experience</span>
+          </div>
+          <div class="about-meta-item">
+            <span class="meta-value">Enterprise</span>
+            <span class="meta-label">Data &amp; Tech Background</span>
+          </div>
+          <div class="about-meta-item">
+            <span class="meta-value">Self-Taught</span>
+            <span class="meta-label">Multi-Language Builder</span>
+          </div>
         </div>
         <div class="about-roles">
           <span class="role-tag">Python &amp; VBA</span>
-          <span class="role-tag">Power BI &amp; Query</span>
-          <span class="role-tag">Automation</span>
-          <span class="role-tag">Data Governance</span>
-          <span class="role-tag">AI Tools</span>
-          <span class="role-tag">Dashboard Design</span>
-          <span class="role-tag">Team Leadership</span>
+          <span class="role-tag">Power BI &amp; Power Query</span>
+          <span class="role-tag">Automation &amp; Scripting</span>
+          <span class="role-tag">AI &amp; Prompt Engineering</span>
+          <span class="role-tag">React Native &amp; Web</span>
+          <span class="role-tag">Data Analysis</span>
+          <span class="role-tag">Technical Leadership</span>
         </div>
         <p class="skills-note">Skill breakdown — auto-calculated from project portfolio</p>
         <div class="skills-panel">
@@ -234,8 +255,8 @@
         </div>
         <div class="stack-ribbon">
           <div class="stack-ribbon-track">
-            <span>Python</span><span>NumPy</span><span>Pandas</span><span>Matplotlib</span><span>PyQt6</span><span>Streamlit</span><span>FastAPI</span><span>Gemini API</span><span>Power BI</span><span>Power Automate</span><span>VBA / Excel</span><span>HTML</span><span>CSS</span><span>JavaScript</span><span>Prompt Engineering</span><span>ExtendScript</span><span>scikit-learn</span><span>OpenAI API</span>
-            <span>Python</span><span>NumPy</span><span>Pandas</span><span>Matplotlib</span><span>PyQt6</span><span>Streamlit</span><span>FastAPI</span><span>Gemini API</span><span>Power BI</span><span>Power Automate</span><span>VBA / Excel</span><span>HTML</span><span>CSS</span><span>JavaScript</span><span>Prompt Engineering</span><span>ExtendScript</span><span>scikit-learn</span><span>OpenAI API</span>
+            <span>Python</span><span>NumPy</span><span>Pandas</span><span>Matplotlib</span><span>PyQt6</span><span>Streamlit</span><span>FastAPI</span><span>Gemini API</span><span>Power BI</span><span>Power Automate</span><span>VBA / Excel</span><span>HTML</span><span>CSS</span><span>JavaScript</span><span>React Native</span><span>Expo</span><span>Prompt Engineering</span><span>ExtendScript</span><span>scikit-learn</span><span>OpenAI API</span><span>GitHub</span><span>GitHub Actions</span><span>Netlify</span><span>Supabase</span>
+            <span>Python</span><span>NumPy</span><span>Pandas</span><span>Matplotlib</span><span>PyQt6</span><span>Streamlit</span><span>FastAPI</span><span>Gemini API</span><span>Power BI</span><span>Power Automate</span><span>VBA / Excel</span><span>HTML</span><span>CSS</span><span>JavaScript</span><span>React Native</span><span>Expo</span><span>Prompt Engineering</span><span>ExtendScript</span><span>scikit-learn</span><span>OpenAI API</span><span>GitHub</span><span>GitHub Actions</span><span>Netlify</span><span>Supabase</span>
           </div>
         </div>
       </div>
@@ -243,6 +264,62 @@
 
     <!-- â”€â”€ Parallax strip #2 â”€â”€ -->
     <div class="parallax-strip parallax-strip-b" role="presentation" aria-hidden="true"><div class="parallax-inner"></div></div>
+
+    <!-- ═══ EXPERIENCE ═══ -->
+    <section id="experience" class="section reveal-section">
+      <div class="container">
+        <div class="section-head">
+          <h2 class="section-title">Experience</h2>
+          <p class="section-subtitle">Seven years in enterprise &mdash; from MI reporting roots to leading data &amp; AI initiatives.</p>
+        </div>
+        <div class="exp-timeline">
+
+          <article class="exp-item">
+            <div class="exp-meta">
+              <span class="exp-date-pill">2023 &mdash; Present</span>
+              <h3 class="exp-role">Data &amp; Technology Support</h3>
+              <span class="exp-company">Enterprise</span>
+            </div>
+            <ul class="exp-bullets">
+              <li>Driving AI and automation initiatives &mdash; building Python pipelines and intelligent tooling that cuts operational overhead across enterprise teams</li>
+              <li>Architecting Power BI dashboards, data infrastructure, and reporting frameworks that deliver executive-level insight on demand</li>
+              <li>Leading cross-functional technical decisions, mentoring developers, and governing the data and technology stack</li>
+            </ul>
+          </article>
+
+          <article class="exp-item">
+            <div class="exp-meta">
+              <span class="exp-date-pill">2021 &mdash; 2023</span>
+              <h3 class="exp-role">Senior Report Developer</h3>
+              <span class="exp-company">Enterprise</span>
+            </div>
+            <ul class="exp-bullets">
+              <li>Designed and delivered complex Power BI dashboards and VBA automation tools adopted across multiple departments</li>
+              <li>Engineered end-to-end reporting pipelines using Power Query, SQL, and SAP GUI scripting &mdash; eliminating hours of manual processing each week</li>
+              <li>Promoted to senior within two years by consistently delivering high-impact, production-grade data solutions</li>
+            </ul>
+          </article>
+
+          <article class="exp-item">
+            <div class="exp-meta">
+              <span class="exp-date-pill">2019 &mdash; 2021</span>
+              <h3 class="exp-role">MI Reporting Administrator</h3>
+              <span class="exp-company">Enterprise</span>
+            </div>
+            <ul class="exp-bullets">
+              <li>Produced and maintained management information reports for senior stakeholders and operational teams</li>
+              <li>Automated recurring reporting workflows using VBA, Excel, and Power Query &mdash; reducing manual effort by several hours weekly</li>
+              <li>Built foundational expertise in data governance, accuracy standards, and stakeholder communication</li>
+            </ul>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Parallax strip between experience and books ── -->
+    <div class="parallax-strip parallax-strip-c" role="presentation" aria-hidden="true"><div class="parallax-inner"></div></div>
+
 
     <!-- â•â•â• BOOKS â•â•â• -->
     <section id="books" class="section reveal-section">
@@ -303,6 +380,7 @@
       <div class="footer-links">
         <a href="#projects">Projects</a>
         <a href="#about">About</a>
+        <a href="#experience">Experience</a>
         <a href="#contact">Contact</a>
         <a href="https://example.com" target="_blank" rel="noreferrer">LinkedIn</a>
         <a href="https://github.com/Naadir-Dev-Portfolio" target="_blank" rel="noreferrer">GitHub</a>
