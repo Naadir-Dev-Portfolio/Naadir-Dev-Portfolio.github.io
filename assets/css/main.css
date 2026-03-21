@@ -505,18 +505,35 @@ a.hero-panel-content:focus-visible{
 
 .container{
   max-width:var(--max);margin:0 auto;
+  position:relative;
+  overflow:hidden;
+  isolation:isolate;
   background:
-    url('../images/card-texture.png'),
     radial-gradient(ellipse 60% 50% at 18% 8%, rgba(255,255,255,.68) 0%, transparent 55%),
     radial-gradient(ellipse 45% 35% at 82% 92%, rgba(180,190,205,.32) 0%, transparent 50%),
     radial-gradient(circle at 50% 45%, rgba(210,215,225,.28) 0%, transparent 70%),
     linear-gradient(168deg, #eef2f8 0%, #e6eaf2 30%, #dde2ec 60%, #d5dbe7 100%);
-  background-blend-mode: multiply, normal, normal, normal, normal;
-  background-repeat: repeat, no-repeat, no-repeat, no-repeat, no-repeat;
   border:1px solid rgba(255,255,255,.04);
   border-radius:28px;
   padding:var(--pad);
   box-shadow:0 8px 56px rgba(0,0,0,.48), 0 1px 0 rgba(255,255,255,.06), 0 -2px 24px rgba(154,163,173,.06);
+}
+
+/* ── CONTAINER TEXTURE OVERLAY ─────────────────────────────────
+   Drop any image into assets/images/card-texture.png to apply it.
+   Remove the file and this pseudo-element simply disappears.
+   Tweak opacity below to control strength (0.05 = barely there, 0.15 = obvious). */
+.container::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  background-image:url('../images/card-texture.png');
+  background-repeat:repeat;
+  background-size:auto;
+  opacity:0.08;
+  pointer-events:none;
+  z-index:-1;
 }
 
 .section-head{text-align:center;margin-bottom:1.5rem}
