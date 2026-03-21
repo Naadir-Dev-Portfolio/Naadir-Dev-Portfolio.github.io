@@ -383,9 +383,8 @@
       {name:'VBA / Excel',          cats:['excelvba'],                  tags:['vba','excel'],                  base:26},
       {name:'Power BI',             cats:['powerbi'],                   tags:['powerbi'],                      base:21},
       {name:'JavaScript / Web',     cats:['web','browserextensions'],   tags:['js','web','html','css','game'], base:12},
-      {name:'AI / Machine Learning',cats:['ai'],                        tags:['ai','gemini','streamlit'],      base:16},
+      {name:'AI / Agents',          cats:['ai'],                        tags:['ai','gemini'],                  base:16},
       {name:'Automation',           cats:[],                            tags:['automation','extendscript'],    base:22},
-      {name:'Prompt Engineering',   cats:[],                            tags:['prompt-eng'],                   base:19},
       {name:'Data Visualisation',   cats:[],                            tags:['data-viz','pyqt'],              base:16},
       {name:'React Native / Mobile',cats:['mobile'],                    tags:['react-native','mobile'],        base:8},
       {name:'Power Automate',       cats:['excelvba'],                  tags:['power-automate'],               base:19}

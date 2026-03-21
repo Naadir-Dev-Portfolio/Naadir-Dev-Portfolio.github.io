@@ -1351,3 +1351,46 @@ a.hero-panel-content:focus-visible{
     grid-template-columns: 1fr;
   }
 }
+
+/* ── SKILLS CATEGORIES — 3+2 CENTRED GRID LAYOUT ─────────────
+   Row 1: Languages | Frontend, Desktop & Mobile | Data & Reporting
+   Row 2 (centred): AI & Agents | Tools & Cloud
+   Uses 6-column grid so row 2 can be offset-centred.            */
+.skills-categories {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1.4rem 1.2rem;
+  margin: 1.6rem 0 1.8rem;
+  /* Reset the earlier auto-fit rule */
+}
+
+/* Row 1 — each of the first 3 spans 2 of 6 columns */
+.skill-cat:nth-child(1) { grid-column: 1 / span 2; }
+.skill-cat:nth-child(2) { grid-column: 3 / span 2; }
+.skill-cat:nth-child(3) { grid-column: 5 / span 2; }
+
+/* Row 2 — 2 items centred: start at col 2 and col 4, 1 empty col each side */
+.skill-cat:nth-child(4) { grid-column: 2 / span 2; }
+.skill-cat:nth-child(5) { grid-column: 4 / span 2; }
+
+/* Tablet: 2-column, all items same width */
+@media (max-width: 900px) {
+  .skills-categories {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem .9rem;
+  }
+  .skill-cat:nth-child(1),
+  .skill-cat:nth-child(2),
+  .skill-cat:nth-child(3),
+  .skill-cat:nth-child(4),
+  .skill-cat:nth-child(5) {
+    grid-column: auto;
+  }
+}
+
+/* Mobile: single column */
+@media (max-width: 500px) {
+  .skills-categories {
+    grid-template-columns: 1fr;
+  }
+}
