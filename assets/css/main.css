@@ -507,7 +507,6 @@ a.hero-panel-content:focus-visible{
   max-width:var(--max);margin:0 auto;
   position:relative;
   overflow:hidden;
-  isolation:isolate;
   background:
     radial-gradient(ellipse 60% 50% at 18% 8%, rgba(255,255,255,.68) 0%, transparent 55%),
     radial-gradient(ellipse 45% 35% at 82% 92%, rgba(180,190,205,.32) 0%, transparent 50%),
@@ -534,7 +533,13 @@ a.hero-panel-content:focus-visible{
   background-position:center;
   opacity:0.21;
   pointer-events:none;
-  z-index:-1;
+  z-index:0;
+}
+
+/* Ensure all container content sits above the texture overlay */
+.container > *{
+  position:relative;
+  z-index:1;
 }
 
 .section-head{text-align:center;margin-bottom:1.5rem}
