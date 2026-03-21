@@ -532,7 +532,7 @@ a.hero-panel-content:focus-visible{
   background-repeat:no-repeat;
   background-size:cover;
   background-position:center;
-  opacity:0.18;
+  opacity:0.32;
   pointer-events:none;
   z-index:-1;
 }
