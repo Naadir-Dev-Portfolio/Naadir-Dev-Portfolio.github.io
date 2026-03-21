@@ -6,8 +6,9 @@
   'use strict';
 
   const GITHUB  = 'https://github.com/Naadir-Dev-Portfolio';
-  const IMGS      = 'assets/images/projects/';
   const BOOK_IMGS = 'assets/images/books/';
+  /* img fields are raw.githubusercontent.com URLs (set by compile script) */
+  function imgSrc(url){ return url || ''; }
   const AI_URL  = 'https://subtle-khapse-c232ff.netlify.app/.netlify/functions/gemini-proxy';
   const AI_SYS  = `You are Naadir's AI Assistant. Professional and concise. Naadir builds automation tools, AI systems, data pipelines and mobile apps. Projects include: Spheria (hero project — AI desktop OS with multi-agent orchestration, tool calling and persistent memory), Mobile Health Planner (React Native / Expo SDK 54 cross-platform health app for Android), Health Planner Desktop (PyQt6 + QWebEngineView hybrid desktop health app), Trading-Algo-Backtester (ML-powered backtester), Finance & Health PyQt6 dashboards, Adobe Script Toolkit (Python+COM sticker pack pipeline, JSX automation for Illustrator & After Effects), ComfyUI Workflows (Stable Diffusion image generation pipelines with Python batch automation), Enterprise GenAI assistant, AI Quiz Bot, Finance NL Query (natural language financial data interface), economic data scripts, educational web games, VBA/SAP automation tools, Power Query M templates, Power BI dashboards, crypto news aggregator, and more. Skills: Python, VBA/Excel, Power Query, Power BI, Power Automate, JavaScript, React Native, TypeScript, AI/ML, multi-agent systems, prompt engineering, ExtendScript/JSX, ComfyUI, PyQt6, Streamlit. Keep answers brief and professional.`.trim();
 
@@ -196,7 +197,7 @@
   function buildFeaturedCard(p){
     const vid = resolveVideo(p);
     const src = vid ? `https://img.youtube.com/vi/${vid.id}/hqdefault.jpg`
-                    : `${IMGS}${p.img || (p.imgs && p.imgs[0]) || ''}`;
+                    : imgSrc(p.img || (p.imgs && p.imgs[0]) || '');
     const href = cardHref(p);
     return `
       <div class="card card-featured"${href?` data-href="${href}"`:''}>
@@ -220,7 +221,7 @@
   function buildGalleryCard(p){
     const vid = resolveVideo(p);
     const src = vid ? `https://img.youtube.com/vi/${vid.id}/hqdefault.jpg`
-                    : `${IMGS}${p.img}`;
+                    : imgSrc(p.img);
     const href = cardHref(p);
     return `
       <div class="card card-gallery"${href?` data-href="${href}"`:''}>

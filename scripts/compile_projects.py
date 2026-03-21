@@ -6,8 +6,8 @@ Scans every repo in the Naadir-Dev-Portfolio GitHub organisation for a
 `portfolio/` directory, fetches all files matching `portfolio/*.json`,
 and compiles them into `assets/js/data.js`.
 
-Also downloads any image files referenced in the JSON `img` / `imgs` fields
-from each repo's `portfolio/` folder and saves them to `assets/images/projects/`.
+Image filenames in the JSON `img` / `imgs` fields are automatically resolved
+to raw.githubusercontent.com URLs — no local downloading or storage needed.
 
 Each JSON file = one project card.  Multiple JSON files in the same repo =
 multiple cards for that repo (great for toolkits / mono-repos).
@@ -30,9 +30,9 @@ JSON schema (all fields optional except `title`):
 
 Image workflow:
   Place the screenshot in the repo's portfolio/ folder with the same filename
-  as the `img` field (e.g. portfolio/screenshot.webp). This script downloads
-  it automatically and saves it to assets/images/projects/ in the portfolio repo.
-  No manual copying required.
+  as the `img` field (e.g. portfolio/screenshot.webp). The compile script
+  resolves each filename to a raw.githubusercontent.com URL automatically.
+  No manual copying or local storage required.
 
 Run locally:
   PORTFOLIO_TOKEN=ghp_xxx python scripts/compile_projects.py
@@ -56,7 +56,7 @@ PORTFOLIO_DIR = 'portfolio'
 JSON_PATTERN  = re.compile(r'^portfolio/[^/]+\.json$', re.IGNORECASE)
 IMG_EXTS      = {'.webp', '.png', '.jpg', '.jpeg'}
 OUTPUT_FILE   = 'assets/js/data.js'
-IMAGES_DIR    = 'assets/images/projects'
+RAW_BASE      = 'https://raw.githubusercontent.com'
 TOKEN         = os.environ.get('PORTFOLIO_TOKEN', '')
 
 # ── Canonical section / category skeleton ─────────────────────────────────────
@@ -126,44 +126,12 @@ def fetch_json_content(repo_name: str, file_path: str) -> dict | None:
         return None
 
 
-def fetch_image(repo_name: str, filename: str) -> bool:
+def resolve_image_url(repo_name: str, filename: str) -> str:
     """
-    Download portfolio/{filename} from the repo and save to assets/images/projects/.
-    Returns True if the image was saved successfully.
+    Return the raw.githubusercontent.com URL for portfolio/{filename} in the repo.
+    Uses the default branch name from the repo metadata if available, else 'main'.
     """
-    file_path = f'{PORTFOLIO_DIR}/{filename}'
-    data = gh_request(f'/repos/{ORG}/{repo_name}/contents/{file_path}')
-    if not data:
-        print(f'    ⚠  Image not found in {repo_name}/portfolio/{filename}', file=sys.stderr)
-        return False
-
-    out_path = Path(IMAGES_DIR) / filename
-
-    # GitHub contents API returns base64 for files under ~1MB
-    if data.get('encoding') == 'base64' and 'content' in data:
-        raw = base64.b64decode(data['content'])
-        out_path.write_bytes(raw)
-        print(f'    ↓ image: {filename} ({len(raw):,} bytes)')
-        return True
-
-    # Larger files: fetch via download_url
-    download_url = data.get('download_url')
-    if download_url:
-        try:
-            req = Request(download_url)
-            if TOKEN:
-                req.add_header('Authorization', f'Bearer {TOKEN}')
-            with urlopen(req, timeout=60) as resp:
-                raw = resp.read()
-            out_path.write_bytes(raw)
-            print(f'    ↓ image (large): {filename} ({len(raw):,} bytes)')
-            return True
-        except Exception as e:
-            print(f'    ⚠  Could not download {filename}: {e}', file=sys.stderr)
-            return False
-
-    print(f'    ⚠  No content or download_url for {filename}', file=sys.stderr)
-    return False
+    return f'{RAW_BASE}/{ORG}/{repo_name}/main/portfolio/{filename}'
 
 
 # ── Main compile logic ─────────────────────────────────────────────────────────
@@ -189,9 +157,6 @@ def compile_all() -> dict:
     """Return the full DATA dict by scanning all org repos."""
     import copy
     data = copy.deepcopy(SKELETON)
-
-    # Ensure images output directory exists
-    Path(IMAGES_DIR).mkdir(parents=True, exist_ok=True)
 
     print(f'Fetching repos for org: {ORG}')
     repos = get_org_repos()
@@ -233,17 +198,23 @@ def compile_all() -> dict:
             if category not in data[section]:
                 data[section][category] = []
 
-            # ── Download images from the repo's portfolio/ folder ──────────────
+            # ── Resolve image filenames → raw GitHub URLs ──────────────────────
             # Single image
             img = card.get('img', '').strip()
             if img and Path(img).suffix.lower() in IMG_EXTS:
-                fetch_image(repo_name, img)
+                card['img'] = resolve_image_url(repo_name, img)
+                print(f'    → img: {card["img"]}')
 
             # Multiple images (editorial card)
+            resolved_imgs = []
             for extra_img in card.get('imgs', []):
                 extra_img = extra_img.strip()
                 if extra_img and Path(extra_img).suffix.lower() in IMG_EXTS:
-                    fetch_image(repo_name, extra_img)
+                    resolved_imgs.append(resolve_image_url(repo_name, extra_img))
+                else:
+                    resolved_imgs.append(extra_img)
+            if resolved_imgs:
+                card['imgs'] = resolved_imgs
 
             data[section][category].append(card)
             print(f'    + {section}/{category}: {card.get("title","(untitled)")}')

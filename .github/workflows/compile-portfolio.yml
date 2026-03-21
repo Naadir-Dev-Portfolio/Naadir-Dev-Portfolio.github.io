@@ -30,11 +30,11 @@ jobs:
           PORTFOLIO_TOKEN: ${{ secrets.PORTFOLIO_TOKEN }}
         run: python scripts/compile_projects.py
 
-      - name: Commit updated data.js and project images (if changed)
+      - name: Commit updated data.js (if changed)
         run: |
           git config user.name  "Naadir-Dev-Portfolio"
           git config user.email "Naadir-Dev-Portfolio@users.noreply.github.com"
-          git add assets/js/data.js assets/images/projects/
+          git add assets/js/data.js
           # Only commit if there are actual changes
           if git diff --cached --quiet; then
             echo "No changes — nothing to commit."
