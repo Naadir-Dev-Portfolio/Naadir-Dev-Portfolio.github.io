@@ -537,6 +537,7 @@ a.hero-panel-content:focus-visible{
 .about-blurb{
   margin:0;max-width:720px;margin-inline:auto;
   font-size:.93rem;font-weight:500;color:var(--ink-soft);line-height:1.7;
+  text-align:justify;text-align-last:left;hyphens:auto;
 }
 
 .reveal-section{
@@ -1299,7 +1300,14 @@ a.hero-panel-content:focus-visible{
   margin: 1.6rem 0 1.8rem;
 }
 
-.skill-cat { }
+.skill-cat {
+  display: flex;
+  flex-direction: column;
+  padding: .85rem 1rem;
+  background: rgba(0,0,0,.04);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
 
 .cat-label {
   font-size: .68rem;
@@ -1316,6 +1324,9 @@ a.hero-panel-content:focus-visible{
   display: flex;
   flex-wrap: wrap;
   gap: .3rem;
+  flex: 1;
+  align-content: flex-start;
+  padding-top: .1rem;
 }
 
 .cat-tags span {

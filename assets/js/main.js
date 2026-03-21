@@ -386,6 +386,7 @@
       {name:'AI / Agents',          cats:['ai'],                        tags:['ai','gemini'],                  base:16},
       {name:'Automation',           cats:[],                            tags:['automation','extendscript'],    base:22},
       {name:'Data Visualisation',   cats:[],                            tags:['data-viz','pyqt'],              base:16},
+      {name:'Data Transformation',  cats:['excelvba','powerbi'],        tags:['power-query','etl','vba','excel','dataflow'], base:20},
       {name:'React Native / Mobile',cats:['mobile'],                    tags:['react-native','mobile'],        base:8},
       {name:'Power Automate',       cats:['excelvba'],                  tags:['power-automate'],               base:19}
     ];
