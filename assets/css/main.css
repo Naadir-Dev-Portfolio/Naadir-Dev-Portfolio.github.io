@@ -1291,6 +1291,17 @@ a.hero-panel-content:focus-visible{
   }
 }
 
+/* ── TECH STACK LABEL ──────────────────────────────────────── */
+.tech-stack-label {
+  font-size: .72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  color: var(--muted);
+  margin: 1.8rem 0 .6rem;
+  text-align: center;
+}
+
 /* ── CATEGORISED SKILLS GRID ───────────────────────────────
    Replaces flat role-tag pills with Frontend/AI/Tools groups */
 .skills-categories {
@@ -1315,7 +1326,7 @@ a.hero-panel-content:focus-visible{
   color: var(--ink);
   margin: 0 0 .6rem;
   padding-bottom: .38rem;
-  border-bottom: 2px solid var(--acc);
+  border-bottom: 1px solid var(--acc);
   width: 100%;
   text-align: center;
 }
