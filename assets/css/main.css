@@ -1289,3 +1289,65 @@ a.hero-panel-content:focus-visible{
     background: linear-gradient(to right, transparent, var(--page));
   }
 }
+
+/* ── CATEGORISED SKILLS GRID ───────────────────────────────
+   Replaces flat role-tag pills with Frontend/AI/Tools groups */
+.skills-categories {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 1.2rem 1rem;
+  margin: 1.6rem 0 1.8rem;
+}
+
+.skill-cat { }
+
+.cat-label {
+  font-size: .68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: var(--muted);
+  margin: 0 0 .55rem;
+  padding-bottom: .35rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.cat-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .3rem;
+}
+
+.cat-tags span {
+  font-size: .78rem;
+  font-weight: 500;
+  padding: .24rem .62rem;
+  background: rgba(0,0,0,.05);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--ink-soft);
+  transition: background .18s, color .18s, border-color .18s;
+  cursor: default;
+}
+
+.cat-tags span:hover {
+  background: rgba(0,0,0,.1);
+  color: var(--ink);
+  border-color: rgba(0,0,0,.18);
+}
+
+/* Mobile: collapse to 2 columns */
+@media (max-width: 600px) {
+  .skills-categories {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem .8rem;
+  }
+  .cat-tags span { font-size: .75rem; }
+}
+
+/* Very small screens: single column */
+@media (max-width: 380px) {
+  .skills-categories {
+    grid-template-columns: 1fr;
+  }
+}
