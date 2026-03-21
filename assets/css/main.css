@@ -506,7 +506,7 @@ a.hero-panel-content:focus-visible{
 .container{
   max-width:var(--max);margin:0 auto;
   background:
-    url('../images/wood-grain.png'), /* wood grain — tune opacity via PNG alpha */
+    url('../images/card-texture.png'),
     radial-gradient(ellipse 60% 50% at 18% 8%, rgba(255,255,255,.68) 0%, transparent 55%),
     radial-gradient(ellipse 45% 35% at 82% 92%, rgba(180,190,205,.32) 0%, transparent 50%),
     radial-gradient(circle at 50% 45%, rgba(210,215,225,.28) 0%, transparent 70%),
