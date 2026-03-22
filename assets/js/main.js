@@ -665,16 +665,11 @@
       overlay.appendChild(img);
 
       if(title){
-        const info = document.createElement('div');
-        info.className = 'card-expand-info';
-        info.innerHTML = '<h4>' + title + '</h4>' + (desc ? '<p>' + desc.slice(0,120) + (desc.length>120?'…':'') + '</p>' : '');
-        overlay.appendChild(info);
+        const caption = document.createElement('div');
+        caption.className = 'card-expand-caption';
+        caption.innerHTML = '<h4>' + title + '</h4>' + (desc ? '<p>' + desc + '</p>' : '');
+        overlay.appendChild(caption);
       }
-
-      const hint = document.createElement('div');
-      hint.className = 'card-expand-hint';
-      hint.textContent = 'Move away to close';
-      overlay.appendChild(hint);
 
       document.body.appendChild(overlay);
       activeOverlay = overlay;
