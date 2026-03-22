@@ -591,6 +591,99 @@
     tryNext(0);
   }
 
+
+  /* ══════════════════════════════════════════════
+     CARD EXPAND — 2s hover opens full-gallery preview
+     ══════════════════════════════════════════════ */
+  function initCardExpand(){
+    const DELAY = 2000;
+    let hoverTimer = null;
+    let activeOverlay = null;
+
+    function getGalleryRect(card){
+      const gc = card.closest('.gallery-cards');
+      return gc ? gc.getBoundingClientRect() : null;
+    }
+
+    function collapse(overlay, targetRect, onDone){
+      overlay.style.transition = 'left .48s var(--ease), top .48s var(--ease), width .48s var(--ease), height .48s var(--ease), border-radius .48s var(--ease), opacity .48s var(--ease)';
+      overlay.style.left        = targetRect.left + 'px';
+      overlay.style.top         = targetRect.top  + 'px';
+      overlay.style.width       = targetRect.width + 'px';
+      overlay.style.height      = targetRect.height + 'px';
+      overlay.style.borderRadius = '12px';
+      overlay.style.opacity     = '0';
+      overlay.addEventListener('transitionend', ()=>{ overlay.remove(); if(onDone) onDone(); }, {once:true});
+    }
+
+    document.addEventListener('mouseover', e=>{
+      const card = e.target.closest('.card.card-gallery');
+      if(!card || activeOverlay) return;
+
+      clearTimeout(hoverTimer);
+      hoverTimer = setTimeout(()=>{
+        if(activeOverlay) return;
+        const src = card.querySelector('img')?.src;
+        if(!src) return;
+
+        const cardRect    = card.getBoundingClientRect();
+        const galleryRect = getGalleryRect(card);
+        if(!galleryRect) return;
+
+        /* Build overlay starting at the card's exact position */
+        const overlay = document.createElement('div');
+        overlay.className = 'card-expand-overlay';
+        overlay.style.cssText = [
+          'transition:none',
+          'left:'   + cardRect.left   + 'px',
+          'top:'    + cardRect.top    + 'px',
+          'width:'  + cardRect.width  + 'px',
+          'height:' + cardRect.height + 'px',
+          'border-radius:12px',
+          'box-shadow:0 28px 72px rgba(0,0,0,.7)',
+          'opacity:1'
+        ].join(';');
+
+        const img = document.createElement('img');
+        img.src = src; img.alt = '';
+        overlay.appendChild(img);
+
+        /* "Move away to close" hint */
+        const hint = document.createElement('div');
+        hint.className = 'card-expand-hint';
+        hint.textContent = 'Move away to close';
+        overlay.appendChild(hint);
+
+        document.body.appendChild(overlay);
+        activeOverlay = overlay;
+
+        /* Force reflow then animate to full gallery width */
+        overlay.getBoundingClientRect();
+        overlay.style.transition = 'left .52s var(--ease), top .52s var(--ease), width .52s var(--ease), height .52s var(--ease), border-radius .52s var(--ease)';
+        overlay.style.left        = galleryRect.left   + 'px';
+        overlay.style.top         = galleryRect.top    + 'px';
+        overlay.style.width       = galleryRect.width  + 'px';
+        overlay.style.height      = galleryRect.height + 'px';
+        overlay.style.borderRadius = '14px';
+        overlay.classList.add('expanded');
+
+        /* Collapse when mouse leaves the overlay */
+        overlay.addEventListener('mouseleave', ()=>{
+          if(!activeOverlay) return;
+          activeOverlay = null;
+          collapse(overlay, card.getBoundingClientRect(), null);
+        });
+
+      }, DELAY);
+    });
+
+    /* Cancel timer if mouse leaves before 2s */
+    document.addEventListener('mouseout', e=>{
+      const card = e.target.closest('.card.card-gallery');
+      if(card && !activeOverlay){ clearTimeout(hoverTimer); hoverTimer = null; }
+    });
+  }
+
   /* ══ INIT ══ */
   function init(){
     const y=document.getElementById('year');if(y) y.textContent=new Date().getFullYear();
@@ -600,6 +693,7 @@
     populateGrids();
     initTabs();
     initVideoCards();
+    initCardExpand();
     initSkills();
     initBooks();
     initAI();
