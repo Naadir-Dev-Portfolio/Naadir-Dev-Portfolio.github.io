@@ -729,6 +729,7 @@
     });
 
     document.addEventListener('mouseover', e=>{
+      if(window.innerWidth < 1024) return;
       const card = e.target.closest('.card.card-gallery, .card.card-featured');
       if(!card || activeOverlay) return;
       clearTimeout(hoverTimer);
@@ -736,6 +737,7 @@
     });
 
     document.addEventListener('mouseout', e=>{
+      if(window.innerWidth < 1024) return;
       const card = e.target.closest('.card.card-gallery, .card.card-featured');
       if(card && !activeOverlay){ clearTimeout(hoverTimer); hoverTimer = null; }
     });
