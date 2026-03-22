@@ -1469,12 +1469,14 @@ a.hero-panel-content:focus-visible{
   position:absolute;bottom:0;left:0;right:0;
   background:#0a0804;
   padding:1.1rem 1.5rem 1.25rem;
-  transform:translateY(100%);
-  transition:transform .42s .1s var(--ease);
+  opacity:0;
+  transform:translateY(22px);
+  transition:opacity .38s .28s var(--ease), transform .38s .28s var(--ease);
   border-radius:0 0 16px 16px;
   pointer-events:none;
 }
 .card-expand-overlay.expanded .card-expand-caption{
+  opacity:1;
   transform:translateY(0);
 }
 .card-expand-caption h4{

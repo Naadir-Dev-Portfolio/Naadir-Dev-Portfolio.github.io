@@ -636,7 +636,11 @@
     function spawnOverlay(card){
       if(activeOverlay) return;
       const imgEl = card.querySelector('img') || card.querySelector('.card-editorial-img img');
-      const src   = imgEl ? imgEl.src : null;
+      if(!imgEl) return;
+      /* For YouTube thumbnails swap hqdefault → maxresdefault for full quality */
+      const src = imgEl.src.includes('img.youtube.com')
+        ? imgEl.src.replace(/\/[a-z]+default\.jpg/, '/maxresdefault.jpg')
+        : imgEl.src;
       if(!src) return;
 
       const titleEl = card.querySelector('h3');
