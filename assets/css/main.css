@@ -1450,7 +1450,8 @@ a.hero-panel-content:focus-visible{
   z-index:199;
   overflow:hidden;
   pointer-events:auto;
-  will-change:transform,width,height,border-radius;
+  will-change:transform,opacity;
+  transform-origin:center center;
 }
 .card-expand-overlay img{
   width:100%;height:100%;object-fit:contain;display:block;

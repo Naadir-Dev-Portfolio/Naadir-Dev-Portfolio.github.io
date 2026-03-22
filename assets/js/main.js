@@ -597,39 +597,34 @@
      ══════════════════════════════════════════════ */
   function initCardExpand(){
     const DELAY = 500;
-    let hoverTimer = null;
-    let activeOverlay = null;
+    let hoverTimer       = null;
+    let activeOverlay    = null;
+    let activeExpandRect = null;
 
-    /* Compute a viewport-centred rect that preserves the image's natural
-       aspect ratio — so nothing ever gets cropped.
-       Falls back to a 4:3 guess if the image hasn't loaded yet. */
     function naturalExpandRect(imgEl){
       const vw = window.innerWidth;
       const vh = window.innerHeight;
       const maxW = Math.min(vw * 0.88, 1200);
-      const maxH = vh  * 0.84;
-      const nw = imgEl && imgEl.naturalWidth  || 0;
-      const nh = imgEl && imgEl.naturalHeight || 0;
+      const maxH = vh * 0.84;
+      const nw = (imgEl && imgEl.naturalWidth)  || 0;
+      const nh = (imgEl && imgEl.naturalHeight) || 0;
       const ratio = (nw && nh) ? nw / nh : 4 / 3;
       let w, h;
-      if (ratio > maxW / maxH) { w = maxW; h = maxW / ratio; }
-      else                      { h = maxH; w = maxH * ratio; }
-      return {
-        left  : (vw - w) / 2,
-        top   : (vh - h) / 2,
-        width : w,
-        height: h
-      };
+      if(ratio > maxW / maxH){ w = maxW; h = maxW / ratio; }
+      else                    { h = maxH; w = maxH * ratio; }
+      return { left:(vw-w)/2, top:(vh-h)/2, width:w, height:h };
     }
 
-    function collapse(overlay, targetRect, onDone){
-      overlay.style.transition = 'left .42s var(--ease), top .42s var(--ease), width .42s var(--ease), height .42s var(--ease), border-radius .42s var(--ease), opacity .42s var(--ease)';
-      overlay.style.left        = targetRect.left   + 'px';
-      overlay.style.top         = targetRect.top    + 'px';
-      overlay.style.width       = targetRect.width  + 'px';
-      overlay.style.height      = targetRect.height + 'px';
+    /* FLIP collapse — transform back to card rect then fade */
+    function collapse(overlay, cardRect, expandRect, onDone){
+      const sx = cardRect.width  / expandRect.width;
+      const sy = cardRect.height / expandRect.height;
+      const tx = (cardRect.left + cardRect.width  / 2) - (expandRect.left + expandRect.width  / 2);
+      const ty = (cardRect.top  + cardRect.height / 2) - (expandRect.top  + expandRect.height / 2);
+      overlay.style.transition   = 'transform .4s var(--ease), opacity .28s var(--ease), border-radius .4s var(--ease)';
+      overlay.style.transform    = 'translate(' + tx + 'px,' + ty + 'px) scale(' + sx + ',' + sy + ')';
       overlay.style.borderRadius = '12px';
-      overlay.style.opacity     = '0';
+      overlay.style.opacity      = '0';
       overlay.addEventListener('transitionend', ()=>{ overlay.remove(); if(onDone) onDone(); }, {once:true});
     }
 
@@ -637,7 +632,6 @@
       if(activeOverlay) return;
       const imgEl = card.querySelector('img') || card.querySelector('.card-editorial-img img');
       if(!imgEl) return;
-      /* For YouTube thumbnails swap hqdefault → maxresdefault for full quality */
       const src = imgEl.src.includes('img.youtube.com')
         ? imgEl.src.replace(/\/[a-z]+default\.jpg/, '/maxresdefault.jpg')
         : imgEl.src;
@@ -649,19 +643,27 @@
       const desc    = descEl  ? descEl.textContent.trim()  : '';
 
       const cardRect   = card.getBoundingClientRect();
+      const expandRect = naturalExpandRect(imgEl);  /* card img already loaded */
+      activeExpandRect = expandRect;
 
-      /* Build overlay starting at the card's exact position */
+      /* FLIP: place overlay at FINAL size+position, invert via transform */
+      const sx = cardRect.width  / expandRect.width;
+      const sy = cardRect.height / expandRect.height;
+      const tx = (cardRect.left + cardRect.width  / 2) - (expandRect.left + expandRect.width  / 2);
+      const ty = (cardRect.top  + cardRect.height / 2) - (expandRect.top  + expandRect.height / 2);
+
       const overlay = document.createElement('div');
       overlay.className = 'card-expand-overlay';
       overlay.style.cssText = [
         'transition:none',
-        'left:'   + cardRect.left   + 'px',
-        'top:'    + cardRect.top    + 'px',
-        'width:'  + cardRect.width  + 'px',
-        'height:' + cardRect.height + 'px',
-        'border-radius:12px',
-        'box-shadow:0 28px 72px rgba(0,0,0,.72)',
-        'opacity:1'
+        'left:'          + expandRect.left   + 'px',
+        'top:'           + expandRect.top    + 'px',
+        'width:'         + expandRect.width  + 'px',
+        'height:'        + expandRect.height + 'px',
+        'border-radius:16px',
+        'box-shadow:0 32px 80px rgba(0,0,0,.75)',
+        'opacity:1',
+        'transform:translate(' + tx + 'px,' + ty + 'px) scale(' + sx + ',' + sy + ')'
       ].join(';');
 
       const img = document.createElement('img');
@@ -678,23 +680,21 @@
       document.body.appendChild(overlay);
       activeOverlay = overlay;
 
-      /* Wait one frame so naturalWidth/Height are readable, then animate */
+      /* Double rAF: first commits initial paint, second starts GPU animation */
       requestAnimationFrame(()=>{
-        const expandRect = naturalExpandRect(img);
-        overlay.getBoundingClientRect(); /* flush */
-        overlay.style.transition = 'left .48s var(--ease), top .48s var(--ease), width .48s var(--ease), height .48s var(--ease), border-radius .48s var(--ease)';
-        overlay.style.left        = expandRect.left   + 'px';
-        overlay.style.top         = expandRect.top    + 'px';
-        overlay.style.width       = expandRect.width  + 'px';
-        overlay.style.height      = expandRect.height + 'px';
-        overlay.style.borderRadius = '16px';
-        overlay.classList.add('expanded');
+        requestAnimationFrame(()=>{
+          overlay.style.transition = 'transform .52s var(--ease), border-radius .52s var(--ease)';
+          overlay.style.transform  = 'none';
+          overlay.classList.add('expanded');
+        });
       });
 
       overlay.addEventListener('mouseleave', ()=>{
         if(!activeOverlay) return;
-        activeOverlay = null;
-        collapse(overlay, card.getBoundingClientRect(), null);
+        const er = activeExpandRect;
+        activeOverlay    = null;
+        activeExpandRect = null;
+        collapse(overlay, card.getBoundingClientRect(), er, null);
       });
     }
 
