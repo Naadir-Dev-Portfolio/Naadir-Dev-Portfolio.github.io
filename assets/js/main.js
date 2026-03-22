@@ -698,6 +698,36 @@
       });
     }
 
+    // Collapse any active overlay and clear the hover timer
+    function collapseActive(){
+      clearTimeout(hoverTimer); hoverTimer = null;
+      if(!activeOverlay) return;
+      const ov = activeOverlay;
+      const er = activeExpandRect;
+      activeOverlay = null; activeExpandRect = null;
+      // find the card this overlay belongs to so we can collapse back to it
+      const cardEl = document.querySelector('.card.card-gallery, .card.card-featured');
+      collapse(ov, cardEl ? cardEl.getBoundingClientRect() : {left:0,top:0,width:0,height:0}, er, null);
+    }
+
+    // Dismiss on window resize (responsive mode viewport changes)
+    window.addEventListener('resize', collapseActive);
+
+    // Dismiss on any scroll (page or inner containers)
+    window.addEventListener('scroll', collapseActive, true);
+
+    // Dismiss on Escape key
+    document.addEventListener('keydown', e=>{ if(e.key==='Escape') collapseActive(); });
+
+    // Dismiss on click outside the overlay and outside any card
+    document.addEventListener('click', e=>{
+      if(!activeOverlay) return;
+      if(!e.target.closest('.card-expand-overlay') &&
+         !e.target.closest('.card.card-gallery, .card.card-featured')){
+        collapseActive();
+      }
+    });
+
     document.addEventListener('mouseover', e=>{
       const card = e.target.closest('.card.card-gallery, .card.card-featured');
       if(!card || activeOverlay) return;
