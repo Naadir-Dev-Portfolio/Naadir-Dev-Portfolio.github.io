@@ -261,7 +261,7 @@
       return;
     }
     const featured = arr.filter(p => p.n === 1);
-    const rest     = arr.filter(p => p.n !== 1);
+    const rest     = arr.filter(p => p.n !== 1).sort((a,b) => (a.n||99) - (b.n||99));
     const PAGE = 6;
 
     function render(page){
@@ -596,11 +596,17 @@
      CARD EXPAND — 2s hover opens full-gallery preview
      ══════════════════════════════════════════════ */
   function initCardExpand(){
-    const DELAY = 2000;
+    const DELAY = 800;
     let hoverTimer = null;
     let activeOverlay = null;
 
-    function getGalleryRect(card){
+    /* For gallery cards: expand rect = .gallery-cards bounds
+       For featured cards: expand rect = .projects-grid bounds */
+    function getExpandRect(card){
+      if(card.classList.contains('card-featured')){
+        const pg = card.closest('.projects-grid');
+        return pg ? pg.getBoundingClientRect() : null;
+      }
       const gc = card.closest('.gallery-cards');
       return gc ? gc.getBoundingClientRect() : null;
     }
@@ -616,70 +622,87 @@
       overlay.addEventListener('transitionend', ()=>{ overlay.remove(); if(onDone) onDone(); }, {once:true});
     }
 
+    function spawnOverlay(card){
+      if(activeOverlay) return;
+      /* Grab image from gallery card or featured card */
+      const imgEl = card.querySelector('img') || card.querySelector('.card-editorial-img img');
+      const src   = imgEl ? imgEl.src : null;
+      if(!src) return;
+
+      /* Title and description */
+      const titleEl = card.querySelector('h3');
+      const descEl  = card.querySelector('p');
+      const title   = titleEl ? titleEl.textContent.trim() : '';
+      const desc    = descEl  ? descEl.textContent.trim()  : '';
+
+      const cardRect   = card.getBoundingClientRect();
+      const expandRect = getExpandRect(card);
+      if(!expandRect) return;
+
+      /* Build overlay starting at the card's exact position */
+      const overlay = document.createElement('div');
+      overlay.className = 'card-expand-overlay';
+      overlay.style.cssText = [
+        'transition:none',
+        'left:'   + cardRect.left   + 'px',
+        'top:'    + cardRect.top    + 'px',
+        'width:'  + cardRect.width  + 'px',
+        'height:' + cardRect.height + 'px',
+        'border-radius:12px',
+        'box-shadow:0 28px 72px rgba(0,0,0,.7)',
+        'opacity:1'
+      ].join(';');
+
+      const img = document.createElement('img');
+      img.src = src; img.alt = '';
+      overlay.appendChild(img);
+
+      /* Title + description info frame */
+      if(title){
+        const info = document.createElement('div');
+        info.className = 'card-expand-info';
+        info.innerHTML = '<h4>' + title + '</h4>' + (desc ? '<p>' + desc.slice(0,120) + (desc.length>120?'…':'') + '</p>' : '');
+        overlay.appendChild(info);
+      }
+
+      /* "Move away to close" hint */
+      const hint = document.createElement('div');
+      hint.className = 'card-expand-hint';
+      hint.textContent = 'Move away to close';
+      overlay.appendChild(hint);
+
+      document.body.appendChild(overlay);
+      activeOverlay = overlay;
+
+      /* Force reflow then animate to expand rect */
+      overlay.getBoundingClientRect();
+      overlay.style.transition = 'left .52s var(--ease), top .52s var(--ease), width .52s var(--ease), height .52s var(--ease), border-radius .52s var(--ease)';
+      overlay.style.left        = expandRect.left   + 'px';
+      overlay.style.top         = expandRect.top    + 'px';
+      overlay.style.width       = expandRect.width  + 'px';
+      overlay.style.height      = expandRect.height + 'px';
+      overlay.style.borderRadius = '14px';
+      overlay.classList.add('expanded');
+
+      /* Collapse when mouse leaves the overlay */
+      overlay.addEventListener('mouseleave', ()=>{
+        if(!activeOverlay) return;
+        activeOverlay = null;
+        collapse(overlay, card.getBoundingClientRect(), null);
+      });
+    }
+
     document.addEventListener('mouseover', e=>{
-      const card = e.target.closest('.card.card-gallery');
+      const card = e.target.closest('.card.card-gallery, .card.card-featured');
       if(!card || activeOverlay) return;
 
       clearTimeout(hoverTimer);
-      hoverTimer = setTimeout(()=>{
-        if(activeOverlay) return;
-        const src = card.querySelector('img')?.src;
-        if(!src) return;
-
-        const cardRect    = card.getBoundingClientRect();
-        const galleryRect = getGalleryRect(card);
-        if(!galleryRect) return;
-
-        /* Build overlay starting at the card's exact position */
-        const overlay = document.createElement('div');
-        overlay.className = 'card-expand-overlay';
-        overlay.style.cssText = [
-          'transition:none',
-          'left:'   + cardRect.left   + 'px',
-          'top:'    + cardRect.top    + 'px',
-          'width:'  + cardRect.width  + 'px',
-          'height:' + cardRect.height + 'px',
-          'border-radius:12px',
-          'box-shadow:0 28px 72px rgba(0,0,0,.7)',
-          'opacity:1'
-        ].join(';');
-
-        const img = document.createElement('img');
-        img.src = src; img.alt = '';
-        overlay.appendChild(img);
-
-        /* "Move away to close" hint */
-        const hint = document.createElement('div');
-        hint.className = 'card-expand-hint';
-        hint.textContent = 'Move away to close';
-        overlay.appendChild(hint);
-
-        document.body.appendChild(overlay);
-        activeOverlay = overlay;
-
-        /* Force reflow then animate to full gallery width */
-        overlay.getBoundingClientRect();
-        overlay.style.transition = 'left .52s var(--ease), top .52s var(--ease), width .52s var(--ease), height .52s var(--ease), border-radius .52s var(--ease)';
-        overlay.style.left        = galleryRect.left   + 'px';
-        overlay.style.top         = galleryRect.top    + 'px';
-        overlay.style.width       = galleryRect.width  + 'px';
-        overlay.style.height      = galleryRect.height + 'px';
-        overlay.style.borderRadius = '14px';
-        overlay.classList.add('expanded');
-
-        /* Collapse when mouse leaves the overlay */
-        overlay.addEventListener('mouseleave', ()=>{
-          if(!activeOverlay) return;
-          activeOverlay = null;
-          collapse(overlay, card.getBoundingClientRect(), null);
-        });
-
-      }, DELAY);
+      hoverTimer = setTimeout(()=>{ spawnOverlay(card); }, DELAY);
     });
 
-    /* Cancel timer if mouse leaves before 2s */
+    /* Cancel timer if mouse leaves card before delay fires */
     document.addEventListener('mouseout', e=>{
-      const card = e.target.closest('.card.card-gallery');
+      const card = e.target.closest('.card.card-gallery, .card.card-featured');
       if(card && !activeOverlay){ clearTimeout(hoverTimer); hoverTimer = null; }
     });
   }
