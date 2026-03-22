@@ -1453,8 +1453,8 @@ a.hero-panel-content:focus-visible{
   will-change:transform,width,height,border-radius;
 }
 .card-expand-overlay img{
-  width:100%;height:100%;object-fit:cover;display:block;
-  pointer-events:none;
+  width:100%;height:100%;object-fit:contain;display:block;
+  pointer-events:none;background:#0a0804;
 }
 .card-expand-overlay .expand-close{
   position:absolute;top:.75rem;right:.75rem;
