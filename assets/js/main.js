@@ -10,7 +10,7 @@
   /* img fields are raw.githubusercontent.com URLs (set by compile script) */
   function imgSrc(url){ return url || ''; }
   const AI_URL  = 'https://subtle-khapse-c232ff.netlify.app/.netlify/functions/gemini-proxy';
-  const AI_SYS  = `You are Naadir's AI Assistant. Professional and concise. Naadir builds automation tools, AI systems, data pipelines and mobile apps. Projects include: Spheria (hero project — AI desktop OS with multi-agent orchestration, tool calling and persistent memory), Mobile Health Planner (React Native / Expo SDK 54 cross-platform health app for Android), Health Planner Desktop (PyQt6 + QWebEngineView hybrid desktop health app), Trading-Algo-Backtester (ML-powered backtester), Finance & Health PyQt6 dashboards, Adobe Script Toolkit (Python+COM sticker pack pipeline, JSX automation for Illustrator & After Effects), ComfyUI Workflows (Stable Diffusion image generation pipelines with Python batch automation), Enterprise GenAI assistant, AI Quiz Bot, Finance NL Query (natural language financial data interface), economic data scripts, educational web games, VBA/SAP automation tools, Power Query M templates, Power BI dashboards, crypto news aggregator, and more. Skills: Python, VBA/Excel, Power Query, Power BI, Power Automate, JavaScript, React Native, TypeScript, AI/ML, multi-agent systems, prompt engineering, ExtendScript/JSX, ComfyUI, PyQt6, Streamlit. Keep answers brief and professional.`.trim();
+  const AI_SYS  = `You are Naadir's AI Assistant. Professional and concise. Naadir builds automation tools, AI systems, data pipelines and mobile apps. Projects include: Spheria (hero project, AI desktop OS with multi-agent orchestration, tool calling and persistent memory), Mobile Health Planner (React Native / Expo SDK 54 cross-platform health app for Android), Health Planner Desktop (PyQt6 + QWebEngineView hybrid desktop health app), Trading Algo Backtester (ML-powered backtester), Finance & Health PyQt6 dashboards, Adobe Script Toolkit (Python+COM sticker pack pipeline, JSX automation for Illustrator & After Effects), ComfyUI Workflows (Stable Diffusion image generation pipelines with Python batch automation), Enterprise GenAI assistant, AI Quiz Bot, Finance NL Query (natural language financial data interface), economic data scripts, educational web games, VBA/SAP automation tools, Power Query M templates, Power BI dashboards, crypto news aggregator, and more. Skills: Python, VBA/Excel, Power Query, Power BI, Power Automate, JavaScript, React Native, TypeScript, AI/ML, multi-agent systems, prompt engineering, ExtendScript/JSX, ComfyUI, PyQt6, Streamlit. Keep answers brief and professional.`.trim();
 
   /* DATA is loaded from assets/js/data.js (compiled by GitHub Actions) */
   const DATA = (window.__PORTFOLIO && window.__PORTFOLIO.DATA) || {};
@@ -593,10 +593,10 @@
 
 
   /* ══════════════════════════════════════════════
-     CARD EXPAND — 2s hover opens full-gallery preview
+     CARD EXPAND — 2.5s hover opens full-gallery preview
      ══════════════════════════════════════════════ */
   function initCardExpand(){
-    const DELAY = 500;
+    const DELAY = 2000;
     let hoverTimer       = null;
     let activeOverlay    = null;
     let activeExpandRect = null;
@@ -673,7 +673,9 @@
       if(title){
         const caption = document.createElement('div');
         caption.className = 'card-expand-caption';
-        caption.innerHTML = '<h4>' + title + '</h4>' + (desc ? '<p>' + desc + '</p>' : '');
+        const linksEl  = card.querySelector('.card-links');
+        const linksHtml = linksEl ? '<div class="card-expand-links">' + linksEl.innerHTML + '</div>' : '';
+        caption.innerHTML = '<h4>' + title + '</h4>' + (desc ? '<p>' + desc + '</p>' : '') + linksHtml;
         overlay.appendChild(caption);
       }
 
@@ -732,6 +734,11 @@
       if(window.innerWidth < 1024) return;
       const card = e.target.closest('.card.card-gallery, .card.card-featured');
       if(!card || activeOverlay) return;
+      // Only start the timer when entering the card from outside — not when
+      // moving between child elements inside the same card (which resets the
+      // clock on every tiny mouse movement and prevents the overlay appearing).
+      const prevCard = e.relatedTarget?.closest('.card.card-gallery, .card.card-featured');
+      if(prevCard === card) return;
       clearTimeout(hoverTimer);
       hoverTimer = setTimeout(()=>{ spawnOverlay(card); }, DELAY);
     });
@@ -739,7 +746,12 @@
     document.addEventListener('mouseout', e=>{
       if(window.innerWidth < 1024) return;
       const card = e.target.closest('.card.card-gallery, .card.card-featured');
-      if(card && !activeOverlay){ clearTimeout(hoverTimer); hoverTimer = null; }
+      if(!card || activeOverlay) return;
+      // Only cancel when the mouse leaves the card entirely, not when
+      // transitioning between child elements inside the same card.
+      if(!card.contains(e.relatedTarget)){
+        clearTimeout(hoverTimer); hoverTimer = null;
+      }
     });
   }
 

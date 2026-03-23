@@ -3,7 +3,7 @@
   "category": "generativeai",
   "n": 5,
   "title": "Portfolio AI Assistant",
-  "desc": "The AI assistant embedded in this portfolio — a Gemini-powered chat interface that knows my full project history and answers questions about my skills and experience in real time.",
+  "desc": "The AI assistant embedded in this portfolio — a Gemini-powered chat interface that knows my full project history and answers questions about my skills and experience in real-time.",
   "code": "https://github.com/Naadir-Dev-Portfolio/Naadir-Dev-Portfolio.github.io",
   "details": "https://github.com/Naadir-Dev-Portfolio/Naadir-Dev-Portfolio.github.io/blob/main/README.md",
   "tags": [
