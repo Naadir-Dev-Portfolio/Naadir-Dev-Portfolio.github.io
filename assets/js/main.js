@@ -600,14 +600,24 @@
     let hoverTimer       = null;
     let activeOverlay    = null;
     let activeExpandRect = null;
+    let preloadImg       = null;  /* full-res image preloaded during the hover delay */
 
-    function naturalExpandRect(imgEl){
+    /* Derive the full-res src for a card (replaces .ext with -full.ext) */
+    function fullSrcFor(card){
+      const imgEl = card.querySelector('img') || card.querySelector('.card-editorial-img img');
+      if(!imgEl) return null;
+      const src = imgEl.src.includes('img.youtube.com')
+        ? imgEl.src.replace(/\/[a-z]+default\.jpg/, '/maxresdefault.jpg')
+        : imgEl.src;
+      return src.includes('-full.') ? src : src.replace(/(\.[^./?#]+)(\?.*)?$/, '-full$1$2');
+    }
+
+    /* Size the overlay to fit nw×nh within the viewport, preserving aspect ratio */
+    function naturalExpandRect(nw, nh){
       const vw = window.innerWidth;
       const vh = window.innerHeight;
       const maxW = Math.min(vw * 0.88, 1200);
       const maxH = vh * 0.84;
-      const nw = (imgEl && imgEl.naturalWidth)  || 0;
-      const nh = (imgEl && imgEl.naturalHeight) || 0;
       const ratio = (nw && nh) ? nw / nh : 4 / 3;
       let w, h;
       if(ratio > maxW / maxH){ w = maxW; h = maxW / ratio; }
@@ -632,18 +642,23 @@
       if(activeOverlay) return;
       const imgEl = card.querySelector('img') || card.querySelector('.card-editorial-img img');
       if(!imgEl) return;
-      const src = imgEl.src.includes('img.youtube.com')
+      const cardSrc = imgEl.src.includes('img.youtube.com')
         ? imgEl.src.replace(/\/[a-z]+default\.jpg/, '/maxresdefault.jpg')
         : imgEl.src;
-      if(!src) return;
+      if(!cardSrc) return;
 
       const titleEl = card.querySelector('h3');
       const descEl  = card.querySelector('p');
       const title   = titleEl ? titleEl.textContent.trim() : '';
       const desc    = descEl  ? descEl.textContent.trim()  : '';
 
+      /* Use full image dimensions if it finished preloading, else fall back to card image */
+      const fullReady = preloadImg && preloadImg.complete && preloadImg.naturalWidth > 0;
+      const dimW = fullReady ? preloadImg.naturalWidth  : (imgEl.naturalWidth  || 0);
+      const dimH = fullReady ? preloadImg.naturalHeight : (imgEl.naturalHeight || 0);
+
       const cardRect   = card.getBoundingClientRect();
-      const expandRect = naturalExpandRect(imgEl);  /* card img already loaded */
+      const expandRect = naturalExpandRect(dimW, dimH);
       activeExpandRect = expandRect;
 
       /* FLIP: place overlay at FINAL size+position, invert via transform */
@@ -656,10 +671,10 @@
       overlay.className = 'card-expand-overlay';
       overlay.style.cssText = [
         'transition:none',
-        'left:'          + expandRect.left   + 'px',
-        'top:'           + expandRect.top    + 'px',
-        'width:'         + expandRect.width  + 'px',
-        'height:'        + expandRect.height + 'px',
+        'left:'   + expandRect.left   + 'px',
+        'top:'    + expandRect.top    + 'px',
+        'width:'  + expandRect.width  + 'px',
+        'height:' + expandRect.height + 'px',
         'border-radius:16px',
         'box-shadow:0 32px 80px rgba(0,0,0,.75)',
         'opacity:1',
@@ -668,10 +683,29 @@
 
       const img = document.createElement('img');
       img.alt = '';
-      // Try the full-resolution original first ({name}-full.ext), fall back to card image
-      const fullSrc = src.includes('-full.') ? src : src.replace(/(\.[^./?#]+)(\?.*)?$/, '-full$1$2');
-      img.onerror = () => { img.onerror = null; img.src = src; };
-      img.src = fullSrc;
+
+      if(fullReady){
+        /* Full image already loaded — show it immediately, container is already sized correctly */
+        img.src = preloadImg.src;
+      } else if(preloadImg && !preloadImg.complete){
+        /* Still loading — show card image for now, swap + resize when full image arrives */
+        img.src = cardSrc;
+        preloadImg.addEventListener('load', ()=>{
+          if(activeOverlay !== overlay) return;
+          img.src = preloadImg.src;
+          const newRect = naturalExpandRect(preloadImg.naturalWidth, preloadImg.naturalHeight);
+          overlay.style.transition = 'left .3s ease, top .3s ease, width .3s ease, height .3s ease';
+          overlay.style.left   = newRect.left   + 'px';
+          overlay.style.top    = newRect.top    + 'px';
+          overlay.style.width  = newRect.width  + 'px';
+          overlay.style.height = newRect.height + 'px';
+          activeExpandRect = newRect;
+        }, {once:true});
+      } else {
+        /* No full image available — use card image */
+        img.src = cardSrc;
+      }
+
       overlay.appendChild(img);
 
       if(title){
@@ -700,6 +734,7 @@
         const er = activeExpandRect;
         activeOverlay    = null;
         activeExpandRect = null;
+        preloadImg       = null;
         collapse(overlay, card.getBoundingClientRect(), er, null);
       });
     }
@@ -738,12 +773,14 @@
       if(window.innerWidth < 1024) return;
       const card = e.target.closest('.card.card-gallery, .card.card-featured');
       if(!card || activeOverlay) return;
-      // Only start the timer when entering the card from outside — not when
-      // moving between child elements inside the same card (which resets the
-      // clock on every tiny mouse movement and prevents the overlay appearing).
+      // Only start the timer when entering the card from outside
       const prevCard = e.relatedTarget?.closest('.card.card-gallery, .card.card-featured');
       if(prevCard === card) return;
       clearTimeout(hoverTimer);
+      preloadImg = null;
+      // Start preloading the full image during the hover delay so it's ready when overlay opens
+      const fs = fullSrcFor(card);
+      if(fs){ preloadImg = new Image(); preloadImg.src = fs; }
       hoverTimer = setTimeout(()=>{ spawnOverlay(card); }, DELAY);
     });
 
@@ -751,10 +788,10 @@
       if(window.innerWidth < 1024) return;
       const card = e.target.closest('.card.card-gallery, .card.card-featured');
       if(!card || activeOverlay) return;
-      // Only cancel when the mouse leaves the card entirely, not when
-      // transitioning between child elements inside the same card.
+      // Only cancel when the mouse leaves the card entirely
       if(!card.contains(e.relatedTarget)){
         clearTimeout(hoverTimer); hoverTimer = null;
+        preloadImg = null;
       }
     });
   }
