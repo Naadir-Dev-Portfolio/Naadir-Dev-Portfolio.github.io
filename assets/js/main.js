@@ -667,7 +667,11 @@
       ].join(';');
 
       const img = document.createElement('img');
-      img.src = src; img.alt = '';
+      img.alt = '';
+      // Try the full-resolution original first ({name}-full.ext), fall back to card image
+      const fullSrc = src.includes('-full.') ? src : src.replace(/(\.[^./?#]+)(\?.*)?$/, '-full$1$2');
+      img.onerror = () => { img.onerror = null; img.src = src; };
+      img.src = fullSrc;
       overlay.appendChild(img);
 
       if(title){
