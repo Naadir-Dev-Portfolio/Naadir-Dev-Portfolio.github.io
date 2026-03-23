@@ -650,6 +650,7 @@ a.hero-panel-content:focus-visible{
   overflow:hidden;
   background:var(--card);
   border:1px solid var(--card-border);
+  cursor:pointer;
   transition:box-shadow .3s var(--ease),border-color .3s;
 }
 .card.card-featured:hover{
@@ -762,6 +763,7 @@ a.hero-panel-content:focus-visible{
 
 /* Featured card links */
 .card-editorial-body .card-links a{border-color:rgba(255,255,255,.1);color:var(--card-muted);background:rgba(255,255,255,.04)}
+.card.card-featured .card-links a:hover{color:var(--acc);border-color:rgba(154,163,173,.4);background:rgba(154,163,173,.1)}
 
 /* ── PAGINATION ── */
 /* Absolutely pinned to bottom of .gallery-wrap so it never moves regardless of card count */
@@ -1444,18 +1446,35 @@ a.hero-panel-content:focus-visible{
   }
 }
 
-/* ── Card expand overlay (2s hover preview) ── */
+/* ── Card expand overlay (hover preview) ── */
 .card-expand-overlay{
   position:fixed;
   z-index:199;
-  overflow:hidden;
   pointer-events:auto;
   will-change:transform,opacity;
   transform-origin:center center;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  background:#0f0d0b;
+  box-sizing:border-box;
+  border:2px solid #0f0d0b;
+}
+.card-expand-img-wrap{
+  flex:1 1 0;
+  min-height:0;
+  overflow:hidden;
+  position:relative;
 }
 .card-expand-overlay img{
-  width:100%;height:100%;object-fit:contain;display:block;
-  pointer-events:none;background:#0a0804;
+  width:100%;height:100%;object-fit:cover;display:block;
+  pointer-events:auto;background:#0a0804;
+  cursor:zoom-in;
+  transition:transform .32s ease;
+  transform-origin:50% 50%;
+}
+.card-expand-overlay img.zoomed{
+  cursor:zoom-out;
 }
 .card-expand-overlay .expand-close{
   position:absolute;top:.75rem;right:.75rem;
@@ -1467,18 +1486,19 @@ a.hero-panel-content:focus-visible{
 }
 .card-expand-overlay:hover .expand-close{opacity:1}
 .card-expand-caption{
-  position:absolute;bottom:0;left:0;right:0;
+  flex:0 0 auto;
+  position:relative;
   background:#0a0804;
   padding:1.1rem 1.5rem 1.25rem;
   opacity:0;
-  transform:translateY(22px);
+  transform:translateY(12px);
   transition:opacity .38s .28s var(--ease), transform .38s .28s var(--ease);
-  border-radius:0 0 16px 16px;
   pointer-events:none;
 }
 .card-expand-overlay.expanded .card-expand-caption{
   opacity:1;
   transform:translateY(0);
+  pointer-events:auto;
 }
 .card-expand-caption h4{
   margin:0 0 .45rem;
@@ -1494,3 +1514,21 @@ a.hero-panel-content:focus-visible{
   scrollbar-width:thin;
   scrollbar-color:rgba(255,255,255,.2) transparent;
 }
+.card-expand-links{display:flex;gap:.35rem;flex-wrap:wrap;margin-top:.65rem}
+.card-expand-links a{
+  font-size:.72rem;font-weight:600;
+  padding:.22rem .55rem;border-radius:6px;
+  text-decoration:none;
+  border:1px solid rgba(255,255,255,.18);
+  color:rgba(236,230,216,.85);
+  background:rgba(255,255,255,.07);
+  transition:color .18s,border-color .18s,background .18s;
+  backdrop-filter:blur(4px);
+}
+.card-expand-links a:hover{
+  color:var(--acc);
+  border-color:rgba(154,163,173,.45);
+  background:rgba(154,163,173,.13);
+}
+/* Gallery card button hover — ensure transition fires on the pill buttons */
+.card.card-gallery .card-links a{transition:color .18s,border-color .18s,background .18s}

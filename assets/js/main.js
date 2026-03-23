@@ -596,7 +596,7 @@
      CARD EXPAND — 2.5s hover opens full-gallery preview
      ══════════════════════════════════════════════ */
   function initCardExpand(){
-    const DELAY = 2000;
+    const DELAY = 1500;
     let hoverTimer       = null;
     let activeOverlay    = null;
     let activeExpandRect = null;
@@ -612,17 +612,20 @@
       return src.includes('-full.') ? src : src.replace(/(\.[^./?#]+)(\?.*)?$/, '-full$1$2');
     }
 
-    /* Size the overlay to fit nw×nh within the viewport, preserving aspect ratio */
+    /* Size the overlay to fit nw×nh within the viewport, preserving aspect ratio.
+       CAP_H reserves space for the caption bar below the image. */
+    const CAP_H = 120;
     function naturalExpandRect(nw, nh){
       const vw = window.innerWidth;
       const vh = window.innerHeight;
       const maxW = Math.min(vw * 0.88, 1200);
-      const maxH = vh * 0.84;
+      const maxImgH = vh * 0.82 - CAP_H;
       const ratio = (nw && nh) ? nw / nh : 4 / 3;
       let w, h;
-      if(ratio > maxW / maxH){ w = maxW; h = maxW / ratio; }
-      else                    { h = maxH; w = maxH * ratio; }
-      return { left:(vw-w)/2, top:(vh-h)/2, width:w, height:h };
+      if(ratio > maxW / maxImgH){ w = maxW; h = maxW / ratio; }
+      else                       { h = maxImgH; w = maxImgH * ratio; }
+      const totalH = h + CAP_H;
+      return { left:(vw-w)/2, top:(vh-totalH)/2, width:w, height:totalH };
     }
 
     /* FLIP collapse — transform back to card rect then fade */
@@ -706,7 +709,32 @@
         img.src = cardSrc;
       }
 
-      overlay.appendChild(img);
+      /* ── Zoom feature ── */
+      let zoomed = false;
+      img.addEventListener('click', (e)=>{
+        e.stopPropagation();
+        if(!zoomed){
+          const rect = img.getBoundingClientRect();
+          const ox = ((e.clientX - rect.left) / rect.width  * 100).toFixed(1) + '%';
+          const oy = ((e.clientY - rect.top)  / rect.height * 100).toFixed(1) + '%';
+          img.style.transformOrigin = ox + ' ' + oy;
+          img.style.transform = 'scale(2.6)';
+          img.classList.add('zoomed');
+          zoomed = true;
+        } else {
+          img.style.transform = 'none';
+          img.style.transformOrigin = '50% 50%';
+          img.classList.remove('zoomed');
+          zoomed = false;
+        }
+      });
+
+      /* Wrap image in its own container so zoom overflow is clipped
+         without affecting the caption flex item below */
+      const imgWrap = document.createElement('div');
+      imgWrap.className = 'card-expand-img-wrap';
+      imgWrap.appendChild(img);
+      overlay.appendChild(imgWrap);
 
       if(title){
         const caption = document.createElement('div');
