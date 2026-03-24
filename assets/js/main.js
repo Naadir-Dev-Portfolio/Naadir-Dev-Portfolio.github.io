@@ -320,26 +320,46 @@
       if(sub$&&desc) sub$.textContent = desc;
     }
 
-    function showPanel(cat,sub){
+    function closePanel(){
       document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+    }
+
+    function openPanel(cat,sub){
+      closePanel();
       const el=document.getElementById(`panel-${cat}-${sub}`);
       if(el) el.classList.add('active');
     }
 
+    /* Toggle: clicking an already-active sub collapses it; clicking a new one opens it */
     function showSub(cat,sub){
       const nav=document.getElementById(`sub-${cat}`);
       if(!nav) return;
-      nav.querySelectorAll('.sub-btn').forEach(b=>b.classList.toggle('active', b.dataset.subtarget===sub));
-      showPanel(cat,sub);
+      const btn=nav.querySelector(`.sub-btn[data-subtarget="${sub}"]`);
+      const alreadyActive = btn && btn.classList.contains('active');
+      nav.querySelectorAll('.sub-btn').forEach(b=>b.classList.remove('active'));
+      if(alreadyActive){
+        /* Collapse — hide panel */
+        closePanel();
+      } else {
+        if(btn) btn.classList.add('active');
+        openPanel(cat,sub);
+      }
     }
 
     bar.addEventListener('click', e=>{
       const b=e.target.closest('.tab-btn');
       if(!b) return;
-      showTab(b.dataset.target, b.dataset.desc);
-      const nav=document.getElementById(`sub-${b.dataset.target}`);
-      const first=nav?.querySelector('.sub-btn.active')||nav?.querySelector('.sub-btn');
-      if(first) showSub(b.dataset.target, first.dataset.subtarget);
+      const cat = b.dataset.target;
+      const alreadyActive = b.classList.contains('active');
+      showTab(cat, b.dataset.desc);
+      if(!alreadyActive){
+        /* Newly selected tab — open first sub without activating it (let user pick) */
+        const nav=document.getElementById(`sub-${cat}`);
+        /* Close any open panel from a previous tab */
+        closePanel();
+        /* Clear any sub-btn active state for this tab */
+        nav?.querySelectorAll('.sub-btn').forEach(b=>b.classList.remove('active'));
+      }
     });
 
     document.querySelectorAll('.sub-nav').forEach(nav=>{
@@ -350,20 +370,15 @@
       });
     });
 
-    showTab('python', bar.querySelector('[data-target="python"]')?.dataset.desc||'');
-    showSub('python','desktop');
+    /* Initial state: Python sub-nav visible (open class already in HTML),
+       Python desktop panel shown, but NO tab-btn or sub-btn styled as active.
+       This gives a clean unselected look on first load while content is ready. */
+    const defaultPanel = document.getElementById('panel-python-desktop');
+    if(defaultPanel) defaultPanel.classList.add('active');
   }
 
-  /* Click a card body (not a button) → open priority link: live > video > details > code */
-  function initVideoCards(){
-    document.addEventListener('click', e=>{
-      const card = e.target.closest('[data-href]');
-      if(!card) return;
-      if(e.target.closest('.card-links')) return; // let buttons handle themselves
-      const href = card.dataset.href;
-      if(href) window.open(href, '_blank', 'noreferrer');
-    });
-  }
+  /* Card body clicks do nothing — only the explicit button links in .card-links navigate */
+  function initVideoCards(){}
 
   /* ══════════════════════════════════════════════
      3. SKILLS — auto-calculated from project data

@@ -151,46 +151,44 @@
         </div>
 
         <div class="tabs-bar" id="proj-tabs">
-          <button class="tab-btn active" data-target="python" data-desc="Python desktop apps, automation pipelines, quantitative tools and more - built to solve real problems.">Python</button>
+          <button class="tab-btn" data-target="python" data-desc="Python desktop apps, automation pipelines, quantitative tools and more - built to solve real problems.">Python</button>
           <button class="tab-btn" data-target="excelvba" data-desc="VBA macros, Power Query transformations and Excel automation tools that eliminate repetitive manual work.">Excel &amp; VBA</button>
-          <button class="tab-btn" data-target="powerbi" data-desc="Interactive Power BI dashboards and dataflow pipelines giving teams instant clarity.">Power BI</button>
-          <button class="tab-btn" data-target="ai" data-desc="AI agents, generative AI tools, and prompt-engineered systems powered by Gemini and Python.">AI Projects</button>
+          <button class="tab-btn" data-target="powerbi" data-desc="Interactive Power BI dashboards giving teams instant clarity.">Power BI</button>
+          <button class="tab-btn" data-target="ai" data-desc="AI agents, chatbots, and automated AI workflows powered by Gemini and Python.">AI Projects</button>
           <button class="tab-btn" data-target="web" data-desc="Professional team sites, interactive utilities, and browser-based cognitive games.">Web Apps</button>
           <button class="tab-btn" data-target="mobile" data-desc="Cross-platform mobile apps built with React Native and Expo — from concept to Android APK.">Mobile</button>
-          <button class="tab-btn" data-target="browserextensions" data-desc="Chrome extensions that add productivity directly to the browser workflow.">Extensions</button>
+          <button class="tab-btn" data-target="browserextensions" data-desc="Browser extensions that add productivity directly to the browser workflow.">Browser Extensions</button>
         </div>
 
         <div class="sub-nav-wrapper">
-          <div class="sub-nav" id="sub-python">
-            <button class="sub-btn active" data-subtarget="desktop">Desktop Apps</button>
+          <div class="sub-nav open" id="sub-python">
+            <button class="sub-btn" data-subtarget="desktop">Desktop Apps</button>
             <button class="sub-btn" data-subtarget="automation">Automation</button>
             <button class="sub-btn" data-subtarget="trading">Trading</button>
             <button class="sub-btn" data-subtarget="quant">Quant Finance</button>
           </div>
           <div class="sub-nav" id="sub-excelvba">
-            <button class="sub-btn active" data-subtarget="vba-macros">VBA &amp; Macros</button>
+            <button class="sub-btn" data-subtarget="vba-macros">VBA &amp; Macros</button>
             <button class="sub-btn" data-subtarget="powerquery">Power Query</button>
-            <button class="sub-btn" data-subtarget="power-automate">Power Automate</button>
           </div>
           <div class="sub-nav" id="sub-powerbi">
-            <button class="sub-btn active" data-subtarget="dashboards">Dashboards</button>
-            <button class="sub-btn" data-subtarget="dataflow">Dataflow</button>
+            <button class="sub-btn" data-subtarget="dashboards">Dashboards</button>
           </div>
-          <div class="sub-nav open" id="sub-ai">
-            <button class="sub-btn active" data-subtarget="agents">Agents</button>
-            <button class="sub-btn" data-subtarget="generativeai">Generative AI</button>
-            <button class="sub-btn" data-subtarget="prompt">Prompt Engineering</button>
+          <div class="sub-nav" id="sub-ai">
+            <button class="sub-btn" data-subtarget="agents">Agents</button>
+            <button class="sub-btn" data-subtarget="chatbots">Chatbots</button>
+            <button class="sub-btn" data-subtarget="aiworkflows">AI Workflows</button>
           </div>
           <div class="sub-nav" id="sub-web">
-            <button class="sub-btn active" data-subtarget="teamsites">Team Sites</button>
+            <button class="sub-btn" data-subtarget="teamsites">Team Sites</button>
             <button class="sub-btn" data-subtarget="tools">Utilities</button>
             <button class="sub-btn" data-subtarget="cognitive">Cognitive</button>
           </div>
           <div class="sub-nav" id="sub-mobile">
-            <button class="sub-btn active" data-subtarget="android">Android</button>
+            <button class="sub-btn" data-subtarget="reactnative">React Native</button>
           </div>
           <div class="sub-nav" id="sub-browserextensions">
-            <button class="sub-btn active" data-subtarget="google-chrome">Chrome</button>
+            <button class="sub-btn" data-subtarget="chromium">Chromium</button>
           </div>
         </div>
 
@@ -201,17 +199,15 @@
           <div class="tab-panel" id="panel-python-quant"><div class="projects-grid" id="grid-python-quant"></div></div>
           <div class="tab-panel" id="panel-excelvba-vba-macros"><div class="projects-grid" id="grid-excelvba-vba-macros"></div></div>
           <div class="tab-panel" id="panel-excelvba-powerquery"><div class="projects-grid" id="grid-excelvba-powerquery"></div></div>
-          <div class="tab-panel" id="panel-excelvba-power-automate"><div class="projects-grid" id="grid-excelvba-power-automate"></div></div>
           <div class="tab-panel" id="panel-powerbi-dashboards"><div class="projects-grid" id="grid-powerbi-dashboards"></div></div>
-          <div class="tab-panel" id="panel-powerbi-dataflow"><div class="projects-grid" id="grid-powerbi-dataflow"></div></div>
           <div class="tab-panel" id="panel-ai-agents"><div class="projects-grid" id="grid-ai-agents"></div></div>
-          <div class="tab-panel" id="panel-ai-generativeai"><div class="projects-grid" id="grid-ai-generativeai"></div></div>
-          <div class="tab-panel" id="panel-ai-prompt"><div class="projects-grid" id="grid-ai-prompt"></div></div>
+          <div class="tab-panel" id="panel-ai-chatbots"><div class="projects-grid" id="grid-ai-chatbots"></div></div>
+          <div class="tab-panel" id="panel-ai-aiworkflows"><div class="projects-grid" id="grid-ai-aiworkflows"></div></div>
           <div class="tab-panel" id="panel-web-teamsites"><div class="projects-grid" id="grid-web-teamsites"></div></div>
           <div class="tab-panel" id="panel-web-tools"><div class="projects-grid" id="grid-web-tools"></div></div>
           <div class="tab-panel" id="panel-web-cognitive"><div class="projects-grid" id="grid-web-cognitive"></div></div>
-          <div class="tab-panel" id="panel-mobile-android"><div class="projects-grid" id="grid-mobile-android"></div></div>
-          <div class="tab-panel" id="panel-browserextensions-google-chrome"><div class="projects-grid" id="grid-browserextensions-google-chrome"></div></div>
+          <div class="tab-panel" id="panel-mobile-reactnative"><div class="projects-grid" id="grid-mobile-reactnative"></div></div>
+          <div class="tab-panel" id="panel-browserextensions-chromium"><div class="projects-grid" id="grid-browserextensions-chromium"></div></div>
         </div>
       </div>
     </section>

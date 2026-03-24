@@ -184,6 +184,10 @@ button{font:inherit;cursor:pointer}
   overflow:hidden;
   padding:6.25rem .5rem 1.5rem;
   cursor:grab;user-select:none;touch-action:pan-y;
+  /* Flex here ensures panels are in a horizontal row even before JS wraps
+     them in .hero-track — eliminates the "panels scroll in" flash on mobile. */
+  display:flex;
+  align-items:stretch;
 }
 .hero-rail.dragging{cursor:grabbing}
 
@@ -649,9 +653,10 @@ a.hero-panel-content:focus-visible{
   border-radius:14px;
   overflow:hidden;
   background:var(--card);
-  border:1px solid var(--card-border);
+  border:none;
   cursor:pointer;
-  transition:box-shadow .3s var(--ease),border-color .3s;
+  -webkit-tap-highlight-color:transparent;
+  transition:box-shadow .3s var(--ease);
 }
 .card.card-featured:hover{
   border-color:rgba(154,163,173,.22);
@@ -702,9 +707,10 @@ a.hero-panel-content:focus-visible{
 .card.card-gallery{
   position:relative;border-radius:12px;overflow:hidden;
   aspect-ratio:5/4;background:#211c14;
-  border:1px solid rgba(255,255,255,.05);
+  border:none;
   cursor:pointer;
-  transition:transform .3s var(--ease),box-shadow .3s,border-color .3s;
+  -webkit-tap-highlight-color:transparent;
+  transition:transform .3s var(--ease),box-shadow .3s;
 }
 .card.card-gallery:hover{
   transform:translateY(-6px);
@@ -742,10 +748,12 @@ a.hero-panel-content:focus-visible{
 /* Touch devices: disable hover lift/shadow (no hover concept, and shadows get
    clipped by the overflow:auto scroll container). Show links always instead. */
 @media(hover:none){
-  .card.card-gallery:hover{transform:none;box-shadow:none;border-color:rgba(255,255,255,.05)}
+  .card.card-gallery:hover{transform:none;box-shadow:none}
   .card.card-gallery:hover>img{transform:none;filter:brightness(.78)}
   .card.card-gallery:hover .card-gal-body{transform:none}
   .card.card-gallery .card-links{opacity:1;transform:none}
+  .card.card-featured:hover{box-shadow:none}
+  .card.card-featured,.card.card-gallery{-webkit-tap-highlight-color:transparent}
 }
 
 .card-links{display:flex;gap:.3rem;flex-wrap:wrap}
