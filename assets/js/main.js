@@ -809,31 +809,30 @@
       }
     });
 
-    document.addEventListener('mouseover', e=>{
-      if(window.innerWidth < 1024) return;
-      const card = e.target.closest('.card.card-gallery, .card.card-featured');
-      if(!card || activeOverlay) return;
-      // Only start the timer when entering the card from outside
-      const prevCard = e.relatedTarget?.closest('.card.card-gallery, .card.card-featured');
-      if(prevCard === card) return;
-      clearTimeout(hoverTimer);
-      preloadImg = null;
-      // Start preloading the full image during the hover delay so it's ready when overlay opens
-      const fs = fullSrcFor(card);
-      if(fs){ preloadImg = new Image(); preloadImg.src = fs; }
-      hoverTimer = setTimeout(()=>{ spawnOverlay(card); }, DELAY);
-    });
-
-    document.addEventListener('mouseout', e=>{
-      if(window.innerWidth < 1024) return;
-      const card = e.target.closest('.card.card-gallery, .card.card-featured');
-      if(!card || activeOverlay) return;
-      // Only cancel when the mouse leaves the card entirely
-      if(!card.contains(e.relatedTarget)){
+    /* Bind hover detection directly to each card using pointerenter/pointerleave.
+       These don't bubble and fire exactly once on entry/exit — no relatedTarget
+       ambiguity, no child-element interference, no first-load miss. */
+    function attachCard(card){
+      card.addEventListener('pointerenter', e=>{
+        if(e.pointerType !== 'mouse') return;
+        if(window.innerWidth < 1024) return;
+        if(activeOverlay) return;
+        clearTimeout(hoverTimer);
+        preloadImg = null;
+        const fs = fullSrcFor(card);
+        if(fs){ preloadImg = new Image(); preloadImg.src = fs; }
+        hoverTimer = setTimeout(()=>{ spawnOverlay(card); }, DELAY);
+      });
+      card.addEventListener('pointerleave', e=>{
+        if(e.pointerType !== 'mouse') return;
+        if(activeOverlay) return;
         clearTimeout(hoverTimer); hoverTimer = null;
         preloadImg = null;
-      }
-    });
+      });
+    }
+
+    document.querySelectorAll('.card.card-gallery, .card.card-featured')
+      .forEach(attachCard);
   }
 
   /* ══ INIT ══ */
