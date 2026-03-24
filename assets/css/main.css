@@ -658,7 +658,7 @@ a.hero-panel-content:focus-visible{
   overflow:hidden;
   background:var(--card);
   border:none;
-  cursor:pointer;
+  cursor:default;
   -webkit-tap-highlight-color:transparent;
   transition:box-shadow .3s var(--ease);
 }
@@ -712,7 +712,7 @@ a.hero-panel-content:focus-visible{
   position:relative;border-radius:12px;overflow:hidden;
   aspect-ratio:5/4;background:#211c14;
   border:none;
-  cursor:pointer;
+  cursor:default;
   -webkit-tap-highlight-color:transparent;
   transition:transform .3s var(--ease),box-shadow .3s;
 }
