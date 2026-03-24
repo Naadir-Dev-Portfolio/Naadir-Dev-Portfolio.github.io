@@ -589,7 +589,7 @@ a.hero-panel-content:focus-visible{
 }
 .tab-btn{
   position:relative;overflow:hidden;
-  padding:.4rem .95rem;font-size:.79rem;font-weight:500;
+  padding:.4rem .95rem;font-size:.79rem;font-weight:600;
   color:var(--ink-soft);
   border:1px solid var(--border);border-radius:20px;
   background:rgba(0,0,0,.04);
@@ -609,9 +609,13 @@ a.hero-panel-content:focus-visible{
   box-shadow:0 2px 10px rgba(26,21,16,.25);
 }
 
-.sub-nav-wrapper{margin-bottom:1.2rem;min-height:2.4rem}
-.sub-nav{display:none;flex-wrap:wrap;justify-content:center;gap:.25rem;padding:.4rem 0;animation:slideIn .2s var(--ease)}
-.sub-nav.open{display:flex}
+.sub-nav-wrapper{margin-bottom:1.2rem}
+.sub-nav{
+  display:flex;flex-wrap:wrap;justify-content:center;gap:.25rem;
+  max-height:0;overflow:hidden;opacity:0;padding:0;
+  transition:max-height .32s var(--ease), opacity .25s var(--ease), padding .32s var(--ease);
+}
+.sub-nav.open{max-height:5rem;opacity:1;padding:.4rem 0;}
 .sub-btn{
   position:relative;overflow:hidden;
   padding:.22rem .75rem;font-size:.74rem;font-weight:500;
@@ -1000,6 +1004,8 @@ a.hero-panel-content:focus-visible{
   .card.card-gallery{flex:0 0 calc(50% - .5rem);scroll-snap-align:start;width:auto}
   .card.card-featured{grid-template-columns:1fr}
   .card-editorial-img{height:200px}
+  /* Show full description text on mobile — no truncation */
+  .card-gal-body p{display:block;-webkit-line-clamp:unset;overflow:visible;}
   .skills-grid{grid-template-columns:1fr}
   .ai-chat{width:calc(100vw - 1.5rem);right:.75rem;bottom:.75rem}
   .parallax-strip{height:26px}

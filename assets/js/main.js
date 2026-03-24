@@ -314,67 +314,64 @@
     const sub$ = document.getElementById('proj-subtitle');
     if(!bar) return;
 
-    function showTab(cat, desc){
+    /* Track last-active sub per category so switching back restores state */
+    const lastSub = { python:'desktop' };
+
+    function showPanel(cat, sub){
+      document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+      const el = document.getElementById(`panel-${cat}-${sub}`);
+      if(el) el.classList.add('active');
+      lastSub[cat] = sub;
+    }
+
+    function activateSub(cat, sub){
+      const nav = document.getElementById(`sub-${cat}`);
+      if(!nav) return;
+      nav.querySelectorAll('.sub-btn').forEach(b=>b.classList.toggle('active', b.dataset.subtarget===sub));
+      showPanel(cat, sub);
+    }
+
+    /* Switch to a new main tab: highlight it, open its sub-nav, show its panel */
+    function openTab(cat){
       bar.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active', b.dataset.target===cat));
       document.querySelectorAll('.sub-nav').forEach(s=>s.classList.toggle('open', s.id===`sub-${cat}`));
-      if(sub$&&desc) sub$.textContent = desc;
-    }
-
-    function closePanel(){
-      document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
-    }
-
-    function openPanel(cat,sub){
-      closePanel();
-      const el=document.getElementById(`panel-${cat}-${sub}`);
-      if(el) el.classList.add('active');
-    }
-
-    /* Toggle: clicking an already-active sub collapses it; clicking a new one opens it */
-    function showSub(cat,sub){
-      const nav=document.getElementById(`sub-${cat}`);
-      if(!nav) return;
-      const btn=nav.querySelector(`.sub-btn[data-subtarget="${sub}"]`);
-      const alreadyActive = btn && btn.classList.contains('active');
-      nav.querySelectorAll('.sub-btn').forEach(b=>b.classList.remove('active'));
-      if(alreadyActive){
-        /* Collapse — hide panel */
-        closePanel();
+      const desc = bar.querySelector(`[data-target="${cat}"]`)?.dataset.desc||'';
+      if(sub$ && desc) sub$.textContent = desc;
+      /* Show last-seen sub for this cat, or auto-select the first one */
+      const sub = lastSub[cat];
+      if(sub){
+        activateSub(cat, sub);
       } else {
-        if(btn) btn.classList.add('active');
-        openPanel(cat,sub);
+        const nav   = document.getElementById(`sub-${cat}`);
+        const first = nav?.querySelector('.sub-btn');
+        if(first) activateSub(cat, first.dataset.subtarget);
       }
     }
 
     bar.addEventListener('click', e=>{
-      const b=e.target.closest('.tab-btn');
+      const b = e.target.closest('.tab-btn');
       if(!b) return;
       const cat = b.dataset.target;
-      const alreadyActive = b.classList.contains('active');
-      showTab(cat, b.dataset.desc);
-      if(!alreadyActive){
-        /* Newly selected tab — open first sub without activating it (let user pick) */
-        const nav=document.getElementById(`sub-${cat}`);
-        /* Close any open panel from a previous tab */
-        closePanel();
-        /* Clear any sub-btn active state for this tab */
-        nav?.querySelectorAll('.sub-btn').forEach(b=>b.classList.remove('active'));
+      if(b.classList.contains('active')){
+        /* Same tab clicked again — slide the sub-nav up or down, panel stays put */
+        document.getElementById(`sub-${cat}`)?.classList.toggle('open');
+      } else {
+        openTab(cat);
       }
     });
 
     document.querySelectorAll('.sub-nav').forEach(nav=>{
       nav.addEventListener('click', e=>{
-        const b=e.target.closest('.sub-btn');
+        const b = e.target.closest('.sub-btn');
         if(!b) return;
-        showSub(nav.id.replace('sub-',''), b.dataset.subtarget);
+        /* Sub-tab always shows its panel — never collapses to blank */
+        activateSub(nav.id.replace('sub-',''), b.dataset.subtarget);
       });
     });
 
-    /* Initial state: Python sub-nav visible (open class already in HTML),
-       Python desktop panel shown, but NO tab-btn or sub-btn styled as active.
-       This gives a clean unselected look on first load while content is ready. */
-    const defaultPanel = document.getElementById('panel-python-desktop');
-    if(defaultPanel) defaultPanel.classList.add('active');
+    /* Initial state: Python panel visible, sub-nav open via HTML class,
+       no buttons carry an 'active' class — looks clean and unselected on load */
+    showPanel('python', 'desktop');
   }
 
   /* Card body clicks do nothing — only the explicit button links in .card-links navigate */
@@ -611,7 +608,7 @@
      CARD EXPAND — 2.5s hover opens full-gallery preview
      ══════════════════════════════════════════════ */
   function initCardExpand(){
-    const DELAY = 1500;
+    const DELAY = 1200;
     let hoverTimer       = null;
     let activeOverlay    = null;
     let activeExpandRect = null;
