@@ -67,7 +67,7 @@ SKELETON = {
     'ai':                {'agents': [], 'generativeai': [], 'prompt': []},
     'web':               {'teamsites': [], 'tools': [], 'cognitive': []},
     'mobile':            {'android': []},
-    'browserextensions': {'google-chrome': []},
+    'browserextensions': {'chromium': []},
 }
 
 # ── GitHub API helpers ─────────────────────────────────────────────────────────
