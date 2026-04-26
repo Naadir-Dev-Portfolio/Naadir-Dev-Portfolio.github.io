@@ -205,6 +205,12 @@ def compile_all() -> dict:
                 card['img'] = resolve_image_url(repo_name, img)
                 print(f'    → img: {card["img"]}')
 
+            # Optional alternate image for the n:1 featured editorial card
+            img_featured = card.get('imgFeatured', '').strip()
+            if img_featured and Path(img_featured).suffix.lower() in IMG_EXTS:
+                card['imgFeatured'] = resolve_image_url(repo_name, img_featured)
+                print(f'    → imgFeatured: {card["imgFeatured"]}')
+
             # Multiple images (editorial card)
             resolved_imgs = []
             for extra_img in card.get('imgs', []):

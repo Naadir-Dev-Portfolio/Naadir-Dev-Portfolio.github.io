@@ -193,11 +193,13 @@
     return p.demo || (vid && vid.href) || p.details || p.code || null;
   }
 
-  /* Featured card (n===1) — editorial horizontal split, single image. */
+  /* Featured card (n===1) — editorial horizontal split, single image.
+     Prefers p.imgFeatured (a wider crop optimised for the editorial layout)
+     and falls back to p.img / p.imgs[0]. */
   function buildFeaturedCard(p){
     const vid = resolveVideo(p);
     const src = vid ? `https://img.youtube.com/vi/${vid.id}/hqdefault.jpg`
-                    : imgSrc(p.img || (p.imgs && p.imgs[0]) || '');
+                    : imgSrc(p.imgFeatured || p.img || (p.imgs && p.imgs[0]) || '');
     const href = cardHref(p);
     return `
       <div class="card card-featured"${href?` data-href="${href}"`:''}>
