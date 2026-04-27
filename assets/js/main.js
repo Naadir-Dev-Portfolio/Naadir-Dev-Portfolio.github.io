@@ -12,8 +12,27 @@
   const AI_URL  = 'https://subtle-khapse-c232ff.netlify.app/.netlify/functions/gemini-proxy';
   const AI_SYS  = `You are Naadir's AI Assistant. Professional and concise. Naadir builds automation tools, AI systems, data pipelines and mobile apps. Projects include: Spheria (hero project, AI desktop OS with multi-agent orchestration, tool calling and persistent memory), Mobile Health Planner (React Native / Expo SDK 54 cross-platform health app for Android), Health Planner Desktop (PyQt6 + QWebEngineView hybrid desktop health app), Trading Algo Backtester (ML-powered backtester), Finance & Health PyQt6 dashboards, Adobe Script Toolkit (Python+COM sticker pack pipeline, JSX automation for Illustrator & After Effects), ComfyUI Workflows (Stable Diffusion image generation pipelines with Python batch automation), Enterprise GenAI assistant, AI Quiz Bot, Finance NL Query (natural language financial data interface), economic data scripts, educational web games, VBA/SAP automation tools, Power Query M templates, Power BI dashboards, crypto news aggregator, and more. Skills: Python, VBA/Excel, Power Query, Power BI, Power Automate, JavaScript, React Native, TypeScript, AI/ML, multi-agent systems, prompt engineering, ExtendScript/JSX, ComfyUI, PyQt6, Streamlit. Keep answers brief and professional.`.trim();
 
-  /* DATA is loaded from assets/js/data.js (compiled by GitHub Actions) */
-  const DATA = (window.__PORTFOLIO && window.__PORTFOLIO.DATA) || {};
+  /* DATA + MANIFEST are loaded from assets/js/data.js (compiled by GitHub Actions).
+     MANIFEST is the ordered list of {key, label, desc, categories:[{key,label}]}
+     that drives the tab bar, sub-nav and grid panels. If it's missing
+     (very old data.js), we fall back to using DATA's own keys with auto-Title-Case
+     labels so the site never goes completely blank. */
+  const DATA     = (window.__PORTFOLIO && window.__PORTFOLIO.DATA)     || {};
+  const MANIFEST = (window.__PORTFOLIO && window.__PORTFOLIO.MANIFEST) || autoManifestFromData(DATA);
+
+  function titleCase(k){
+    return String(k).replace(/[-_]+/g,' ')
+      .replace(/\b\w/g, c => c.toUpperCase())
+      .trim();
+  }
+  function autoManifestFromData(d){
+    return Object.entries(d).map(([sk, cats]) => ({
+      key: sk,
+      label: titleCase(sk),
+      desc: '',
+      categories: Object.keys(cats).map(ck => ({ key: ck, label: titleCase(ck) }))
+    }));
+  }
 
   const BOOKS = [
     {title:'SMART OFFICE: Harness AI to Work Better', img:'smartOffice.png'},
@@ -301,6 +320,62 @@
     render(0);
   }
 
+  /* ══════════════════════════════════════════════
+     2a. NAV — build tabs / sub-nav / panels from MANIFEST
+     ──────────────────────────────────────────────
+     The HTML provides empty containers (#proj-tabs, #proj-subnav, #proj-panels)
+     and JS fills them in based on the MANIFEST that ships in data.js. This
+     makes the section list 100% data-driven — to add a tab, edit
+     scripts/compile_projects.py SECTIONS or just declare a new section/category
+     key in any project JSON; the site will pick it up on the next compile.
+     ══════════════════════════════════════════════ */
+  function buildNav(){
+    const tabsBar    = document.getElementById('proj-tabs');
+    const subnavWrap = document.getElementById('proj-subnav');
+    const panelsWrap = document.getElementById('proj-panels');
+    if(!tabsBar || !subnavWrap || !panelsWrap) return;
+
+    /* Clear in case of double-init / hot-reload */
+    tabsBar.innerHTML    = '';
+    subnavWrap.innerHTML = '';
+    panelsWrap.innerHTML = '';
+
+    MANIFEST.forEach((sec, secIdx) => {
+      /* Tab button */
+      const btn = document.createElement('button');
+      btn.className     = 'tab-btn';
+      btn.dataset.target = sec.key;
+      if(sec.desc) btn.dataset.desc = sec.desc;
+      btn.textContent   = sec.label;
+      tabsBar.appendChild(btn);
+
+      /* Sub-nav row for this section */
+      const subnav = document.createElement('div');
+      subnav.className = 'sub-nav';
+      subnav.id        = `sub-${sec.key}`;
+      sec.categories.forEach(cat => {
+        const subBtn = document.createElement('button');
+        subBtn.className          = 'sub-btn';
+        subBtn.dataset.subtarget  = cat.key;
+        subBtn.textContent        = cat.label;
+        subnav.appendChild(subBtn);
+      });
+      subnavWrap.appendChild(subnav);
+
+      /* One tab-panel + projects-grid per (section, category) */
+      sec.categories.forEach((cat, catIdx) => {
+        const panel = document.createElement('div');
+        panel.className = 'tab-panel' + (secIdx === 0 && catIdx === 0 ? ' active' : '');
+        panel.id        = `panel-${sec.key}-${cat.key}`;
+        const grid = document.createElement('div');
+        grid.className = 'projects-grid';
+        grid.id        = `grid-${sec.key}-${cat.key}`;
+        panel.appendChild(grid);
+        panelsWrap.appendChild(panel);
+      });
+    });
+  }
+
   function populateGrids(){
     for(const [cat,subs] of Object.entries(DATA)){
       for(const [sub,arr] of Object.entries(subs)){
@@ -316,8 +391,15 @@
     const sub$ = document.getElementById('proj-subtitle');
     if(!bar) return;
 
-    /* Track last-active sub per category so switching back restores state */
-    const lastSub = { python:'desktop' };
+    /* Track last-active sub per category so switching back restores state.
+       Seeded from MANIFEST so re-ordering sections doesn't break it. */
+    const lastSub = {};
+    MANIFEST.forEach(sec => {
+      if(sec.categories[0]) lastSub[sec.key] = sec.categories[0].key;
+    });
+
+    /* Set the initial subtitle text from the first manifest section */
+    if(sub$ && MANIFEST[0] && MANIFEST[0].desc) sub$.textContent = MANIFEST[0].desc;
 
     function showPanel(cat, sub){
       document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
@@ -371,9 +453,16 @@
       });
     });
 
-    /* Initial state: Python panel visible, sub-nav open via HTML class,
-       no buttons carry an 'active' class — looks clean and unselected on load */
-    showPanel('python', 'desktop');
+    /* Initial state: first section's first category visible, sub-nav open via
+       HTML class, no buttons carry an 'active' class — looks clean and
+       unselected on load. Driven by MANIFEST so it adapts when sections change. */
+    const firstSec = MANIFEST[0];
+    const firstCat = firstSec && firstSec.categories[0];
+    if(firstSec && firstCat){
+      const subnav = document.getElementById(`sub-${firstSec.key}`);
+      if(subnav) subnav.classList.add('open');
+      showPanel(firstSec.key, firstCat.key);
+    }
   }
 
   /* Card body clicks do nothing — only the explicit button links in .card-links navigate */
@@ -843,8 +932,9 @@
     initParallaxImage();
     initHeader();
     initHeroRail();
-    populateGrids();
-    initTabs();
+    buildNav();         // build tab bar + sub-navs + grid panels from MANIFEST
+    populateGrids();    // fill the just-created grids with project cards
+    initTabs();         // wire up click handlers + initial active state
     initVideoCards();
     initCardExpand();
     initSkills();

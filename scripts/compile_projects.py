@@ -59,16 +59,115 @@ OUTPUT_FILE   = 'assets/js/data.js'
 RAW_BASE      = 'https://raw.githubusercontent.com'
 TOKEN         = os.environ.get('PORTFOLIO_TOKEN', '')
 
-# ── Canonical section / category skeleton ─────────────────────────────────────
-SKELETON = {
-    'python':            {'desktop': [], 'automation': [], 'trading': [], 'quant': []},
-    'excelvba':          {'vba-macros': [], 'powerquery': [], 'power-automate': []},
-    'powerbi':           {'dashboards': [], 'dataflow': []},
-    'ai':                {'agents': [], 'generativeai': [], 'prompt': []},
-    'web':               {'teamsites': [], 'tools': [], 'cognitive': []},
-    'mobile':            {'android': []},
-    'browserextensions': {'chromium': []},
+# ── Section / category manifest (single source of truth) ──────────────────────
+#
+# This is the ordered manifest of tabs and sub-tabs the portfolio site renders.
+# Each section is a top-level tab; each category is a sub-tab.
+#
+#   • To rename a tab     → edit "label" here
+#   • To re-order tabs    → re-order the SECTIONS list
+#   • To add a new tab    → append a new section dict here
+#   • To add a sub-tab    → append to that section's "categories" list
+#
+# AUTO-DISCOVERY: any (section, category) pair declared in a project JSON that
+# is NOT present in this manifest is appended automatically with a Title-Case
+# label. So you can introduce new tabs purely from a project JSON — but for
+# friendly names + ordering, declare them here.
+#
+# IMPORTANT: keep the *keys* in sync with Repo-Toolkit/toolkit.py SECTIONS_MANIFEST.
+# Both files import the same shape — labels can drift, keys cannot.
+
+SECTIONS = [
+    {
+        "key": "python",
+        "label": "Python",
+        "desc": "Python desktop apps, automation pipelines, quantitative tools and more - built to solve real problems.",
+        "categories": [
+            {"key": "desktop",     "label": "Desktop Apps"},
+            {"key": "automation",  "label": "Automation"},
+            {"key": "quant",       "label": "Quant Finance"},
+        ],
+    },
+    {
+        "key": "excelvba",
+        "label": "Excel & VBA",
+        "desc": "VBA macros, Power Query transformations and Excel automation tools that eliminate repetitive manual work.",
+        "categories": [
+            {"key": "vba-macros",  "label": "VBA & Macros"},
+            {"key": "powerquery",  "label": "Power Query"},
+        ],
+    },
+    {
+        "key": "powerbi",
+        "label": "Power BI",
+        "desc": "Interactive Power BI dashboards giving teams instant clarity.",
+        "categories": [
+            {"key": "dashboards",  "label": "Dashboards"},
+        ],
+    },
+    {
+        "key": "ai",
+        "label": "AI Projects",
+        "desc": "AI agents, generative chatbots, and automated AI workflows powered by Gemini, OpenAI, and Python.",
+        "categories": [
+            {"key": "agents",        "label": "Agents"},
+            {"key": "generativeai",  "label": "Generative AI Chatbots"},
+            {"key": "workflows",     "label": "AI Workflows"},
+        ],
+    },
+    {
+        "key": "web",
+        "label": "Web Apps",
+        "desc": "Enterprise hubs, interactive utilities, and browser-based cognitive training sites.",
+        "categories": [
+            {"key": "enterprise-hubs",  "label": "Enterprise Hubs"},
+            {"key": "tools",            "label": "Utilities"},
+            {"key": "cognitive",        "label": "Cognitive Training Sites"},
+        ],
+    },
+    {
+        "key": "mobile",
+        "label": "Mobile",
+        "desc": "Cross-platform mobile apps built with React Native and Expo, plus native Kotlin Android work.",
+        "categories": [
+            {"key": "react-native",  "label": "React Native"},
+            {"key": "kotlin",        "label": "Kotlin"},
+        ],
+    },
+    {
+        "key": "browserextensions",
+        "label": "Browser Extensions",
+        "desc": "Browser extensions that add productivity directly to the browser workflow.",
+        "categories": [
+            {"key": "chromium",  "label": "Chromium"},
+        ],
+    },
+]
+
+# Optional: legacy → canonical key remap.  If a project JSON still uses an old
+# key, the compile remaps it silently and warns once. This means renaming a
+# category won't break anything until the JSON itself is migrated.
+LEGACY_KEY_ALIAS = {
+    # section: { old_category_key: new_category_key }
+    "web":               {"teamsites": "enterprise-hubs"},
+    "mobile":            {"android": "react-native"},
+    "browserextensions": {"google-chrome": "chromium"},
+    "ai":                {"prompt": "generativeai"},
 }
+
+def auto_label(key: str) -> str:
+    """Convert 'react-native' / 'vba_macros' → 'React Native' / 'Vba Macros'."""
+    return " ".join(w.capitalize() for w in key.replace("-", " ").replace("_", " ").split() if w)
+
+
+def build_skeleton(sections: list) -> dict:
+    """Empty data dict pre-populated with all declared section/category keys."""
+    return {sec["key"]: {cat["key"]: [] for cat in sec["categories"]} for sec in sections}
+
+
+# Legacy export — many call sites reference SKELETON. Rebuilt from SECTIONS so
+# there is still only one source of truth.
+SKELETON = build_skeleton(SECTIONS)
 
 # ── GitHub API helpers ─────────────────────────────────────────────────────────
 
@@ -153,10 +252,21 @@ def get_org_repos() -> list:
     return results
 
 
-def compile_all() -> dict:
-    """Return the full DATA dict by scanning all org repos."""
+def compile_all() -> tuple[dict, list]:
+    """Scan every org repo's portfolio/*.json files and assemble:
+
+      • DATA      — section → category → [cards] (the project list)
+      • MANIFEST  — ordered list of {section, label, desc, categories[]} that
+                    the website uses to render its tab bar dynamically.
+
+    Auto-discovery: any (section, category) pair that appears in a JSON but
+    is not declared in SECTIONS is appended to the manifest with a Title-Case
+    label. Stale categories declared in SECTIONS but with zero projects still
+    appear (so the user can preview an empty tab they're about to fill).
+    """
     import copy
     data = copy.deepcopy(SKELETON)
+    discovered: dict[str, set[str]] = {}  # section → set(category) seen in JSONs
 
     print(f'Fetching repos for org: {ORG}')
     repos = get_org_repos()
@@ -191,27 +301,29 @@ def compile_all() -> dict:
             section  = card.pop('section',  'python').lower().strip()
             category = card.pop('category', 'desktop').lower().strip()
 
-            if section not in data:
-                print(f'    WARNING: unknown section "{section}" — skipping', file=sys.stderr)
-                continue
+            # ── Legacy alias remap ─────────────────────────────────────────
+            alias_map = LEGACY_KEY_ALIAS.get(section, {})
+            if category in alias_map:
+                new_cat = alias_map[category]
+                print(f'    → legacy alias: {section}/{category} → {section}/{new_cat}')
+                category = new_cat
 
-            if category not in data[section]:
-                data[section][category] = []
+            # ── Auto-create unknown section/category ───────────────────────
+            data.setdefault(section, {})
+            data[section].setdefault(category, [])
+            discovered.setdefault(section, set()).add(category)
 
-            # ── Resolve image filenames → raw GitHub URLs ──────────────────────
-            # Single image
+            # ── Resolve image filenames → raw GitHub URLs ──────────────────
             img = card.get('img', '').strip()
             if img and Path(img).suffix.lower() in IMG_EXTS:
                 card['img'] = resolve_image_url(repo_name, img)
                 print(f'    → img: {card["img"]}')
 
-            # Optional alternate image for the n:1 featured editorial card
             img_featured = card.get('imgFeatured', '').strip()
             if img_featured and Path(img_featured).suffix.lower() in IMG_EXTS:
                 card['imgFeatured'] = resolve_image_url(repo_name, img_featured)
                 print(f'    → imgFeatured: {card["imgFeatured"]}')
 
-            # Multiple images (editorial card)
             resolved_imgs = []
             for extra_img in card.get('imgs', []):
                 extra_img = extra_img.strip()
@@ -230,7 +342,46 @@ def compile_all() -> dict:
         for cat_key, cards in section.items():
             section[cat_key] = sorted(cards, key=lambda c: c.get('n', 99))
 
-    return data
+    manifest = build_manifest(SECTIONS, discovered)
+    return data, manifest
+
+
+def build_manifest(declared: list, discovered: dict[str, set[str]]) -> list:
+    """Combine the declared SECTIONS with auto-discovered (section, category)
+    pairs. Declared entries win on label + ordering; unknown keys get appended
+    at the end with auto-generated Title-Case labels."""
+    manifest = []
+    seen_sections: set[str] = set()
+
+    for sec in declared:
+        skey = sec['key']
+        seen_sections.add(skey)
+        declared_cats = sec.get('categories', [])
+        seen_cats = {c['key'] for c in declared_cats}
+        # Discovered cats not declared → append them
+        extra = sorted(discovered.get(skey, set()) - seen_cats)
+        cats = list(declared_cats) + [
+            {'key': k, 'label': auto_label(k)} for k in extra
+        ]
+        manifest.append({
+            'key':        skey,
+            'label':      sec['label'],
+            'desc':       sec.get('desc', ''),
+            'categories': cats,
+        })
+
+    # Auto-add sections that exist in JSONs but not in declared
+    for skey in sorted(discovered.keys() - seen_sections):
+        cats = sorted(discovered[skey])
+        manifest.append({
+            'key':        skey,
+            'label':      auto_label(skey),
+            'desc':       '',
+            'categories': [{'key': k, 'label': auto_label(k)} for k in cats],
+        })
+        print(f'  [auto] new section discovered: {skey} → {auto_label(skey)}', file=sys.stderr)
+
+    return manifest
 
 
 def to_js_value(obj, indent=0) -> str:
@@ -267,21 +418,30 @@ def to_js_value(obj, indent=0) -> str:
     return f"'{s}'"
 
 
-def write_data_js(data: dict):
+def write_data_js(data: dict, manifest: list):
     timestamp = datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')
-    js_data   = to_js_value(data, indent=1)
+    js_data     = to_js_value(data,     indent=1)
+    js_manifest = to_js_value(manifest, indent=1)
 
     content = f"""/* ============================================================
    PORTFOLIO DATA  —  assets/js/data.js
    Auto-regenerated by GitHub Actions (.github/workflows/compile-portfolio.yml).
    DO NOT edit this file manually — your changes will be overwritten.
+
    To add/update a project, edit portfolio/*.json in that project's repo.
    Project images are auto-downloaded from each repo's portfolio/ folder.
+
+   The MANIFEST below tells the website how to render its tabs and sub-tabs.
+   It is built from scripts/compile_projects.py SECTIONS plus auto-discovery
+   of any (section, category) keys that show up in project JSONs.
+
    Last compiled: {timestamp}
    ============================================================ */
 window.__PORTFOLIO = {{
 
-  DATA: {js_data}
+  DATA: {js_data},
+
+  MANIFEST: {js_manifest}
 
 }}; // END window.__PORTFOLIO
 """
@@ -297,6 +457,6 @@ if __name__ == '__main__':
         print('WARNING: PORTFOLIO_TOKEN not set — GitHub API rate limit is 60 req/hr.')
         print('         Set PORTFOLIO_TOKEN env var to a personal access token.')
 
-    data = compile_all()
-    write_data_js(data)
+    data, manifest = compile_all()
+    write_data_js(data, manifest)
     print('Done.')
