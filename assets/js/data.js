@@ -10,7 +10,7 @@
    It is built from scripts/compile_projects.py SECTIONS plus auto-discovery
    of any (section, category) keys that show up in project JSONs.
 
-   Last compiled: 2026-04-27 11:24 UTC
+   Last compiled: 2026-04-27 11:37 UTC
    ============================================================ */
 window.__PORTFOLIO = {
 
@@ -162,21 +162,6 @@ window.__PORTFOLIO = {
         },
         {
           n:2,
-          title:'Economic Dashboard',
-          desc:'26 Python data pipelines pulling FRED API data — yield curves, housing starts, unemployment, CAPE ratio, credit spreads and more.',
-          code:'https://github.com/Naadir-Dev-Portfolio/Economic-Dashboard',
-          details:'https://github.com/Naadir-Dev-Portfolio/Economic-Dashboard/blob/main/README.md',
-          tags:[
-            'python',
-            'economics',
-            'api',
-            'data-viz'
-          ]
-        }
-      ],
-      trading:[
-        {
-          n:1,
           title:'Trading Algo Backtester',
           desc:'Multi-strategy algorithmic trading backtester with a scikit-learn ML layer — runs historical analysis and live market signals on crypto and equities.',
           code:'https://github.com/Naadir-Dev-Portfolio/Trading-Algo-Backtester/blob/main/main.py',
@@ -189,7 +174,7 @@ window.__PORTFOLIO = {
           ]
         },
         {
-          n:2,
+          n:3,
           title:'Crypto News Aggregator',
           desc:'Scrapes CryptoPanic, organises articles by coin and sentiment, outputs clean Excel reports for market research.',
           code:'https://github.com/Naadir-Dev-Portfolio/Crypto-News-Aggregator/blob/main/main.py',
@@ -199,6 +184,19 @@ window.__PORTFOLIO = {
             'crypto',
             'trading',
             'excel'
+          ]
+        },
+        {
+          n:4,
+          title:'Economic Dashboard',
+          desc:'26 Python data pipelines pulling FRED API data — yield curves, housing starts, unemployment, CAPE ratio, credit spreads and more.',
+          code:'https://github.com/Naadir-Dev-Portfolio/Economic-Dashboard',
+          details:'https://github.com/Naadir-Dev-Portfolio/Economic-Dashboard/blob/main/README.md',
+          tags:[
+            'python',
+            'economics',
+            'api',
+            'data-viz'
           ]
         }
       ]
@@ -462,19 +460,6 @@ window.__PORTFOLIO = {
           ]
         },
         {
-          n:4,
-          title:'ComfyUI Workflows',
-          desc:'ComfyUI node-graph workflows for AI image generation pipelines — txt2img, img2img with 4x ESRGAN upscaling, plus Python automation scripts for batch queuing and auto-renaming generated outputs.',
-          code:'https://github.com/Naadir-Dev-Portfolio/ComfyUI-Workflows',
-          details:'https://github.com/Naadir-Dev-Portfolio/ComfyUI-Workflows/blob/main/README.md',
-          tags:[
-            'ai',
-            'comfyui',
-            'stable-diffusion',
-            'python'
-          ]
-        },
-        {
           n:5,
           title:'Portfolio AI Assistant',
           desc:'The AI assistant embedded in this portfolio , a Gemini-powered chat interface that knows my full project history and answers questions about my skills and experience in real-time.',
@@ -488,7 +473,21 @@ window.__PORTFOLIO = {
           ]
         }
       ],
-      workflows:[]
+      workflows:[
+        {
+          n:1,
+          title:'ComfyUI Workflows',
+          desc:'ComfyUI node-graph workflows for AI image generation pipelines — txt2img, img2img with 4x ESRGAN upscaling, plus Python automation scripts for batch queuing and auto-renaming generated outputs.',
+          code:'https://github.com/Naadir-Dev-Portfolio/ComfyUI-Workflows',
+          details:'https://github.com/Naadir-Dev-Portfolio/ComfyUI-Workflows/blob/main/README.md',
+          tags:[
+            'ai',
+            'comfyui',
+            'stable-diffusion',
+            'python'
+          ]
+        }
+      ]
     },
     web:{
       'enterprise-hubs':[
@@ -677,10 +676,6 @@ window.__PORTFOLIO = {
         {
           key:'quant',
           label:'Quant Finance'
-        },
-        {
-          key:'trading',
-          label:'Trading'
         }
       ]
     },
