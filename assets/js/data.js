@@ -10,7 +10,7 @@
    It is built from scripts/compile_projects.py SECTIONS plus auto-discovery
    of any (section, category) keys that show up in project JSONs.
 
-   Last compiled: 2026-04-27 21:10 UTC
+   Last compiled: 2026-04-27 21:19 UTC
    ============================================================ */
 window.__PORTFOLIO = {
 
@@ -613,17 +613,17 @@ window.__PORTFOLIO = {
         {
           n:1,
           title:'Browser Automation',
-          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Browser-Automation-Extension/main/portfolio/browserAutomationExtension.webp',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Browser-Automation-Extension/main/portfolio/browser-automation-extension.png',
           desc:'Browser Automation Extension is a Chromium based side panel automation tool that records browser actions like clicks, typing, and navigation, then replays them as reusable automations. It also lets users edit, loop, import, and export recorded workflows directly from browser storage.',
+          code:'https://github.com/Naadir-Dev-Portfolio/Browser-Automation-Extension/blob/main/background.js',
+          details:'https://github.com/Naadir-Dev-Portfolio/Browser-Automation-Extension/blob/main/README.md',
           tags:[
             'Browser Extensions',
             'Chromium',
             'Javascript',
             'HTML',
             'CSS'
-          ],
-          code:'https://github.com/Naadir-Dev-Portfolio/Browser-Automation-Extension/blob/main/background.js',
-          details:'https://github.com/Naadir-Dev-Portfolio/Browser-Automation-Extension/blob/main/README.md'
+          ]
         },
         {
           n:2,
