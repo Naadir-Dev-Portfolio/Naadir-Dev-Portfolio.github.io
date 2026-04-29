@@ -755,6 +755,7 @@
     let hoverTimer       = null;
     let activeOverlay    = null;
     let activeExpandRect = null;
+    let activeSourceCard = null;
     let preloadImg       = null;  /* full-res image preloaded during the hover delay */
 
     /* Derive the full-res src for a card (replaces .ext with -full.ext) */
@@ -902,6 +903,9 @@
 
       document.body.appendChild(overlay);
       activeOverlay = overlay;
+      activeSourceCard = card;
+
+      let allowMouseLeaveCollapse = false;
 
       /* Double rAF: first commits initial paint, second starts GPU animation */
       requestAnimationFrame(()=>{
@@ -912,11 +916,18 @@
         });
       });
 
-      overlay.addEventListener('mouseleave', ()=>{
-        if(!activeOverlay) return;
+      overlay.addEventListener('transitionend', e=>{
+        if(e.propertyName === 'transform'){
+          allowMouseLeaveCollapse = true;
+        }
+      });
+
+      overlay.addEventListener('pointerleave', ()=>{
+        if(!activeOverlay || !allowMouseLeaveCollapse) return;
         const er = activeExpandRect;
         activeOverlay    = null;
         activeExpandRect = null;
+        activeSourceCard = null;
         preloadImg       = null;
         collapse(overlay, card.getBoundingClientRect(), er, null);
       });
@@ -928,9 +939,8 @@
       if(!activeOverlay) return;
       const ov = activeOverlay;
       const er = activeExpandRect;
-      activeOverlay = null; activeExpandRect = null;
-      // find the card this overlay belongs to so we can collapse back to it
-      const cardEl = document.querySelector('.card.card-gallery, .card.card-featured');
+      const cardEl = activeSourceCard;
+      activeOverlay = null; activeExpandRect = null; activeSourceCard = null;
       collapse(ov, cardEl ? cardEl.getBoundingClientRect() : {left:0,top:0,width:0,height:0}, er, null);
     }
 

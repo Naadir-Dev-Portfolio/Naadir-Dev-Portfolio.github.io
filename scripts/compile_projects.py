@@ -47,6 +47,7 @@ import re
 import sys
 from pathlib import Path
 from datetime import datetime, timezone
+from urllib.parse import quote
 from urllib.request import Request, urlopen
 from urllib.error import HTTPError, URLError
 
@@ -225,12 +226,23 @@ def fetch_json_content(repo_name: str, file_path: str) -> dict | None:
         return None
 
 
-def resolve_image_url(repo_name: str, filename: str) -> str:
+def repo_cache_token(repo: dict) -> str:
+    """Stable cache-busting token derived from the repo's last push time."""
+    raw = str(repo.get('pushed_at') or repo.get('updated_at') or '').strip()
+    return re.sub(r'[^0-9A-Za-z]+', '', raw)
+
+
+def resolve_image_url(repo: dict, filename: str) -> str:
     """
     Return the raw.githubusercontent.com URL for portfolio/{filename} in the repo.
-    Uses the default branch name from the repo metadata if available, else 'main'.
+    Uses the repo's default branch and appends a cache-busting version token so
+    same-filename screenshot replacements propagate without renaming files.
     """
-    return f'{RAW_BASE}/{ORG}/{repo_name}/main/portfolio/{filename}'
+    repo_name = repo['name']
+    branch = repo.get('default_branch') or 'main'
+    url = f'{RAW_BASE}/{ORG}/{repo_name}/{branch}/portfolio/{filename}'
+    token = repo_cache_token(repo)
+    return f'{url}?v={quote(token, safe="")}' if token else url
 
 
 # ── Main compile logic ─────────────────────────────────────────────────────────
@@ -316,19 +328,19 @@ def compile_all() -> tuple[dict, list]:
             # ── Resolve image filenames → raw GitHub URLs ──────────────────
             img = card.get('img', '').strip()
             if img and Path(img).suffix.lower() in IMG_EXTS:
-                card['img'] = resolve_image_url(repo_name, img)
+                card['img'] = resolve_image_url(repo, img)
                 print(f'    → img: {card["img"]}')
 
             img_featured = card.get('imgFeatured', '').strip()
             if img_featured and Path(img_featured).suffix.lower() in IMG_EXTS:
-                card['imgFeatured'] = resolve_image_url(repo_name, img_featured)
+                card['imgFeatured'] = resolve_image_url(repo, img_featured)
                 print(f'    → imgFeatured: {card["imgFeatured"]}')
 
             resolved_imgs = []
             for extra_img in card.get('imgs', []):
                 extra_img = extra_img.strip()
                 if extra_img and Path(extra_img).suffix.lower() in IMG_EXTS:
-                    resolved_imgs.append(resolve_image_url(repo_name, extra_img))
+                    resolved_imgs.append(resolve_image_url(repo, extra_img))
                 else:
                     resolved_imgs.append(extra_img)
             if resolved_imgs:
