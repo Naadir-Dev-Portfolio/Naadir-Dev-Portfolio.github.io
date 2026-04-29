@@ -7,8 +7,59 @@
 
   const GITHUB  = 'https://github.com/Naadir-Dev-Portfolio';
   const BOOK_IMGS = 'assets/images/books/';
-  /* img fields are raw.githubusercontent.com URLs (set by compile script) */
-  function imgSrc(url){ return url || ''; }
+  const CARD_IMG_FALLBACK = 'assets/images/logo.png';
+  /* img fields are raw.githubusercontent.com URLs (set by compile script).
+     Prefer jsDelivr for public GitHub assets because some devices/networks
+     fail more often against raw.githubusercontent.com. */
+  function imgSrc(url){
+    if(!url) return '';
+    const m = String(url).match(/^https:\/\/raw\.githubusercontent\.com\/([^/]+)\/([^/]+)\/([^/]+)\/(.+)$/i);
+    return m ? `https://cdn.jsdelivr.net/gh/${m[1]}/${m[2]}@${m[3]}/${m[4]}` : url;
+  }
+  function uniq(items){
+    return [...new Set(items.filter(Boolean))];
+  }
+  function cardImageCandidates(p, featured=false){
+    const preferred = featured
+      ? [p.imgFeatured, p.img, p.imgs && p.imgs[0]]
+      : [p.img, p.imgFeatured, p.imgs && p.imgs[0]];
+    const raw = uniq([...preferred, ...(Array.isArray(p.imgs) ? p.imgs : [])]);
+    const sources = [];
+    raw.forEach(url => {
+      const preferredUrl = imgSrc(url);
+      if(preferredUrl) sources.push(preferredUrl);
+      if(url && url !== preferredUrl) sources.push(url);
+    });
+    return uniq([...sources, CARD_IMG_FALLBACK]);
+  }
+  function renderCardImage(p, featured=false){
+    const sources = cardImageCandidates(p, featured);
+    const src = sources[0] || CARD_IMG_FALLBACK;
+    const fallbacks = sources.slice(1);
+    const attr = fallbacks.length ? ` data-fallbacks="${fallbacks.join('||')}"` : '';
+    return `<img src="${src}"${attr} alt="${p.title}" loading="lazy">`;
+  }
+  function bindCardImageFallbacks(scope){
+    scope.querySelectorAll('img[data-fallbacks]').forEach(img => {
+      if(img.dataset.fallbackBound === '1') return;
+      img.dataset.fallbackBound = '1';
+      img.addEventListener('error', () => {
+        const fallbacks = (img.dataset.fallbacks || '').split('||').filter(Boolean);
+        const next = fallbacks.shift();
+        img.dataset.fallbacks = fallbacks.join('||');
+        if(next){
+          img.src = next;
+          return;
+        }
+        if(img.dataset.fallbackExhausted === '1') return;
+        img.dataset.fallbackExhausted = '1';
+        img.src = CARD_IMG_FALLBACK;
+      });
+      if(img.complete && img.naturalWidth === 0){
+        img.dispatchEvent(new Event('error'));
+      }
+    });
+  }
   const AI_URL  = 'https://subtle-khapse-c232ff.netlify.app/.netlify/functions/gemini-proxy';
   const AI_SYS  = `You are Naadir's AI Assistant. Professional and concise. Naadir builds automation tools, AI systems, data pipelines and mobile apps. Projects include: Spheria (hero project, AI desktop OS with multi-agent orchestration, tool calling and persistent memory), Mobile Health Planner (React Native / Expo SDK 54 cross-platform health app for Android), Health Planner Desktop (PyQt6 + QWebEngineView hybrid desktop health app), Trading Algo Backtester (ML-powered backtester), Finance & Health PyQt6 dashboards, Adobe Script Toolkit (Python+COM sticker pack pipeline, JSX automation for Illustrator & After Effects), ComfyUI Workflows (Stable Diffusion image generation pipelines with Python batch automation), Enterprise GenAI assistant, AI Quiz Bot, Finance NL Query (natural language financial data interface), economic data scripts, educational web games, VBA/SAP automation tools, Power Query M templates, Power BI dashboards, crypto news aggregator, and more. Skills: Python, VBA/Excel, Power Query, Power BI, Power Automate, JavaScript, React Native, TypeScript, AI/ML, multi-agent systems, prompt engineering, ExtendScript/JSX, ComfyUI, PyQt6, Streamlit. Keep answers brief and professional.`.trim();
 
@@ -218,7 +269,7 @@
   function buildFeaturedCard(p){
     const vid = resolveVideo(p);
     const src = vid ? `https://img.youtube.com/vi/${vid.id}/hqdefault.jpg`
-                    : imgSrc(p.imgFeatured || p.img || (p.imgs && p.imgs[0]) || '');
+                    : null;
     const href = cardHref(p);
     return `
       <div class="card card-featured"${href?` data-href="${href}"`:''}>
@@ -233,7 +284,7 @@
           </div>
         </div>
         <div class="card-editorial-img">
-          <img src="${src}" alt="${p.title}" loading="lazy">
+          ${src ? `<img src="${src}" alt="${p.title}" loading="lazy">` : renderCardImage(p, true)}
         </div>
       </div>`;
   }
@@ -242,11 +293,11 @@
   function buildGalleryCard(p){
     const vid = resolveVideo(p);
     const src = vid ? `https://img.youtube.com/vi/${vid.id}/hqdefault.jpg`
-                    : imgSrc(p.img);
+                    : null;
     const href = cardHref(p);
     return `
       <div class="card card-gallery"${href?` data-href="${href}"`:''}>
-        <img src="${src}" alt="${p.title}" loading="lazy">
+        ${src ? `<img src="${src}" alt="${p.title}" loading="lazy">` : renderCardImage(p)}
         <div class="card-gal-body">
           <h3>${p.title}</h3>
           <p>${p.desc}</p>
@@ -309,6 +360,7 @@
         ...featured.map(buildCard),
         `<div class="gallery-wrap"><div class="gallery-cards">${galHtml}</div>${paginator}</div>`
       ].join('');
+      bindCardImageFallbacks(g);
 
       g.querySelector('.page-prev')?.addEventListener('click', ()=>render(page-1));
       g.querySelector('.page-next')?.addEventListener('click', ()=>render(page+1));
