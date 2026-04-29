@@ -10,7 +10,7 @@
    It is built from scripts/compile_projects.py SECTIONS plus auto-discovery
    of any (section, category) keys that show up in project JSONs.
 
-   Last compiled: 2026-04-29 19:07 UTC
+   Last compiled: 2026-04-29 19:33 UTC
    ============================================================ */
 window.__PORTFOLIO = {
 
@@ -645,7 +645,8 @@ window.__PORTFOLIO = {
         {
           n:3,
           title:'AI Tab Organiser',
-          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/AI-Tab-Organiser/main/portfolio/ai-tab-organiser.png?v=20260427T211329Z',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/AI-Tab-Organiser/main/portfolio/ai-tab-organiser.png?v=20260429T193259Z',
+          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/AI-Tab-Organiser/main/portfolio/ai-tab-organiser-featured.png?v=20260429T193259Z',
           desc:'Chrome extension that instantly groups all your open tabs into colour-coded categories using Claude or Gemini.',
           code:'https://github.com/Naadir-Dev-Portfolio/AI-Tab-Organiser/blob/main/sidepanel.js',
           details:'https://github.com/Naadir-Dev-Portfolio/AI-Tab-Organiser/blob/main/README.md',
