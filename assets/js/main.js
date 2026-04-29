@@ -9,9 +9,8 @@
   const BOOK_IMGS = 'assets/images/books/';
   const CARD_IMG_FALLBACK = 'assets/images/screenshot-unavailable.png';
   /* img fields are raw.githubusercontent.com URLs (set by compile script).
-     Prefer jsDelivr for public GitHub assets because some devices/networks
-     fail more often against raw.githubusercontent.com. */
-  function imgSrc(url){
+     Keep raw GitHub first for freshness; jsDelivr is only a fallback. */
+  function cdnImgSrc(url){
     if(!url) return '';
     const m = String(url).match(/^https:\/\/raw\.githubusercontent\.com\/([^/]+)\/([^/]+)\/([^/]+)\/(.+)$/i);
     return m ? `https://cdn.jsdelivr.net/gh/${m[1]}/${m[2]}@${m[3]}/${m[4]}` : url;
@@ -26,9 +25,9 @@
     const raw = uniq([...preferred, ...(Array.isArray(p.imgs) ? p.imgs : [])]);
     const sources = [];
     raw.forEach(url => {
-      const preferredUrl = imgSrc(url);
-      if(preferredUrl) sources.push(preferredUrl);
-      if(url && url !== preferredUrl) sources.push(url);
+      if(url) sources.push(url);
+      const cdnUrl = cdnImgSrc(url);
+      if(cdnUrl && cdnUrl !== url) sources.push(cdnUrl);
     });
     return uniq([...sources, CARD_IMG_FALLBACK]);
   }
