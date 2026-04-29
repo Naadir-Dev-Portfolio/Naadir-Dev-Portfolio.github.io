@@ -7,7 +7,7 @@
 
   const GITHUB  = 'https://github.com/Naadir-Dev-Portfolio';
   const BOOK_IMGS = 'assets/images/books/';
-  const CARD_IMG_FALLBACK = 'assets/images/logo.png';
+  const CARD_IMG_FALLBACK = 'assets/images/screenshot-unavailable.png';
   /* img fields are raw.githubusercontent.com URLs (set by compile script).
      Prefer jsDelivr for public GitHub assets because some devices/networks
      fail more often against raw.githubusercontent.com. */
