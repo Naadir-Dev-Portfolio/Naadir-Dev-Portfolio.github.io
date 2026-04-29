@@ -10,7 +10,7 @@
    It is built from scripts/compile_projects.py SECTIONS plus auto-discovery
    of any (section, category) keys that show up in project JSONs.
 
-   Last compiled: 2026-04-29 12:28 UTC
+   Last compiled: 2026-04-29 18:38 UTC
    ============================================================ */
 window.__PORTFOLIO = {
 
@@ -628,7 +628,8 @@ window.__PORTFOLIO = {
         {
           n:2,
           title:'AI Article Sender',
-          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/AI-Article-Sender/main/portfolio/ai-article-sender.png?v=20260429T122802Z',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/AI-Article-Sender/main/portfolio/ai-article-sender.png?v=20260429T183722Z',
+          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/AI-Article-Sender/main/portfolio/ai-article-sender-featured.png?v=20260429T183722Z',
           desc:'Chrome extension that scrapes any article and sends the full text directly to ChatGPT, Claude, Gemini, or Perplexity.',
           code:'https://github.com/Naadir-Dev-Portfolio/AI-Article-Sender/blob/main/sidepanel.js',
           details:'https://github.com/Naadir-Dev-Portfolio/AI-Article-Sender/blob/main/README.md',
