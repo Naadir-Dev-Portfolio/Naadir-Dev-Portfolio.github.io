@@ -10,7 +10,7 @@
    It is built from scripts/compile_projects.py SECTIONS plus auto-discovery
    of any (section, category) keys that show up in project JSONs.
 
-   Last compiled: 2026-04-29 10:37 UTC
+   Last compiled: 2026-04-29 11:05 UTC
    ============================================================ */
 window.__PORTFOLIO = {
 
@@ -20,11 +20,11 @@ window.__PORTFOLIO = {
         {
           n:1,
           title:'Finance Dashboard',
-          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Finance-Dashboard/main/portfolio/FinanceScreen.png',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Finance-Dashboard/main/portfolio/FinanceScreen.png?v=20260323T224239Z',
           imgs:[
-            'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Finance-Dashboard/main/portfolio/FinanceScreen.png',
-            'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Finance-Dashboard/main/portfolio/financeDashboard.jpg',
-            'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Finance-Dashboard/main/portfolio/eer.webp'
+            'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Finance-Dashboard/main/portfolio/FinanceScreen.png?v=20260323T224239Z',
+            'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Finance-Dashboard/main/portfolio/financeDashboard.jpg?v=20260323T224239Z',
+            'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Finance-Dashboard/main/portfolio/eer.webp?v=20260323T224239Z'
           ],
           desc:'Interactive finance KPIs dashboard with automated data importing, charting and portfolio tracking, built with PyQt6.',
           code:'https://github.com/Naadir-Dev-Portfolio/Finance-Dashboard/blob/main/Ui_finance.py',
@@ -38,7 +38,7 @@ window.__PORTFOLIO = {
         {
           n:2,
           title:'YouTube Stats Dashboard',
-          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/YouTube-Stats-Dashboard/main/portfolio/screenshot.png',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/YouTube-Stats-Dashboard/main/portfolio/screenshot.png?v=20260323T224130Z',
           desc:'Local channel intelligence tool that fetches full view count history from the YouTube Data API, giving creators a persistent, exportable performance record that YouTube\'s own analytics won\'t provide.',
           code:'https://github.com/Naadir-Dev-Portfolio/YouTube-Stats-Dashboard/blob/main/main.py',
           details:'https://github.com/Naadir-Dev-Portfolio/YouTube-Stats-Dashboard/blob/main/README.md',
@@ -51,7 +51,7 @@ window.__PORTFOLIO = {
         {
           n:3,
           title:'Health Dashboard',
-          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Health-Dashboard/main/portfolio/healthDashboardScreen.png',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Health-Dashboard/main/portfolio/healthDashboardScreen.png?v=20260323T224121Z',
           desc:'OpenGL powered health metrics dashboard with dynamic 3D body model selection and vitals tracking.',
           code:'https://github.com/Naadir-Dev-Portfolio/Health-Dashboard/blob/main/Ui_health.py',
           details:'https://github.com/Naadir-Dev-Portfolio/Health-Dashboard/blob/main/README.md',
@@ -64,9 +64,9 @@ window.__PORTFOLIO = {
         {
           n:4,
           title:'Mortgage Overpayment Tracker',
-          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Mortgage-Overpayment-Tracker/main/portfolio/mortgageTrackerScreen.webp',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Mortgage-Overpayment-Tracker/main/portfolio/mortgageTrackerScreen.webp?v=20260323T224140Z',
           imgs:[
-            'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Mortgage-Overpayment-Tracker/main/portfolio/mortgageTrackerScreen.webp'
+            'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Mortgage-Overpayment-Tracker/main/portfolio/mortgageTrackerScreen.webp?v=20260323T224140Z'
           ],
           desc:'Interactive mortgage dashboard, model overpayment scenarios, visualise interest saved, and see exactly when you\'ll be mortgage free.',
           tags:[
@@ -273,7 +273,7 @@ window.__PORTFOLIO = {
         {
           n:1,
           title:'UK Unemployment',
-          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/PowerBI-Unemployment-Dashboard/main/portfolio/powerbi-unemployment-dashboard.png',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/PowerBI-Unemployment-Dashboard/main/portfolio/powerbi-unemployment-dashboard.png?v=20260427T112320Z',
           desc:'Labour market dashboard tracking UK unemployment trends, claimant counts, and regional variation using official ONS and DWP data. Live interactive version published on Power BI service.',
           demo:'https://app.powerbi.com/view?r=eyJrIjoiNzdhMWQ2Y2QtNDYxMC00OTI4LWFlNGEtZjgxNmUwYzgxNDRkIiwidCI6IjFmMjM5NGIwLWJiZmUtNDZlYS04MDIyLTFhZjJiZjg4ZDBkZCJ9',
           code:'https://github.com/Naadir-Dev-Portfolio/PowerBI-Unemployment-Dashboard',
@@ -407,7 +407,7 @@ window.__PORTFOLIO = {
         {
           n:1,
           title:'Enterprise GenAI Assistant',
-          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Enterprise-GenAI-Assistant/main/portfolio/ccmiChatbot_demo.webp',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Enterprise-GenAI-Assistant/main/portfolio/ccmiChatbot_demo.webp?v=20260323T171101Z',
           desc:'Custom enterprise chatbot leveraging Gemini 1.5 Flash, built and deployed for a team within days. RAG pipeline over internal documentation.',
           code:'https://github.com/Naadir-Dev-Portfolio/Enterprise-GenAI-Assistant/blob/main/main.py',
           demo:'https://ccmi-genai-chat.streamlit.app/',
@@ -422,7 +422,7 @@ window.__PORTFOLIO = {
         {
           n:2,
           title:'AI Quiz Bot',
-          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/AI-Quizbot/main/portfolio/aiQuizbot.webp',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/AI-Quizbot/main/portfolio/aiQuizbot.webp?v=20260323T171048Z',
           desc:'Interactive knowledge testing with adaptive questioning powered by Gemini 1.5 Flash, generates fresh quizzes on any topic.',
           code:'https://github.com/Naadir-Dev-Portfolio/AI-Quizbot/blob/main/main.py',
           demo:'https://aiquizbot.streamlit.app/',
@@ -494,7 +494,7 @@ window.__PORTFOLIO = {
         {
           n:1,
           title:'Team Hub Website',
-          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Team-Hub-Website/main/portfolio/ccmisite_demo.webp',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Team-Hub-Website/main/portfolio/ccmisite_demo.webp?v=20260427T110703Z',
           desc:'Professional front end portal for an internal data team, showcasing tools, projects and team info with a clean, responsive layout.',
           code:'https://github.com/Naadir-Dev-Portfolio/Team-Hub-Website/tree/main',
           demo:'https://ccmiteamsite-by-naadir.netlify.app/',
@@ -509,7 +509,7 @@ window.__PORTFOLIO = {
         {
           n:2,
           title:'Power BI Request Portal',
-          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/PowerBI-Request-Portal/main/portfolio/pbirequest.webp',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/PowerBI-Request-Portal/main/portfolio/pbirequest.webp?v=20260427T111138Z',
           desc:'Interactive request portal that walks stakeholders through the Power BI report commissioning process, replaces email back and forth.',
           code:'https://github.com/Naadir-Dev-Portfolio/PowerBI-Request-Portal/blob/main/index.html',
           demo:'https://powerbirequest-by-naadir.netlify.app/',
@@ -539,7 +539,7 @@ window.__PORTFOLIO = {
         {
           n:1,
           title:'Rain Drops Arithmetics',
-          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/RainDrops/main/portfolio/raindropsScreen.webp',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/RainDrops/main/portfolio/raindropsScreen.webp?v=20260323T171136Z',
           desc:'Fast paced arithmetic training game inspired by Lumosity\'s Rain Drops, tests mental calculation speed under pressure.',
           code:'https://github.com/Naadir-Dev-Portfolio/RainDrops/blob/main/index.html',
           demo:'https://raindrops-by-naadir.netlify.app/',
@@ -552,7 +552,7 @@ window.__PORTFOLIO = {
         {
           n:2,
           title:'Hexamatch Fractions',
-          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Hexamatch/main/portfolio/hexamatchScreen.webp',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Hexamatch/main/portfolio/hexamatchScreen.webp?v=20260323T171129Z',
           desc:'Hexagonal tile matching game that builds intuitive understanding of equivalent fractions through play.',
           code:'https://github.com/Naadir-Dev-Portfolio/Hexamatch/blob/main/index.html',
           demo:'https://hexamatch-by-naadir.netlify.app/',
@@ -565,7 +565,7 @@ window.__PORTFOLIO = {
         {
           n:3,
           title:'AlgebraVerse',
-          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Algebraverse/main/portfolio/algebraverseScreen.webp',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Algebraverse/main/portfolio/algebraverseScreen.webp?v=20260323T171052Z',
           desc:'Progressive algebra challenge system, from basic equations to multi-step problem solving, with difficulty scaling.',
           code:'https://github.com/Naadir-Dev-Portfolio/Algebraverse/blob/main/index.html',
           demo:'https://algebraverse-by-naadir.netlify.app/',
@@ -578,7 +578,7 @@ window.__PORTFOLIO = {
         {
           n:4,
           title:'Logic Grid Boolean',
-          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/LogicGrid/main/portfolio/logicgridscreen.webp',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/LogicGrid/main/portfolio/logicgridscreen.webp?v=20260323T171131Z',
           desc:'Visual boolean logic gate puzzle, helps players build intuitive understanding of AND, OR and NOT operations.',
           code:'https://github.com/Naadir-Dev-Portfolio/LogicGrid/blob/main/index.html',
           demo:'https://logicgrid-by-naadir.netlify.app/',
@@ -613,7 +613,7 @@ window.__PORTFOLIO = {
         {
           n:1,
           title:'Browser Automation',
-          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Browser-Automation-Extension/main/portfolio/browser-automation-extension.png',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Browser-Automation-Extension/main/portfolio/browser-automation-extension.png?v=20260427T212541Z',
           desc:'Browser Automation Extension is a Chromium based side panel automation tool that records browser actions like clicks, typing, and navigation, then replays them as reusable automations. It also lets users edit, loop, import, and export recorded workflows directly from browser storage.',
           code:'https://github.com/Naadir-Dev-Portfolio/Browser-Automation-Extension/blob/main/background.js',
           details:'https://github.com/Naadir-Dev-Portfolio/Browser-Automation-Extension/blob/main/README.md',
@@ -628,7 +628,7 @@ window.__PORTFOLIO = {
         {
           n:2,
           title:'AI Article Sender',
-          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/AI-Article-Sender/main/portfolio/ai-article-sender.png',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/AI-Article-Sender/main/portfolio/ai-article-sender.png?v=20260429T101212Z',
           desc:'Chrome extension that scrapes any article and sends the full text directly to ChatGPT, Claude, Gemini, or Perplexity.',
           code:'https://github.com/Naadir-Dev-Portfolio/AI-Article-Sender/blob/main/sidepanel.js',
           details:'https://github.com/Naadir-Dev-Portfolio/AI-Article-Sender/blob/main/README.md',
@@ -643,7 +643,7 @@ window.__PORTFOLIO = {
         {
           n:3,
           title:'AI Tab Organiser',
-          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/AI-Tab-Organiser/main/portfolio/ai-tab-organiser.png',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/AI-Tab-Organiser/main/portfolio/ai-tab-organiser.png?v=20260427T211329Z',
           desc:'Chrome extension that instantly groups all your open tabs into colour-coded categories using Claude or Gemini.',
           code:'https://github.com/Naadir-Dev-Portfolio/AI-Tab-Organiser/blob/main/sidepanel.js',
           details:'https://github.com/Naadir-Dev-Portfolio/AI-Tab-Organiser/blob/main/README.md',
