@@ -767,6 +767,13 @@
       return src.includes('-full.') ? src : src.replace(/(\.[^./?#]+)(\?.*)?$/, '-full$1$2');
     }
 
+    function sameAspectRatio(aW, aH, bW, bH){
+      if(!aW || !aH || !bW || !bH) return false;
+      const a = aW / aH;
+      const b = bW / bH;
+      return Math.abs(a - b) / b < 0.03;
+    }
+
     /* Size the overlay to fit nw×nh within the viewport, preserving aspect ratio.
        CAP_H reserves space for the caption bar below the image. */
     const CAP_H = 120;
@@ -811,7 +818,8 @@
       const desc    = descEl  ? descEl.textContent.trim()  : '';
 
       /* Use full image dimensions if it finished preloading, else fall back to card image */
-      const fullReady = preloadImg && preloadImg.complete && preloadImg.naturalWidth > 0;
+      const fullReady = preloadImg && preloadImg.complete && preloadImg.naturalWidth > 0 &&
+        sameAspectRatio(preloadImg.naturalWidth, preloadImg.naturalHeight, imgEl.naturalWidth, imgEl.naturalHeight);
       const dimW = fullReady ? preloadImg.naturalWidth  : (imgEl.naturalWidth  || 0);
       const dimH = fullReady ? preloadImg.naturalHeight : (imgEl.naturalHeight || 0);
 
@@ -850,6 +858,7 @@
         img.src = cardSrc;
         preloadImg.addEventListener('load', ()=>{
           if(activeOverlay !== overlay) return;
+          if(!sameAspectRatio(preloadImg.naturalWidth, preloadImg.naturalHeight, imgEl.naturalWidth, imgEl.naturalHeight)) return;
           img.src = preloadImg.src;
           const newRect = naturalExpandRect(preloadImg.naturalWidth, preloadImg.naturalHeight);
           overlay.style.transition = 'left .3s ease, top .3s ease, width .3s ease, height .3s ease';
