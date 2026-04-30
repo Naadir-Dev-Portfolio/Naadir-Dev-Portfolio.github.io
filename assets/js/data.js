@@ -10,7 +10,7 @@
    It is built from scripts/compile_projects.py SECTIONS plus auto-discovery
    of any (section, category) keys that show up in project JSONs.
 
-   Last compiled: 2026-04-30 05:34 UTC
+   Last compiled: 2026-04-30 21:13 UTC
    ============================================================ */
 window.__PORTFOLIO = {
 
@@ -650,6 +650,22 @@ window.__PORTFOLIO = {
           desc:'Chrome extension that instantly groups all your open tabs into colour-coded categories using Claude or Gemini.',
           code:'https://github.com/Naadir-Dev-Portfolio/AI-Tab-Organiser/blob/main/sidepanel.js',
           details:'https://github.com/Naadir-Dev-Portfolio/AI-Tab-Organiser/blob/main/README.md',
+          tags:[
+            'Browser Extensions',
+            'Chrome',
+            'JavaScript',
+            'HTML',
+            'CSS'
+          ]
+        },
+        {
+          n:4,
+          title:'AI-YouTube-Gemini-Summariser',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/AI-YouTube-Gemini-Summariser/main/portfolio/ai-youtube-gemini-summariser.png?v=20260430T211245Z',
+          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/AI-YouTube-Gemini-Summariser/main/portfolio/ai-youtube-gemini-summariser-featured.png?v=20260430T211245Z',
+          desc:'A Chrome extension that enhances the functionality of Gemini within YouTube videos, enabling more efficient and accelerated learning and research.',
+          code:'https://github.com/Naadir-Dev-Portfolio/AI-YouTube-Gemini-Summariser/blob/main/README.md',
+          details:'https://github.com/Naadir-Dev-Portfolio/AI-YouTube-Gemini-Summariser/blob/main/README.md',
           tags:[
             'Browser Extensions',
             'Chrome',
