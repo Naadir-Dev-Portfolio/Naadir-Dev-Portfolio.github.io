@@ -10,7 +10,7 @@
    It is built from scripts/compile_projects.py SECTIONS plus auto-discovery
    of any (section, category) keys that show up in project JSONs.
 
-   Last compiled: 2026-04-30 21:13 UTC
+   Last compiled: 2026-04-30 21:30 UTC
    ============================================================ */
 window.__PORTFOLIO = {
 
@@ -661,8 +661,8 @@ window.__PORTFOLIO = {
         {
           n:4,
           title:'AI-YouTube-Gemini-Summariser',
-          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/AI-YouTube-Gemini-Summariser/main/portfolio/ai-youtube-gemini-summariser.png?v=20260430T211245Z',
-          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/AI-YouTube-Gemini-Summariser/main/portfolio/ai-youtube-gemini-summariser-featured.png?v=20260430T211245Z',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/AI-YouTube-Gemini-Summariser/main/portfolio/ai-youtube-gemini-summariser.png?v=20260430T213011Z',
+          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/AI-YouTube-Gemini-Summariser/main/portfolio/ai-youtube-gemini-summariser-featured.png?v=20260430T213011Z',
           desc:'A Chrome extension that enhances the functionality of Gemini within YouTube videos, enabling more efficient and accelerated learning and research.',
           code:'https://github.com/Naadir-Dev-Portfolio/AI-YouTube-Gemini-Summariser/blob/main/README.md',
           details:'https://github.com/Naadir-Dev-Portfolio/AI-YouTube-Gemini-Summariser/blob/main/README.md',
