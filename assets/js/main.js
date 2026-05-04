@@ -764,14 +764,11 @@
       const src = imgEl.src.includes('img.youtube.com')
         ? imgEl.src.replace(/\/[a-z]+default\.jpg/, '/maxresdefault.jpg')
         : imgEl.src;
-      return src.includes('-full.') ? src : src.replace(/(\.[^./?#]+)(\?.*)?$/, '-full$1$2');
-    }
-
-    function sameAspectRatio(aW, aH, bW, bH){
-      if(!aW || !aH || !bW || !bH) return false;
-      const a = aW / aH;
-      const b = bW / bH;
-      return Math.abs(a - b) / b < 0.03;
+      if(src.includes('-full.')) return src;
+      if(src.includes('-featured.')){
+        return src.replace(/-featured(\.[^./?#]+)(\?.*)?$/, '-full$1$2');
+      }
+      return src.replace(/(\.[^./?#]+)(\?.*)?$/, '-full$1$2');
     }
 
     /* Size the overlay to fit nw×nh within the viewport, preserving aspect ratio.
@@ -780,12 +777,17 @@
     function naturalExpandRect(nw, nh){
       const vw = window.innerWidth;
       const vh = window.innerHeight;
-      const maxW = Math.min(vw * 0.88, 1200);
-      const maxImgH = vh * 0.82 - CAP_H;
+      const maxW = vw * 0.92;
+      const maxImgH = Math.max(160, vh * 0.88 - CAP_H);
       const ratio = (nw && nh) ? nw / nh : 4 / 3;
-      let w, h;
-      if(ratio > maxW / maxImgH){ w = maxW; h = maxW / ratio; }
-      else                       { h = maxImgH; w = maxImgH * ratio; }
+      const naturalW = nw || maxW;
+      const naturalH = nh || maxImgH;
+      let w = Math.min(naturalW, maxW);
+      let h = w / ratio;
+      if(h > maxImgH){
+        h = Math.min(naturalH, maxImgH);
+        w = h * ratio;
+      }
       const totalH = h + CAP_H;
       return { left:(vw-w)/2, top:(vh-totalH)/2, width:w, height:totalH };
     }
@@ -819,7 +821,7 @@
 
       /* Use full image dimensions if it finished preloading, else fall back to card image */
       const fullReady = preloadImg && preloadImg.complete && preloadImg.naturalWidth > 0 &&
-        sameAspectRatio(preloadImg.naturalWidth, preloadImg.naturalHeight, imgEl.naturalWidth, imgEl.naturalHeight);
+        preloadImg.naturalHeight > 0;
       const dimW = fullReady ? preloadImg.naturalWidth  : (imgEl.naturalWidth  || 0);
       const dimH = fullReady ? preloadImg.naturalHeight : (imgEl.naturalHeight || 0);
 
@@ -858,7 +860,6 @@
         img.src = cardSrc;
         preloadImg.addEventListener('load', ()=>{
           if(activeOverlay !== overlay) return;
-          if(!sameAspectRatio(preloadImg.naturalWidth, preloadImg.naturalHeight, imgEl.naturalWidth, imgEl.naturalHeight)) return;
           img.src = preloadImg.src;
           const newRect = naturalExpandRect(preloadImg.naturalWidth, preloadImg.naturalHeight);
           overlay.style.transition = 'left .3s ease, top .3s ease, width .3s ease, height .3s ease';
