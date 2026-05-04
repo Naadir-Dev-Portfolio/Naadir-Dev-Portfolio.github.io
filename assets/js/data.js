@@ -10,7 +10,7 @@
    It is built from scripts/compile_projects.py SECTIONS plus auto-discovery
    of any (section, category) keys that show up in project JSONs.
 
-   Last compiled: 2026-05-04 05:39 UTC
+   Last compiled: 2026-05-04 13:23 UTC
    ============================================================ */
 window.__PORTFOLIO = {
 
@@ -272,8 +272,9 @@ window.__PORTFOLIO = {
       dashboards:[
         {
           n:1,
-          title:'UK Unemployment',
-          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/PowerBI-Unemployment-Dashboard/main/portfolio/powerbi-unemployment-dashboard.png?v=20260427T112320Z',
+          title:'UK Labour Market Dashboard',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/PowerBI-Unemployment-Dashboard/main/portfolio/powerbi-unemployment-dashboard.png?v=20260504T132243Z',
+          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/PowerBI-Unemployment-Dashboard/main/portfolio/powerbi-unemployment-dashboard-featured.png?v=20260504T132243Z',
           desc:'Labour market dashboard tracking UK unemployment trends, claimant counts, and regional variation using official ONS and DWP data. Live interactive version published on Power BI service.',
           demo:'https://app.powerbi.com/view?r=eyJrIjoiNzdhMWQ2Y2QtNDYxMC00OTI4LWFlNGEtZjgxNmUwYzgxNDRkIiwidCI6IjFmMjM5NGIwLWJiZmUtNDZlYS04MDIyLTFhZjJiZjg4ZDBkZCJ9',
           code:'https://github.com/Naadir-Dev-Portfolio/PowerBI-Unemployment-Dashboard',
