@@ -10,7 +10,7 @@
    It is built from scripts/compile_projects.py SECTIONS plus auto-discovery
    of any (section, category) keys that show up in project JSONs.
 
-   Last compiled: 2026-05-05 05:19 UTC
+   Last compiled: 2026-05-05 19:47 UTC
    ============================================================ */
 window.__PORTFOLIO = {
 
@@ -273,10 +273,10 @@ window.__PORTFOLIO = {
         {
           n:1,
           title:'UK Labour Market Dashboard',
-          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/powerbi-uk-Labour-Market-Dashboard/main/portfolio/powerbi-unemployment-dashboard.png?v=20260504T150945Z',
-          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/powerbi-uk-Labour-Market-Dashboard/main/portfolio/powerbi-unemployment-dashboard-featured.png?v=20260504T150945Z',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/powerbi-uk-Labour-Market-Dashboard/main/portfolio/powerbi-uk-labour-market-dashboard.png?v=20260505T194701Z',
+          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/powerbi-uk-Labour-Market-Dashboard/main/portfolio/powerbi-uk-labour-market-dashboard-featured.png?v=20260505T194701Z',
           desc:'Labour market dashboard tracking UK unemployment trends, claimant counts, and regional variation using official ONS and DWP data. Live interactive version published on Power BI service.',
-          demo:'https://app.powerbi.com/view?r=eyJrIjoiNzdhMWQ2Y2QtNDYxMC00OTI4LWFlNGEtZjgxNmUwYzgxNDRkIiwidCI6IjFmMjM5NGIwLWJiZmUtNDZlYS04MDIyLTFhZjJiZjg4ZDBkZCJ9',
+          demo:'https://app.powerbi.com/view?r=eyJrIjoiNTg5MGQxN2YtZTNjZi00OGJkLWI1YTQtOGI3ZDFhYjFiOWFjIiwidCI6IjFmMjM5NGIwLWJiZmUtNDZlYS04MDIyLTFhZjJiZjg4ZDBkZCJ9',
           code:'https://github.com/Naadir-Dev-Portfolio/powerbi-uk-Labour-Market-Dashboard',
           details:'https://github.com/Naadir-Dev-Portfolio/powerbi-uk-Labour-Market-Dashboard/blob/main/README.md',
           tags:[
