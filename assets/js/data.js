@@ -10,7 +10,7 @@
    It is built from scripts/compile_projects.py SECTIONS plus auto-discovery
    of any (section, category) keys that show up in project JSONs.
 
-   Last compiled: 2026-05-07 21:21 UTC
+   Last compiled: 2026-05-07 21:35 UTC
    ============================================================ */
 window.__PORTFOLIO = {
 
@@ -305,8 +305,10 @@ window.__PORTFOLIO = {
         {
           n:3,
           title:'Crime & Community Safety',
-          img:'',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/powerbi-crime-community-safety-dashboard/main/portfolio/powerbi-crime-community-safety-dashboard.png?v=20260507T213446Z',
+          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/powerbi-crime-community-safety-dashboard/main/portfolio/powerbi-crime-community-safety-dashboard-featured.png?v=20260507T213446Z',
           desc:'Public crime analytics dashboard using official England and Wales police data to track whether crime is rising, which types are driving change, and which areas are emerging as hotspots.',
+          demo:'https://app.powerbi.com/view?r=eyJrIjoiOGEwNmYzNWMtYzM1MS00MGUxLWI2YjItYzFjYWQ4NmMxMzk0IiwidCI6IjFmMjM5NGIwLWJiZmUtNDZlYS04MDIyLTFhZjJiZjg4ZDBkZCJ9',
           code:'https://github.com/Naadir-Dev-Portfolio/powerbi-crime-community-safety-dashboard',
           details:'https://github.com/Naadir-Dev-Portfolio/powerbi-crime-community-safety-dashboard/blob/main/README.md',
           tags:[
