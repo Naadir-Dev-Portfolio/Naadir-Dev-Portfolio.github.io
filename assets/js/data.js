@@ -10,7 +10,7 @@
    It is built from scripts/compile_projects.py SECTIONS plus auto-discovery
    of any (section, category) keys that show up in project JSONs.
 
-   Last compiled: 2026-05-08 07:20 UTC
+   Last compiled: 2026-05-08 15:07 UTC
    ============================================================ */
 window.__PORTFOLIO = {
 
@@ -342,8 +342,10 @@ window.__PORTFOLIO = {
         {
           n:5,
           title:'School Attendance',
-          img:'',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/powerbi-school-attendance-dashboard/main/portfolio/powerbi-school-attendance-dashboard.png?v=20260508T150706Z',
+          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/powerbi-school-attendance-dashboard/main/portfolio/powerbi-school-attendance-dashboard-featured.png?v=20260508T150706Z',
           desc:'Education analytics dashboard using official DfE data to track school attendance trends, persistent absence rates, and which local authorities and pupil groups face the highest risk.',
+          demo:'https://app.powerbi.com/view?r=eyJrIjoiZTA1MzM4OGUtYTFkZi00ZmJmLWI5YmYtZGQ4ZTBiNDdkZTYxIiwidCI6IjFmMjM5NGIwLWJiZmUtNDZlYS04MDIyLTFhZjJiZjg4ZDBkZCJ9',
           code:'https://github.com/Naadir-Dev-Portfolio/powerbi-school-attendance-dashboard',
           details:'https://github.com/Naadir-Dev-Portfolio/powerbi-school-attendance-dashboard/blob/main/README.md',
           tags:[
