@@ -10,7 +10,7 @@
    It is built from scripts/compile_projects.py SECTIONS plus auto-discovery
    of any (section, category) keys that show up in project JSONs.
 
-   Last compiled: 2026-05-08 04:56 UTC
+   Last compiled: 2026-05-08 07:20 UTC
    ============================================================ */
 window.__PORTFOLIO = {
 
@@ -323,8 +323,10 @@ window.__PORTFOLIO = {
         {
           n:4,
           title:'NHS Waiting Times',
-          img:'',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/powerbi-nhs-waiting-times-dashboard/main/portfolio/powerbi-nhs-waiting-times-dashboard.png?v=20260508T071930Z',
+          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/powerbi-nhs-waiting-times-dashboard/main/portfolio/powerbi-nhs-waiting-times-dashboard-featured.png?v=20260508T071930Z',
           desc:'Public-sector dashboard tracking NHS England RTT waiting-list pressure across trusts, regions, and specialties — showing whether backlogs are rising or falling and where strain is most acute.',
+          demo:'https://app.powerbi.com/view?r=eyJrIjoiZTBhY2FkMTEtYTFlYS00ODc2LWEzN2ItYTE2YTc0YzI4YTVjIiwidCI6IjFmMjM5NGIwLWJiZmUtNDZlYS04MDIyLTFhZjJiZjg4ZDBkZCJ9',
           code:'https://github.com/Naadir-Dev-Portfolio/powerbi-nhs-waiting-times-dashboard',
           details:'https://github.com/Naadir-Dev-Portfolio/powerbi-nhs-waiting-times-dashboard/blob/main/README.md',
           tags:[
