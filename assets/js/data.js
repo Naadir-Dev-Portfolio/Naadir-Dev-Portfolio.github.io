@@ -727,7 +727,7 @@ window.__PORTFOLIO = {
     {
       key:'powerbi',
       label:'Power BI',
-      desc:'Live interactive Power BI dashboards I have built with public datasets for personal analysis and professional development.”',
+      desc:'Live interactive Power BI dashboards built with public datasets for personal analysis and professional development.',
       categories:[
         {
           key:'dashboards',
