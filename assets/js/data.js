@@ -10,7 +10,7 @@
    It is built from scripts/compile_projects.py SECTIONS plus auto-discovery
    of any (section, category) keys that show up in project JSONs.
 
-   Last compiled: 2026-05-08 15:32 UTC
+   Last compiled: 2026-05-08 15:40 UTC
    ============================================================ */
 window.__PORTFOLIO = {
 
@@ -380,8 +380,10 @@ window.__PORTFOLIO = {
         {
           n:7,
           title:'UK Housing Affordability',
-          img:'',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/powerbi-uk-housing-affordability-dashboard/main/portfolio/powerbi-uk-housing-affordability-dashboard.png?v=20260508T153924Z',
+          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/powerbi-uk-housing-affordability-dashboard/main/portfolio/powerbi-uk-housing-affordability-dashboard-featured.png?v=20260508T153924Z',
           desc:'Housing analytics dashboard using ONS and Land Registry data to track price-to-income ratios across UK regions and local authorities, and show whether affordability is improving or deteriorating.',
+          demo:'https://app.powerbi.com/view?r=eyJrIjoiNDMxMjJiZmQtM2Q5ZS00YThkLWExNmUtMDdiMzEzMThkYzBkIiwidCI6IjFmMjM5NGIwLWJiZmUtNDZlYS04MDIyLTFhZjJiZjg4ZDBkZCJ9',
           code:'https://github.com/Naadir-Dev-Portfolio/powerbi-uk-housing-affordability-dashboard',
           details:'https://github.com/Naadir-Dev-Portfolio/powerbi-uk-housing-affordability-dashboard/blob/main/README.md',
           tags:[
