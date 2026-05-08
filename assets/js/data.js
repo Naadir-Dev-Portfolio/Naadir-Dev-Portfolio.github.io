@@ -10,7 +10,7 @@
    It is built from scripts/compile_projects.py SECTIONS plus auto-discovery
    of any (section, category) keys that show up in project JSONs.
 
-   Last compiled: 2026-05-08 15:07 UTC
+   Last compiled: 2026-05-08 15:32 UTC
    ============================================================ */
 window.__PORTFOLIO = {
 
@@ -361,8 +361,10 @@ window.__PORTFOLIO = {
         {
           n:6,
           title:'UK Energy Consumption',
-          img:'',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/powerbi-uk-energy-consumption-dashboard/main/portfolio/powerbi-uk-energy-consumption-dashboard.png?v=20260508T153203Z',
+          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/powerbi-uk-energy-consumption-dashboard/main/portfolio/powerbi-uk-energy-consumption-dashboard-featured.png?v=20260508T153203Z',
           desc:'Energy analytics dashboard using official DESNZ sub-national data to analyse UK electricity and gas consumption by region and local authority, and track whether patterns suggest structural change.',
+          demo:'https://app.powerbi.com/view?r=eyJrIjoiNGFmMWNlNmUtNTU0ZS00MDhhLWI1ZjgtMWZhZDA5MWQ5ZjA5IiwidCI6IjFmMjM5NGIwLWJiZmUtNDZlYS04MDIyLTFhZjJiZjg4ZDBkZCJ9',
           code:'https://github.com/Naadir-Dev-Portfolio/powerbi-uk-energy-consumption-dashboard',
           details:'https://github.com/Naadir-Dev-Portfolio/powerbi-uk-energy-consumption-dashboard/blob/main/README.md',
           tags:[
