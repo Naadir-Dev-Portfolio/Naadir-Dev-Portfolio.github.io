@@ -10,7 +10,7 @@
    It is built from scripts/compile_projects.py SECTIONS plus auto-discovery
    of any (section, category) keys that show up in project JSONs.
 
-   Last compiled: 2026-05-09 05:26 UTC
+   Last compiled: 2026-05-09 15:45 UTC
    ============================================================ */
 window.__PORTFOLIO = {
 
@@ -290,8 +290,10 @@ window.__PORTFOLIO = {
         {
           n:2,
           title:'Call Handling Standards of Service',
-          img:'',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/powerbi-call-handling-standards-of-service-dashboard/main/portfolio/powerbi-call-handling-standards-of-service-dashboard.png?v=20260509T151747Z',
+          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/powerbi-call-handling-standards-of-service-dashboard/main/portfolio/powerbi-call-handling-standards-of-service-dashboard-featured.png?v=20260509T151747Z',
           desc:'Contact-centre service-level dashboard tracking calls offered, answered, abandoned, ASA, and AHT to show whether standards of service are improving or deteriorating.',
+          demo:'https://app.powerbi.com/view?r=eyJrIjoiMzI2MTE4N2MtOWFmYS00YjY3LWIzOTMtZWRiZDIzNTdiY2FlIiwidCI6IjFmMjM5NGIwLWJiZmUtNDZlYS04MDIyLTFhZjJiZjg4ZDBkZCJ9',
           code:'https://github.com/Naadir-Dev-Portfolio/powerbi-call-handling-standards-of-service-dashboard',
           details:'https://github.com/Naadir-Dev-Portfolio/powerbi-call-handling-standards-of-service-dashboard/blob/main/README.md',
           tags:[
