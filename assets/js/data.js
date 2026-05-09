@@ -10,7 +10,7 @@
    It is built from scripts/compile_projects.py SECTIONS plus auto-discovery
    of any (section, category) keys that show up in project JSONs.
 
-   Last compiled: 2026-05-08 15:40 UTC
+   Last compiled: 2026-05-09 05:26 UTC
    ============================================================ */
 window.__PORTFOLIO = {
 
@@ -727,7 +727,7 @@ window.__PORTFOLIO = {
     {
       key:'powerbi',
       label:'Power BI',
-      desc:'Live interactive Power BI dashboards built with public datasets for personal analysis and professional development.',
+      desc:'Interactive Power BI dashboards giving teams instant clarity.',
       categories:[
         {
           key:'dashboards',
