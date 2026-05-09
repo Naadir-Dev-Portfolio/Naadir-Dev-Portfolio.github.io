@@ -10,7 +10,7 @@
    It is built from scripts/compile_projects.py SECTIONS plus auto-discovery
    of any (section, category) keys that show up in project JSONs.
 
-   Last compiled: 2026-05-09 15:45 UTC
+   Last compiled: 2026-05-09 16:38 UTC
    ============================================================ */
 window.__PORTFOLIO = {
 
@@ -273,8 +273,8 @@ window.__PORTFOLIO = {
         {
           n:1,
           title:'UK Labour Market Dashboard',
-          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/powerbi-uk-Labour-Market-Dashboard/main/portfolio/powerbi-uk-labour-market-dashboard.png?v=20260507T212049Z',
-          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/powerbi-uk-Labour-Market-Dashboard/main/portfolio/powerbi-uk-labour-market-dashboard-featured.png?v=20260507T212049Z',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/powerbi-uk-Labour-Market-Dashboard/main/portfolio/powerbi-uk-labour-market-dashboard.png?v=20260509T162109Z',
+          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/powerbi-uk-Labour-Market-Dashboard/main/portfolio/powerbi-uk-labour-market-dashboard-featured.png?v=20260509T162109Z',
           desc:'Labour market dashboard tracking UK unemployment trends, claimant counts, and regional variation using official ONS and DWP data. Live interactive version published on Power BI service.',
           demo:'https://app.powerbi.com/view?r=eyJrIjoiNTg5MGQxN2YtZTNjZi00OGJkLWI1YTQtOGI3ZDFhYjFiOWFjIiwidCI6IjFmMjM5NGIwLWJiZmUtNDZlYS04MDIyLTFhZjJiZjg4ZDBkZCJ9',
           code:'https://github.com/Naadir-Dev-Portfolio/powerbi-uk-Labour-Market-Dashboard',
@@ -290,8 +290,8 @@ window.__PORTFOLIO = {
         {
           n:2,
           title:'Call Handling Standards of Service',
-          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/powerbi-call-handling-standards-of-service-dashboard/main/portfolio/powerbi-call-handling-standards-of-service-dashboard.png?v=20260509T151747Z',
-          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/powerbi-call-handling-standards-of-service-dashboard/main/portfolio/powerbi-call-handling-standards-of-service-dashboard-featured.png?v=20260509T151747Z',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/powerbi-call-handling-standards-of-service-dashboard/main/portfolio/powerbi-call-handling-standards-of-service-dashboard.png?v=20260509T161842Z',
+          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/powerbi-call-handling-standards-of-service-dashboard/main/portfolio/powerbi-call-handling-standards-of-service-dashboard-featured.png?v=20260509T161842Z',
           desc:'Contact-centre service-level dashboard tracking calls offered, answered, abandoned, ASA, and AHT to show whether standards of service are improving or deteriorating.',
           demo:'https://app.powerbi.com/view?r=eyJrIjoiMzI2MTE4N2MtOWFmYS00YjY3LWIzOTMtZWRiZDIzNTdiY2FlIiwidCI6IjFmMjM5NGIwLWJiZmUtNDZlYS04MDIyLTFhZjJiZjg4ZDBkZCJ9',
           code:'https://github.com/Naadir-Dev-Portfolio/powerbi-call-handling-standards-of-service-dashboard',
@@ -307,8 +307,8 @@ window.__PORTFOLIO = {
         {
           n:3,
           title:'Crime & Community Safety',
-          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/powerbi-crime-community-safety-dashboard/main/portfolio/powerbi-crime-community-safety-dashboard.png?v=20260507T213446Z',
-          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/powerbi-crime-community-safety-dashboard/main/portfolio/powerbi-crime-community-safety-dashboard-featured.png?v=20260507T213446Z',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/powerbi-crime-community-safety-dashboard/main/portfolio/powerbi-crime-community-safety-dashboard.png?v=20260509T161852Z',
+          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/powerbi-crime-community-safety-dashboard/main/portfolio/powerbi-crime-community-safety-dashboard-featured.png?v=20260509T161852Z',
           desc:'Public crime analytics dashboard using official England and Wales police data to track whether crime is rising, which types are driving change, and which areas are emerging as hotspots.',
           demo:'https://app.powerbi.com/view?r=eyJrIjoiOGEwNmYzNWMtYzM1MS00MGUxLWI2YjItYzFjYWQ4NmMxMzk0IiwidCI6IjFmMjM5NGIwLWJiZmUtNDZlYS04MDIyLTFhZjJiZjg4ZDBkZCJ9',
           code:'https://github.com/Naadir-Dev-Portfolio/powerbi-crime-community-safety-dashboard',
@@ -325,8 +325,8 @@ window.__PORTFOLIO = {
         {
           n:4,
           title:'NHS Waiting Times',
-          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/powerbi-nhs-waiting-times-dashboard/main/portfolio/powerbi-nhs-waiting-times-dashboard.png?v=20260508T071930Z',
-          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/powerbi-nhs-waiting-times-dashboard/main/portfolio/powerbi-nhs-waiting-times-dashboard-featured.png?v=20260508T071930Z',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/powerbi-nhs-waiting-times-dashboard/main/portfolio/powerbi-nhs-waiting-times-dashboard.png?v=20260509T161935Z',
+          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/powerbi-nhs-waiting-times-dashboard/main/portfolio/powerbi-nhs-waiting-times-dashboard-featured.png?v=20260509T161935Z',
           desc:'Public-sector dashboard tracking NHS England RTT waiting-list pressure across trusts, regions, and specialties — showing whether backlogs are rising or falling and where strain is most acute.',
           demo:'https://app.powerbi.com/view?r=eyJrIjoiZTBhY2FkMTEtYTFlYS00ODc2LWEzN2ItYTE2YTc0YzI4YTVjIiwidCI6IjFmMjM5NGIwLWJiZmUtNDZlYS04MDIyLTFhZjJiZjg4ZDBkZCJ9',
           code:'https://github.com/Naadir-Dev-Portfolio/powerbi-nhs-waiting-times-dashboard',
@@ -344,8 +344,8 @@ window.__PORTFOLIO = {
         {
           n:5,
           title:'School Attendance',
-          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/powerbi-school-attendance-dashboard/main/portfolio/powerbi-school-attendance-dashboard.png?v=20260508T150706Z',
-          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/powerbi-school-attendance-dashboard/main/portfolio/powerbi-school-attendance-dashboard-featured.png?v=20260508T150706Z',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/powerbi-school-attendance-dashboard/main/portfolio/powerbi-school-attendance-dashboard.png?v=20260509T163810Z',
+          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/powerbi-school-attendance-dashboard/main/portfolio/powerbi-school-attendance-dashboard-featured.png?v=20260509T163810Z',
           desc:'Education analytics dashboard using official DfE data to track school attendance trends, persistent absence rates, and which local authorities and pupil groups face the highest risk.',
           demo:'https://app.powerbi.com/view?r=eyJrIjoiZTA1MzM4OGUtYTFkZi00ZmJmLWI5YmYtZGQ4ZTBiNDdkZTYxIiwidCI6IjFmMjM5NGIwLWJiZmUtNDZlYS04MDIyLTFhZjJiZjg4ZDBkZCJ9',
           code:'https://github.com/Naadir-Dev-Portfolio/powerbi-school-attendance-dashboard',
@@ -363,8 +363,8 @@ window.__PORTFOLIO = {
         {
           n:6,
           title:'UK Energy Consumption',
-          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/powerbi-uk-energy-consumption-dashboard/main/portfolio/powerbi-uk-energy-consumption-dashboard.png?v=20260508T153203Z',
-          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/powerbi-uk-energy-consumption-dashboard/main/portfolio/powerbi-uk-energy-consumption-dashboard-featured.png?v=20260508T153203Z',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/powerbi-uk-energy-consumption-dashboard/main/portfolio/powerbi-uk-energy-consumption-dashboard.png?v=20260509T162039Z',
+          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/powerbi-uk-energy-consumption-dashboard/main/portfolio/powerbi-uk-energy-consumption-dashboard-featured.png?v=20260509T162039Z',
           desc:'Energy analytics dashboard using official DESNZ sub-national data to analyse UK electricity and gas consumption by region and local authority, and track whether patterns suggest structural change.',
           demo:'https://app.powerbi.com/view?r=eyJrIjoiNGFmMWNlNmUtNTU0ZS00MDhhLWI1ZjgtMWZhZDA5MWQ5ZjA5IiwidCI6IjFmMjM5NGIwLWJiZmUtNDZlYS04MDIyLTFhZjJiZjg4ZDBkZCJ9',
           code:'https://github.com/Naadir-Dev-Portfolio/powerbi-uk-energy-consumption-dashboard',
@@ -382,8 +382,8 @@ window.__PORTFOLIO = {
         {
           n:7,
           title:'UK Housing Affordability',
-          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/powerbi-uk-housing-affordability-dashboard/main/portfolio/powerbi-uk-housing-affordability-dashboard.png?v=20260508T153924Z',
-          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/powerbi-uk-housing-affordability-dashboard/main/portfolio/powerbi-uk-housing-affordability-dashboard-featured.png?v=20260508T153924Z',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/powerbi-uk-housing-affordability-dashboard/main/portfolio/powerbi-uk-housing-affordability-dashboard.png?v=20260509T162054Z',
+          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/powerbi-uk-housing-affordability-dashboard/main/portfolio/powerbi-uk-housing-affordability-dashboard-featured.png?v=20260509T162054Z',
           desc:'Housing analytics dashboard using ONS and Land Registry data to track price-to-income ratios across UK regions and local authorities, and show whether affordability is improving or deteriorating.',
           demo:'https://app.powerbi.com/view?r=eyJrIjoiNDMxMjJiZmQtM2Q5ZS00YThkLWExNmUtMDdiMzEzMThkYzBkIiwidCI6IjFmMjM5NGIwLWJiZmUtNDZlYS04MDIyLTFhZjJiZjg4ZDBkZCJ9',
           code:'https://github.com/Naadir-Dev-Portfolio/powerbi-uk-housing-affordability-dashboard',
