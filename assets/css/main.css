@@ -197,10 +197,14 @@ button{font:inherit;cursor:pointer}
   will-change:transform;
 }
 /* CSS keyframe — runs entirely on the compositor thread (no JS per-frame cost).
-   --hero-loop-w and --hero-scroll-dur are set by JS after measuring panel widths.
-   JS adds .is-scrolling to engage; removes it during drag, re-adds on release. */
+   --hero-loop-w, --hero-prep-w, and --hero-scroll-dur are set by JS after
+   measuring panel widths. --hero-prep-w is the base offset for one prepended
+   clone (sits offscreen-left so its bottom-right slope covers the otherwise-
+   blank triangle at the hero's leftmost edge). JS adds .is-scrolling to engage;
+   removes it during drag, re-adds on release. */
 @keyframes hero-auto-scroll{
-  to{ transform:translate3d(calc(-1 * var(--hero-loop-w, 2000px)),0,0); }
+  from{ transform:translate3d(calc(-1 * var(--hero-prep-w, 0px)),0,0); }
+  to  { transform:translate3d(calc(-1 * (var(--hero-prep-w, 0px) + var(--hero-loop-w, 2000px))),0,0); }
 }
 .hero-track.is-scrolling{
   animation:hero-auto-scroll var(--hero-scroll-dur, 60s) linear infinite;
@@ -658,7 +662,7 @@ a.hero-panel-content:focus-visible{
   overflow:hidden;
   background:var(--card);
   border:none;
-  cursor:default;
+  cursor:pointer;
   -webkit-tap-highlight-color:transparent;
   transition:box-shadow .3s var(--ease);
 }
@@ -712,7 +716,7 @@ a.hero-panel-content:focus-visible{
   position:relative;border-radius:12px;overflow:hidden;
   aspect-ratio:5/4;background:#211c14;
   border:none;
-  cursor:default;
+  cursor:pointer;
   -webkit-tap-highlight-color:transparent;
   transition:transform .3s var(--ease),box-shadow .3s;
 }
@@ -750,14 +754,26 @@ a.hero-panel-content:focus-visible{
 .card.card-gallery:hover .card-links{opacity:1;transform:none}
 
 /* Touch devices: disable hover lift/shadow (no hover concept, and shadows get
-   clipped by the overflow:auto scroll container). Show links always instead. */
+   clipped by the overflow:auto scroll container). Show links always instead.
+   Card-body click-to-popup is desktop-only, so reset cursor to default here. */
 @media(hover:none){
   .card.card-gallery:hover{transform:none;box-shadow:none}
   .card.card-gallery:hover>img{transform:none;filter:brightness(.78)}
   .card.card-gallery:hover .card-gal-body{transform:none}
   .card.card-gallery .card-links{opacity:1;transform:none}
   .card.card-featured:hover{box-shadow:none}
-  .card.card-featured,.card.card-gallery{-webkit-tap-highlight-color:transparent}
+  .card.card-featured,.card.card-gallery{cursor:default;-webkit-tap-highlight-color:transparent}
+}
+/* Narrow viewports (mobile-width layout, incl. desktop devtools emulation):
+   the gallery scroll container has overflow:auto, which clips the hover
+   shadow at the bottom and produces a hard edge. Mirror the touch behaviour
+   above and disable the hover lift/shadow at this width regardless of input. */
+@media(max-width:900px){
+  .card.card-gallery:hover{transform:none;box-shadow:none}
+  .card.card-gallery:hover>img{transform:none;filter:brightness(.78)}
+  .card.card-gallery:hover .card-gal-body{transform:none}
+  .card.card-gallery .card-links{opacity:1;transform:none}
+  .card.card-featured:hover{box-shadow:none}
 }
 
 .card-links{display:flex;gap:.3rem;flex-wrap:wrap}
@@ -1086,16 +1102,67 @@ a.hero-panel-content:focus-visible{
   #contact.section{border-radius:20px;margin-top:0;margin-bottom:1.25rem}
 }
 
-/* ── Mobile carousel scroll-hint: right-edge fade ── */
+/* ── Mobile carousel scroll-hint: arrow tabs on each side ──
+   Replaces the older right-edge gradient fade (which left a hard cut on
+   non-edge cards). Right tab nudges the carousel forward; the left tab
+   appears once the user has scrolled away from the start so they can step
+   back. Each tab fades + slides off-edge at its own end-of-range. */
 @media(max-width:900px){
-  /* Fade overlay signals more cards to the right */
-  .gallery-wrap::after{
-    content:'';
-    position:absolute;right:0;top:0;bottom:54px;
-    width:40px;
-    background:linear-gradient(to right,transparent,#dde2ec);
-    pointer-events:none;z-index:2;
+  .gallery-scroll-hint{
+    position:absolute;
+    top:50%;
+    width:26px;height:60px;
+    border:none;
+    border-radius:14px;
+    background:rgba(15,13,11,.72);
+    color:rgba(236,230,216,.92);
+    display:flex;align-items:center;justify-content:center;
+    cursor:pointer;
+    z-index:3;
+    box-shadow:0 4px 14px rgba(0,0,0,.35), inset 0 0 0 1px rgba(255,255,255,.08);
+    backdrop-filter:blur(6px);
+    -webkit-backdrop-filter:blur(6px);
+    -webkit-tap-highlight-color:transparent;
+    transition:opacity .25s var(--ease), transform .25s var(--ease);
   }
+  .gallery-scroll-hint svg{display:block;width:14px;height:14px}
+
+  .gallery-scroll-hint-right{
+    right:6px;
+    transform:translateY(-50%);
+    animation:scrollHintPulseRight 2.4s ease-in-out infinite;
+  }
+  .gallery-scroll-hint-right.at-end{
+    opacity:0;
+    pointer-events:none;
+    transform:translate(8px,-50%);
+    animation:none;
+  }
+
+  .gallery-scroll-hint-left{
+    left:6px;
+    transform:translateY(-50%);
+    animation:scrollHintPulseLeft 2.4s ease-in-out infinite;
+  }
+  .gallery-scroll-hint-left.at-start{
+    opacity:0;
+    pointer-events:none;
+    transform:translate(-8px,-50%);
+    animation:none;
+  }
+
+  @keyframes scrollHintPulseRight{
+    0%,100%{transform:translateY(-50%) translateX(0)}
+    50%    {transform:translateY(-50%) translateX(4px)}
+  }
+  @keyframes scrollHintPulseLeft{
+    0%,100%{transform:translateY(-50%) translateX(0)}
+    50%    {transform:translateY(-50%) translateX(-4px)}
+  }
+}
+/* Hide hints entirely on desktop — they're a touch/swipe affordance */
+@media(min-width:901px){
+  .gallery-scroll-hint{display:none}
 }
 
 ::selection{background:rgba(154,163,173,.2)}
@@ -1326,12 +1393,6 @@ a.hero-panel-content:focus-visible{
   .parallax-strip-c .parallax-inner { display: block; }
 }
 
-/* ── MOBILE: gallery fade uses correct experience colour ───── */
-@media(max-width:900px){
-  .gallery-wrap::after {
-    background: linear-gradient(to right, transparent, var(--page));
-  }
-}
 
 /* ── TECH STACK LABEL ──────────────────────────────────────── */
 .tech-stack-label {
@@ -1459,6 +1520,13 @@ a.hero-panel-content:focus-visible{
     grid-template-columns: 1fr;
   }
 }
+
+/* Card loading state — set on the card while the full-res preview image is
+   downloading (before the popup spawns), so click feels acknowledged on
+   slower connections. */
+.card.card-loading-preview{cursor:progress}
+.card.card-loading-preview>img,
+.card.card-loading-preview .card-editorial-img img{filter:brightness(.55)}
 
 /* ── Card expand overlay (hover preview) ── */
 .card-expand-overlay{

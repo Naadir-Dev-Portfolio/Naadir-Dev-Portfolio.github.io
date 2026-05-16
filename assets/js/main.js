@@ -99,18 +99,30 @@
     const rail = document.getElementById('heroRail');
     if(!rail) return;
 
-    // Build infinite loop track from original panels
+    // Build infinite loop track from original panels.
+    // We prepend ONE clone (mirror of the last panel) before the originals so
+    // its bottom-right slope extends off the LEFT viewport edge. Without this
+    // the parallelogram clip-path on the first panel leaves a visible blank
+    // triangle at top-left on initial load.
     const orig = Array.from(rail.querySelectorAll('.hero-panel'));
+    if(!orig.length) return;
     const track = document.createElement('div');
     track.className = 'hero-track';
+
+    const prepClone = orig[orig.length - 1].cloneNode(true);
+    prepClone.setAttribute('aria-hidden','true');
+    prepClone.dataset.heroPrepend = '1';
+    track.appendChild(prepClone);
+
     orig.forEach(p=>track.appendChild(p));
     orig.forEach(p=>{ const c=p.cloneNode(true); c.setAttribute('aria-hidden','true'); track.appendChild(c); });
     rail.appendChild(track);
 
     const all        = track.querySelectorAll('.hero-panel');
-    const firstClone = all[orig.length];
+    const firstOrig  = all[1];                     // first original (index 0 is the prepended clone)
+    const firstClone = all[1 + orig.length];       // first appended (post) clone
 
-    let x=0, loopW=1;
+    let x=0, loopW=1, prepW=0;
     let drag=false, dx0=0, off0=0, hasDragged=false;
     const PX_PER_SEC = window.matchMedia('(pointer:coarse)').matches ? 24 : 32;
 
@@ -126,10 +138,13 @@
 
     /* startScroll — engages the compositor-thread CSS animation from position x.
        A negative animationDelay offsets the keyframe so the carousel starts
-       exactly at x pixels into the loop — no visible jump on resume after drag. */
+       exactly at x pixels into the loop — no visible jump on resume after drag.
+       --hero-prep-w shifts the whole keyframe so the prepended clone sits
+       offscreen-left and the first ORIGINAL panel starts at the viewport edge. */
     function startScroll(){
       const dur = loopW / PX_PER_SEC;
       document.documentElement.style.setProperty('--hero-loop-w', loopW + 'px');
+      document.documentElement.style.setProperty('--hero-prep-w', prepW + 'px');
       document.documentElement.style.setProperty('--hero-scroll-dur', dur + 's');
       track.style.transform = '';
       track.style.animationDelay = (-(x / loopW) * dur) + 's';
@@ -137,7 +152,7 @@
     }
 
     function measure(){
-      if(!firstClone||!all[0]) return;
+      if(!firstClone||!firstOrig) return;
       // updateClipPath MUST run before reading offsetLeft.
       // Setting --panel-offset-x changes margin-right on every panel
       // (margin-right: calc(12px - var(--panel-offset-x))), so loopW
@@ -145,7 +160,8 @@
       // offsetLeft here forces a synchronous reflow so the new margin
       // is already in effect.
       updateClipPath();
-      loopW = Math.max(1, Math.round(firstClone.offsetLeft - all[0].offsetLeft));
+      loopW = Math.max(1, Math.round(firstClone.offsetLeft - firstOrig.offsetLeft));
+      prepW = Math.max(0, Math.round(firstOrig.offsetLeft - all[0].offsetLeft));
       x = ((x%loopW)+loopW)%loopW;
       if(!drag) startScroll();
     }
@@ -154,10 +170,11 @@
       if(e.pointerType==='mouse'&&e.button!==0) return;
       // Read the current compositor position before killing the animation —
       // getComputedStyle returns the live animated matrix value synchronously.
+      // mat.m41 includes both the prepW base and the animated x; subtract prepW.
       const mat = new DOMMatrix(getComputedStyle(track).transform);
-      x = ((-mat.m41 % loopW) + loopW) % loopW;
+      x = ((((-mat.m41 - prepW) % loopW) + loopW) % loopW);
       track.classList.remove('is-scrolling');
-      track.style.transform = `translate3d(${-Math.round(x)}px,0,0)`;
+      track.style.transform = `translate3d(${-Math.round(prepW + x)}px,0,0)`;
       drag=true; hasDragged=false; dx0=e.clientX; off0=x;
       rail.classList.add('dragging');
       rail.setPointerCapture(e.pointerId);
@@ -166,7 +183,7 @@
       if(!drag) return;
       if(Math.abs(e.clientX - dx0) > 5) hasDragged = true;
       x = ((off0-(e.clientX-dx0)*1.4)%loopW+loopW)%loopW;
-      track.style.transform = `translate3d(${-Math.round(x)}px,0,0)`;
+      track.style.transform = `translate3d(${-Math.round(prepW + x)}px,0,0)`;
       e.preventDefault();
     });
     function stopDrag(){
@@ -193,8 +210,10 @@
 
     // Originals first, then clones after a delay so originals always win the
     // decode queue — clones are the mirror for wide-screen loop continuity.
-    const clones = Array.from(all).slice(orig.length);
-    injectPanelMedia(orig, clones);
+    // appendClones are visible after the loop wraps; prepClone is offscreen-left
+    // by default but becomes visible if the user drags the rail rightward.
+    const appendClones = Array.from(all).slice(1 + orig.length);
+    injectPanelMedia(orig, [...appendClones, prepClone]);
   }
 
   /* injectPanelMedia — MP4/WebM video injection for hero parallelograms.
@@ -355,11 +374,14 @@
         </div>`;
 
       const galHtml = slice.map(buildCard).join('');
+      const scrollHintRight = `<button class="gallery-scroll-hint gallery-scroll-hint-right" type="button" aria-label="Scroll to more projects"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>`;
+      const scrollHintLeft  = `<button class="gallery-scroll-hint gallery-scroll-hint-left at-start" type="button" aria-label="Scroll back to earlier projects"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>`;
       g.innerHTML = [
         ...featured.map(buildCard),
-        `<div class="gallery-wrap"><div class="gallery-cards">${galHtml}</div>${paginator}</div>`
+        `<div class="gallery-wrap"><div class="gallery-cards">${galHtml}</div>${scrollHintLeft}${scrollHintRight}${paginator}</div>`
       ].join('');
       bindCardImageFallbacks(g);
+      bindScrollHint(g);
 
       g.querySelector('.page-prev')?.addEventListener('click', ()=>render(page-1));
       g.querySelector('.page-next')?.addEventListener('click', ()=>render(page+1));
@@ -369,6 +391,42 @@
     }
 
     render(0);
+  }
+
+  /* Mobile-only scroll-hint buttons: a right-pointing tab that nudges the
+     horizontal card carousel forward, and a reciprocating left tab that
+     appears once the user has scrolled away from the start. Each button
+     hides itself at its own end-of-range so we never show a dead control.
+     CSS rule `@media(min-width:901px)` keeps them display:none on desktop, so
+     we don't bother gating in JS — the buttons are always wired and inert
+     on large viewports. */
+  function bindScrollHint(g){
+    g.querySelectorAll('.gallery-wrap').forEach(wrap=>{
+      const cards = wrap.querySelector('.gallery-cards');
+      const right = wrap.querySelector('.gallery-scroll-hint-right');
+      const left  = wrap.querySelector('.gallery-scroll-hint-left');
+      if(!cards || (!right && !left)) return;
+
+      function update(){
+        const noOverflow = cards.scrollWidth <= cards.clientWidth + 4;
+        const atStart    = cards.scrollLeft <= 4;
+        const atEnd      = cards.scrollLeft + cards.clientWidth >= cards.scrollWidth - 4;
+        if(right) right.classList.toggle('at-end',   noOverflow || atEnd);
+        if(left)  left.classList.toggle('at-start',  noOverflow || atStart);
+      }
+
+      const STEP = () => cards.clientWidth * 0.85;
+      right?.addEventListener('click', ()=>{
+        cards.scrollBy({ left:  STEP(), behavior: 'smooth' });
+      });
+      left?.addEventListener('click', ()=>{
+        cards.scrollBy({ left: -STEP(), behavior: 'smooth' });
+      });
+
+      cards.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update, { passive: true });
+      requestAnimationFrame(update);
+    });
   }
 
   /* ══════════════════════════════════════════════
@@ -747,15 +805,14 @@
 
 
   /* ══════════════════════════════════════════════
-     CARD EXPAND — 2.5s hover opens full-gallery preview
+     CARD EXPAND — click opens full-gallery preview;
+     overlay collapses smoothly when pointer leaves it.
      ══════════════════════════════════════════════ */
   function initCardExpand(){
-    const DELAY = 1200;
-    let hoverTimer       = null;
     let activeOverlay    = null;
     let activeExpandRect = null;
     let activeSourceCard = null;
-    let preloadImg       = null;  /* full-res image preloaded during the hover delay */
+    let preloadImg       = null;  /* full-res image preloaded on click */
 
     /* Derive the full-res src for a card (replaces .ext with -full.ext) */
     function fullSrcFor(card){
@@ -771,8 +828,11 @@
       return src.replace(/(\.[^./?#]+)(\?.*)?$/, '-full$1$2');
     }
 
-    /* Size the overlay to fit nw×nh within the viewport, preserving aspect ratio.
-       CAP_H reserves space for the caption bar below the image. */
+    /* Size the overlay to fill the maximum available viewport area at the
+       given aspect ratio. CAP_H reserves space for the caption bar below the
+       image. Keeping the size independent of the source image's natural
+       resolution means the overlay is the same size whether we open with the
+       card image or the cached full-res image — no jumpy reflow on swap. */
     const CAP_H = 120;
     function naturalExpandRect(nw, nh){
       const vw = window.innerWidth;
@@ -780,12 +840,10 @@
       const maxW = vw * 0.92;
       const maxImgH = Math.max(160, vh * 0.88 - CAP_H);
       const ratio = (nw && nh) ? nw / nh : 4 / 3;
-      const naturalW = nw || maxW;
-      const naturalH = nh || maxImgH;
-      let w = Math.min(naturalW, maxW);
+      let w = maxW;
       let h = w / ratio;
       if(h > maxImgH){
-        h = Math.min(naturalH, maxImgH);
+        h = maxImgH;
         w = h * ratio;
       }
       const totalH = h + CAP_H;
@@ -852,27 +910,12 @@
       const img = document.createElement('img');
       img.alt = '';
 
-      if(fullReady){
-        /* Full image already loaded — show it immediately, container is already sized correctly */
-        img.src = preloadImg.src;
-      } else if(preloadImg && !preloadImg.complete){
-        /* Still loading — show card image for now, swap + resize when full image arrives */
-        img.src = cardSrc;
-        preloadImg.addEventListener('load', ()=>{
-          if(activeOverlay !== overlay) return;
-          img.src = preloadImg.src;
-          const newRect = naturalExpandRect(preloadImg.naturalWidth, preloadImg.naturalHeight);
-          overlay.style.transition = 'left .3s ease, top .3s ease, width .3s ease, height .3s ease';
-          overlay.style.left   = newRect.left   + 'px';
-          overlay.style.top    = newRect.top    + 'px';
-          overlay.style.width  = newRect.width  + 'px';
-          overlay.style.height = newRect.height + 'px';
-          activeExpandRect = newRect;
-        }, {once:true});
-      } else {
-        /* No full image available — use card image */
-        img.src = cardSrc;
-      }
+      // The click handler waits for the full-res image to decode before
+      // calling spawnOverlay, so by the time we get here preloadImg is either
+      // fully ready or null (load failed / no full-res candidate). Either way
+      // the overlay was sized using the correct dimensions, so we just pick
+      // the best available src.
+      img.src = fullReady ? preloadImg.src : cardSrc;
 
       /* ── Zoom feature ── */
       let zoomed = false;
@@ -942,9 +985,8 @@
       });
     }
 
-    // Collapse any active overlay and clear the hover timer
+    // Collapse any active overlay
     function collapseActive(){
-      clearTimeout(hoverTimer); hoverTimer = null;
       if(!activeOverlay) return;
       const ov = activeOverlay;
       const er = activeExpandRect;
@@ -971,30 +1013,63 @@
       }
     });
 
-    /* Bind hover detection directly to each card using pointerenter/pointerleave.
-       These don't bubble and fire exactly once on entry/exit — no relatedTarget
-       ambiguity, no child-element interference, no first-load miss. */
-    function attachCard(card){
-      card.addEventListener('pointerenter', e=>{
-        if(e.pointerType !== 'mouse') return;
-        if(window.innerWidth < 1024) return;
-        if(activeOverlay) return;
-        clearTimeout(hoverTimer);
-        preloadImg = null;
-        const fs = fullSrcFor(card);
-        if(fs){ preloadImg = new Image(); preloadImg.src = fs; }
-        hoverTimer = setTimeout(()=>{ spawnOverlay(card); }, DELAY);
-      });
-      card.addEventListener('pointerleave', e=>{
-        if(e.pointerType !== 'mouse') return;
-        if(activeOverlay) return;
-        clearTimeout(hoverTimer); hoverTimer = null;
-        preloadImg = null;
-      });
-    }
+    /* Delegated click handler: opens the preview overlay when the card body is
+       clicked. Clicks on the explicit link pills inside .card-links still
+       navigate normally. Delegated rather than per-card so it keeps working
+       after pagination re-renders the gallery. Disabled on mobile — narrow
+       viewports already show the link pills inline, so a popup adds noise.
 
-    document.querySelectorAll('.card.card-gallery, .card.card-featured')
-      .forEach(attachCard);
+       The popup is sized to the full-res image's aspect ratio, so we wait for
+       it to decode before opening — that prevents the "first click opens
+       letterboxed, second click opens correctly" jump that happened when the
+       popup was sized to the (different-ratio) card image and then the
+       full-res image swapped in. Cached image = instant; uncached = brief
+       wait with cursor:progress on the card. */
+    let pendingPreview = null;
+    document.addEventListener('click', e=>{
+      if(e.target.closest('a, button')) return;
+      const card = e.target.closest('.card.card-gallery, .card.card-featured');
+      if(!card) return;
+      if(window.innerWidth < 1024) return;
+      if(activeOverlay) return;
+
+      const fs = fullSrcFor(card);
+      if(!fs){
+        // No full-res candidate — open immediately with whatever the card has
+        preloadImg = null;
+        spawnOverlay(card);
+        return;
+      }
+
+      const img = new Image();
+      img.src = fs;
+
+      // Fast path: full-res already cached and decoded
+      if(img.complete && img.naturalWidth > 0){
+        preloadImg = img;
+        spawnOverlay(card);
+        return;
+      }
+
+      // Slow path: wait for the full-res to load, then open. Track the
+      // pending click so a second click on a different card supersedes this
+      // one (stale loads bail out instead of opening the wrong popup).
+      if(pendingPreview) pendingPreview.card.classList.remove('card-loading-preview');
+      pendingPreview = { card, img };
+      card.classList.add('card-loading-preview');
+
+      const ticket = pendingPreview;
+      function open(useFull){
+        if(pendingPreview !== ticket) return;          // superseded
+        pendingPreview = null;
+        card.classList.remove('card-loading-preview');
+        if(activeOverlay) return;
+        preloadImg = useFull ? img : null;
+        spawnOverlay(card);
+      }
+      img.addEventListener('load',  ()=>open(true),  {once:true});
+      img.addEventListener('error', ()=>open(false), {once:true});
+    });
   }
 
   /* ══ INIT ══ */
