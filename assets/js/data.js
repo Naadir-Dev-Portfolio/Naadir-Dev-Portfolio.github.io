@@ -10,7 +10,7 @@
    It is built from scripts/compile_projects.py SECTIONS plus auto-discovery
    of any (section, category) keys that show up in project JSONs.
 
-   Last compiled: 2026-05-17 05:52 UTC
+   Last compiled: 2026-05-17 12:18 UTC
    ============================================================ */
 window.__PORTFOLIO = {
 
@@ -71,6 +71,24 @@ window.__PORTFOLIO = {
           ]
         },
         {
+          n:3,
+          title:'Document OCR Studio',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Document-OCR-Studio/main/portfolio/document-ocr-studio.png?v=20260517T120648Z',
+          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Document-OCR-Studio/main/portfolio/document-ocr-studio-featured.png?v=20260517T120648Z',
+          imgs:[
+            'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Document-OCR-Studio/main/portfolio/document-ocr-studio.png?v=20260517T120648Z',
+            'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Document-OCR-Studio/main/portfolio/document-ocr-studio-full.png?v=20260517T120648Z'
+          ],
+          desc:'Local deterministic OCR desktop app for scanning document images into editable text, structured sections and CSV-ready grids.',
+          code:'https://github.com/Naadir-Dev-Portfolio/Document-OCR-Studio/blob/main/main.py',
+          details:'https://github.com/Naadir-Dev-Portfolio/Document-OCR-Studio/blob/main/README.md',
+          tags:[
+            'python',
+            'ocr',
+            'desktop'
+          ]
+        },
+        {
           n:4,
           title:'Mortgage Overpayment Tracker',
           img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Mortgage-Overpayment-Tracker/main/portfolio/mortgageTrackerScreen.webp?v=20260323T224140Z',
@@ -110,18 +128,6 @@ window.__PORTFOLIO = {
             'pyqt',
             'crypto',
             'api'
-          ]
-        },
-        {
-          n:7,
-          title:'OCR Spin Extractor',
-          desc:'Extracts spin session and exercise performance data from workout screenshots using an OCR pipeline, exported to CSV.',
-          code:'https://github.com/Naadir-Dev-Portfolio/OCR-Spin-Extractor/blob/main/main.py',
-          details:'https://github.com/Naadir-Dev-Portfolio/OCR-Spin-Extractor/blob/main/README.md',
-          tags:[
-            'python',
-            'ocr',
-            'automation'
           ]
         },
         {
@@ -613,21 +619,7 @@ window.__PORTFOLIO = {
       ]
     },
     mobile:{
-      'react-native':[
-        {
-          n:1,
-          title:'Mobile Health Planner',
-          desc:'React Native health planning app for Android — workout logger, regimen tracker and health metrics built with Expo SDK 54 and TypeScript. Deep-link ready with custom URI scheme.',
-          code:'https://github.com/Naadir-Dev-Portfolio/Mobile-Health-Planner',
-          details:'https://github.com/Naadir-Dev-Portfolio/Mobile-Health-Planner/blob/main/README.md',
-          tags:[
-            'react-native',
-            'mobile',
-            'health',
-            'typescript'
-          ]
-        }
-      ],
+      'react-native':[],
       kotlin:[]
     },
     browserextensions:{
