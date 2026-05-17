@@ -10,7 +10,7 @@
    It is built from scripts/compile_projects.py SECTIONS plus auto-discovery
    of any (section, category) keys that show up in project JSONs.
 
-   Last compiled: 2026-05-16 05:31 UTC
+   Last compiled: 2026-05-17 05:52 UTC
    ============================================================ */
 window.__PORTFOLIO = {
 
@@ -34,6 +34,15 @@ window.__PORTFOLIO = {
             'pyqt',
             'data-viz'
           ]
+        },
+        {
+          n:2,
+          title:'MS-ToDo-Dashboard',
+          img:'',
+          imgFeatured:'',
+          desc:'Private',
+          code:'https://github.com/Naadir-Dev-Portfolio/MS-ToDo-Dashboard/blob/main/README.md',
+          details:'https://github.com/Naadir-Dev-Portfolio/MS-ToDo-Dashboard/blob/main/README.md'
         },
         {
           n:2,
@@ -674,8 +683,8 @@ window.__PORTFOLIO = {
         {
           n:4,
           title:'AI-YouTube-Gemini-Summariser',
-          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/AI-YouTube-Gemini-Summariser/main/portfolio/ai-youtube-gemini-summariser.png?v=20260430T214600Z',
-          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/AI-YouTube-Gemini-Summariser/main/portfolio/ai-youtube-gemini-summariser-featured.png?v=20260430T214600Z',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/AI-YouTube-Gemini-Summariser/main/portfolio/ai-youtube-gemini-summariser.png?v=20260516T225714Z',
+          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/AI-YouTube-Gemini-Summariser/main/portfolio/ai-youtube-gemini-summariser-featured.png?v=20260516T225714Z',
           desc:'A Chrome extension that enhances the functionality of Gemini within YouTube videos, enabling more efficient and accelerated learning and research.',
           code:'https://github.com/Naadir-Dev-Portfolio/AI-YouTube-Gemini-Summariser/blob/main/README.md',
           details:'https://github.com/Naadir-Dev-Portfolio/AI-YouTube-Gemini-Summariser/blob/main/README.md',
