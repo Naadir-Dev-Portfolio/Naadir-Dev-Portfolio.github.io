@@ -10,7 +10,7 @@
    It is built from scripts/compile_projects.py SECTIONS plus auto-discovery
    of any (section, category) keys that show up in project JSONs.
 
-   Last compiled: 2026-05-20 21:14 UTC
+   Last compiled: 2026-05-20 21:19 UTC
    ============================================================ */
 window.__PORTFOLIO = {
 
@@ -73,8 +73,8 @@ window.__PORTFOLIO = {
         {
           n:3,
           title:'Document OCR Studio',
-          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Document-OCR-Studio/main/portfolio/document-ocr-studio.png?v=20260520T211340Z',
-          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Document-OCR-Studio/main/portfolio/document-ocr-studio-featured.png?v=20260520T211340Z',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Document-OCR-Studio/main/portfolio/document-ocr-studio.png?v=20260520T211855Z',
+          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Document-OCR-Studio/main/portfolio/document-ocr-studio-featured.png?v=20260520T211855Z',
           desc:'Local deterministic OCR desktop app for scanning document images into editable text, structured sections and CSV-ready grids.',
           code:'https://github.com/Naadir-Dev-Portfolio/Document-OCR-Studio/blob/main/main.py',
           details:'https://github.com/Naadir-Dev-Portfolio/Document-OCR-Studio/blob/main/README.md',
