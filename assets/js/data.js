@@ -10,7 +10,7 @@
    It is built from scripts/compile_projects.py SECTIONS plus auto-discovery
    of any (section, category) keys that show up in project JSONs.
 
-   Last compiled: 2026-05-21 19:08 UTC
+   Last compiled: 2026-05-21 21:23 UTC
    ============================================================ */
 window.__PORTFOLIO = {
 
@@ -50,22 +50,25 @@ window.__PORTFOLIO = {
         },
         {
           n:3,
-          title:'Health Planner Desktop',
-          desc:'Cross-platform desktop health planner built with PyQt6 and QWebEngineView — hybrid Python/web UI for tracking workout regimens, health metrics and exercise logs.',
-          code:'https://github.com/Naadir-Dev-Portfolio/Health-Planner-Desktop/blob/main/main.py',
+          title:'Health-Planner-Desktop',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Health-Planner-Desktop/main/portfolio/health-planner-desktop.png?v=20260521T212312Z',
+          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Health-Planner-Desktop/main/portfolio/health-planner-desktop-featured.png?v=20260521T212312Z',
+          desc:'A custom desktop app containing an entire workout plan built in Python and the Pyqt6 framework with built in webengine. The python web engine embeds  a customer webapp built in vanilla Javascipt. This is a desktop version of a mobile app built in React Native. (see mobile section).',
+          code:'https://github.com/Naadir-Dev-Portfolio/Health-Planner-Desktop/blob/main/README.md',
           details:'https://github.com/Naadir-Dev-Portfolio/Health-Planner-Desktop/blob/main/README.md',
           tags:[
             'python',
             'pyqt',
-            'health',
-            'automation'
+            'HTML',
+            'CSS',
+            'Javascript'
           ]
         },
         {
           n:4,
           title:'Document OCR Studio',
-          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Document-OCR-Studio/main/portfolio/document-ocr-studio.png?v=20260520T211855Z',
-          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Document-OCR-Studio/main/portfolio/document-ocr-studio-featured.png?v=20260520T211855Z',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Document-OCR-Studio/main/portfolio/document-ocr-studio.png?v=20260521T205535Z',
+          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Document-OCR-Studio/main/portfolio/document-ocr-studio-featured.png?v=20260521T205535Z',
           desc:'Local deterministic OCR desktop app for scanning document images into editable text, structured sections and CSV-ready grids.',
           code:'https://github.com/Naadir-Dev-Portfolio/Document-OCR-Studio/blob/main/main.py',
           details:'https://github.com/Naadir-Dev-Portfolio/Document-OCR-Studio/blob/main/README.md',
@@ -78,24 +81,23 @@ window.__PORTFOLIO = {
         {
           n:5,
           title:'Mortgage Overpayment Tracker',
-          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Mortgage-Overpayment-Tracker/main/portfolio/mortgageTrackerScreen.webp?v=20260323T224140Z',
-          imgs:[
-            'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Mortgage-Overpayment-Tracker/main/portfolio/mortgageTrackerScreen.webp?v=20260323T224140Z'
-          ],
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Mortgage-Overpayment-Tracker/main/portfolio/mortgage-overpayment-tracker.png?v=20260521T210449Z',
+          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Mortgage-Overpayment-Tracker/main/portfolio/mortgage-overpayment-tracker-featured.png?v=20260521T210449Z',
           desc:'Interactive mortgage dashboard, model overpayment scenarios, visualise interest saved, and see exactly when you\'ll be mortgage free.',
+          code:'https://github.com/Naadir-Dev-Portfolio/Mortgage-Overpayment-Tracker/blob/main/main.py',
+          details:'https://github.com/Naadir-Dev-Portfolio/Mortgage-Overpayment-Tracker/blob/main/README.md',
           tags:[
             'python',
             'pyqt',
             'finance',
             'data-viz'
-          ],
-          code:'https://github.com/Naadir-Dev-Portfolio/Mortgage-Overpayment-Tracker/blob/main/main.py',
-          details:'https://github.com/Naadir-Dev-Portfolio/Mortgage-Overpayment-Tracker/blob/main/README.md'
+          ]
         },
         {
           n:6,
           title:'YouTube Stats Dashboard',
-          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/YouTube-Stats-Dashboard/main/portfolio/screenshot.png?v=20260323T224130Z',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/YouTube-Stats-Dashboard/main/portfolio/youtube-stats-dashboard.png?v=20260521T210843Z',
+          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/YouTube-Stats-Dashboard/main/portfolio/youtube-stats-dashboard-featured.png?v=20260521T210843Z',
           desc:'Local channel intelligence tool that fetches full view count history from the YouTube Data API, giving creators a persistent, exportable performance record that YouTube\'s own analytics won\'t provide.',
           code:'https://github.com/Naadir-Dev-Portfolio/YouTube-Stats-Dashboard/blob/main/main.py',
           details:'https://github.com/Naadir-Dev-Portfolio/YouTube-Stats-Dashboard/blob/main/README.md',
