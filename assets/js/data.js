@@ -10,7 +10,7 @@
    It is built from scripts/compile_projects.py SECTIONS plus auto-discovery
    of any (section, category) keys that show up in project JSONs.
 
-   Last compiled: 2026-05-21 21:43 UTC
+   Last compiled: 2026-05-21 22:00 UTC
    ============================================================ */
 window.__PORTFOLIO = {
 
@@ -617,6 +617,21 @@ window.__PORTFOLIO = {
           desc:'Mobile version of custom workout plan library built in React Native and HTML CSS & Javascript via webview.',
           code:'https://github.com/Naadir-Dev-Portfolio/Mobile-Health-Planner/blob/main/README.md',
           details:'https://github.com/Naadir-Dev-Portfolio/Mobile-Health-Planner/blob/main/README.md',
+          tags:[
+            'React Native',
+            'HTML',
+            'CSS',
+            'Javascript'
+          ]
+        },
+        {
+          n:2,
+          title:'Mobile-Scratchpad',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Mobile-Scratchpad/main/portfolio/mobile-scratchpad.png?v=20260521T215949Z',
+          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Mobile-Scratchpad/main/portfolio/mobile-scratchpad-featured.png?v=20260521T215949Z',
+          desc:'A mobile version of a personal, convenient and remotely accesible scratchpad for easily sharing snippets of texts, code blocks and other small files.',
+          code:'https://github.com/Naadir-Dev-Portfolio/Mobile-Scratchpad/blob/main/README.md',
+          details:'https://github.com/Naadir-Dev-Portfolio/Mobile-Scratchpad/blob/main/README.md',
           tags:[
             'React Native',
             'HTML',
