@@ -10,7 +10,7 @@
    It is built from scripts/compile_projects.py SECTIONS plus auto-discovery
    of any (section, category) keys that show up in project JSONs.
 
-   Last compiled: 2026-05-21 21:23 UTC
+   Last compiled: 2026-05-21 21:25 UTC
    ============================================================ */
 window.__PORTFOLIO = {
 
@@ -81,8 +81,8 @@ window.__PORTFOLIO = {
         {
           n:5,
           title:'Mortgage Overpayment Tracker',
-          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Mortgage-Overpayment-Tracker/main/portfolio/mortgage-overpayment-tracker.png?v=20260521T210449Z',
-          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Mortgage-Overpayment-Tracker/main/portfolio/mortgage-overpayment-tracker-featured.png?v=20260521T210449Z',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Mortgage-Overpayment-Tracker/main/portfolio/mortgage-overpayment-tracker.png?v=20260521T212445Z',
+          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Mortgage-Overpayment-Tracker/main/portfolio/mortgage-overpayment-tracker-featured.png?v=20260521T212445Z',
           desc:'Interactive mortgage dashboard, model overpayment scenarios, visualise interest saved, and see exactly when you\'ll be mortgage free.',
           code:'https://github.com/Naadir-Dev-Portfolio/Mortgage-Overpayment-Tracker/blob/main/main.py',
           details:'https://github.com/Naadir-Dev-Portfolio/Mortgage-Overpayment-Tracker/blob/main/README.md',
@@ -96,8 +96,8 @@ window.__PORTFOLIO = {
         {
           n:6,
           title:'YouTube Stats Dashboard',
-          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/YouTube-Stats-Dashboard/main/portfolio/youtube-stats-dashboard.png?v=20260521T210843Z',
-          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/YouTube-Stats-Dashboard/main/portfolio/youtube-stats-dashboard-featured.png?v=20260521T210843Z',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/YouTube-Stats-Dashboard/main/portfolio/youtube-stats-dashboard.png?v=20260521T212507Z',
+          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/YouTube-Stats-Dashboard/main/portfolio/youtube-stats-dashboard-featured.png?v=20260521T212507Z',
           desc:'Local channel intelligence tool that fetches full view count history from the YouTube Data API, giving creators a persistent, exportable performance record that YouTube\'s own analytics won\'t provide.',
           code:'https://github.com/Naadir-Dev-Portfolio/YouTube-Stats-Dashboard/blob/main/main.py',
           details:'https://github.com/Naadir-Dev-Portfolio/YouTube-Stats-Dashboard/blob/main/README.md',
