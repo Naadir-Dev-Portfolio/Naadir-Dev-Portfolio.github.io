@@ -10,7 +10,7 @@
    It is built from scripts/compile_projects.py SECTIONS plus auto-discovery
    of any (section, category) keys that show up in project JSONs.
 
-   Last compiled: 2026-05-21 06:15 UTC
+   Last compiled: 2026-05-21 19:08 UTC
    ============================================================ */
 window.__PORTFOLIO = {
 
@@ -37,28 +37,6 @@ window.__PORTFOLIO = {
         },
         {
           n:2,
-          title:'MS-ToDo-Dashboard',
-          img:'',
-          imgFeatured:'',
-          desc:'Private',
-          code:'https://github.com/Naadir-Dev-Portfolio/MS-ToDo-Dashboard/blob/main/README.md',
-          details:'https://github.com/Naadir-Dev-Portfolio/MS-ToDo-Dashboard/blob/main/README.md'
-        },
-        {
-          n:2,
-          title:'YouTube Stats Dashboard',
-          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/YouTube-Stats-Dashboard/main/portfolio/screenshot.png?v=20260323T224130Z',
-          desc:'Local channel intelligence tool that fetches full view count history from the YouTube Data API, giving creators a persistent, exportable performance record that YouTube\'s own analytics won\'t provide.',
-          code:'https://github.com/Naadir-Dev-Portfolio/YouTube-Stats-Dashboard/blob/main/main.py',
-          details:'https://github.com/Naadir-Dev-Portfolio/YouTube-Stats-Dashboard/blob/main/README.md',
-          tags:[
-            'python',
-            'pyqt',
-            'api'
-          ]
-        },
-        {
-          n:3,
           title:'Health Dashboard',
           img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Health-Dashboard/main/portfolio/healthDashboardScreen.png?v=20260323T224121Z',
           desc:'OpenGL powered health metrics dashboard with dynamic 3D body model selection and vitals tracking.',
@@ -72,6 +50,19 @@ window.__PORTFOLIO = {
         },
         {
           n:3,
+          title:'Health Planner Desktop',
+          desc:'Cross-platform desktop health planner built with PyQt6 and QWebEngineView — hybrid Python/web UI for tracking workout regimens, health metrics and exercise logs.',
+          code:'https://github.com/Naadir-Dev-Portfolio/Health-Planner-Desktop/blob/main/main.py',
+          details:'https://github.com/Naadir-Dev-Portfolio/Health-Planner-Desktop/blob/main/README.md',
+          tags:[
+            'python',
+            'pyqt',
+            'health',
+            'automation'
+          ]
+        },
+        {
+          n:4,
           title:'Document OCR Studio',
           img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Document-OCR-Studio/main/portfolio/document-ocr-studio.png?v=20260520T211855Z',
           imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Document-OCR-Studio/main/portfolio/document-ocr-studio-featured.png?v=20260520T211855Z',
@@ -85,7 +76,7 @@ window.__PORTFOLIO = {
           ]
         },
         {
-          n:4,
+          n:5,
           title:'Mortgage Overpayment Tracker',
           img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Mortgage-Overpayment-Tracker/main/portfolio/mortgageTrackerScreen.webp?v=20260323T224140Z',
           imgs:[
@@ -102,7 +93,20 @@ window.__PORTFOLIO = {
           details:'https://github.com/Naadir-Dev-Portfolio/Mortgage-Overpayment-Tracker/blob/main/README.md'
         },
         {
-          n:5,
+          n:6,
+          title:'YouTube Stats Dashboard',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/YouTube-Stats-Dashboard/main/portfolio/screenshot.png?v=20260323T224130Z',
+          desc:'Local channel intelligence tool that fetches full view count history from the YouTube Data API, giving creators a persistent, exportable performance record that YouTube\'s own analytics won\'t provide.',
+          code:'https://github.com/Naadir-Dev-Portfolio/YouTube-Stats-Dashboard/blob/main/main.py',
+          details:'https://github.com/Naadir-Dev-Portfolio/YouTube-Stats-Dashboard/blob/main/README.md',
+          tags:[
+            'python',
+            'pyqt',
+            'api'
+          ]
+        },
+        {
+          n:7,
           title:'Income Prophet',
           desc:'Time-series income forecasting — models growth trajectories and projects future earnings using statistical modelling.',
           code:'https://github.com/Naadir-Dev-Portfolio/Income-Prophet/blob/main/main.py',
@@ -114,7 +118,7 @@ window.__PORTFOLIO = {
           ]
         },
         {
-          n:6,
+          n:8,
           title:'Desktop Widgets',
           desc:'Collection of always-on-top PyQt6 overlay widgets — BTC ticker, SPY/FTSE/Treasuries charts, crypto alerts, news reader, health tracker, mortgage calc and more.',
           code:'https://github.com/Naadir-Dev-Portfolio/Desktop-Widgets',
@@ -124,19 +128,6 @@ window.__PORTFOLIO = {
             'pyqt',
             'crypto',
             'api'
-          ]
-        },
-        {
-          n:8,
-          title:'Health Planner Desktop',
-          desc:'Cross-platform desktop health planner built with PyQt6 and QWebEngineView — hybrid Python/web UI for tracking workout regimens, health metrics and exercise logs.',
-          code:'https://github.com/Naadir-Dev-Portfolio/Health-Planner-Desktop/blob/main/main.py',
-          details:'https://github.com/Naadir-Dev-Portfolio/Health-Planner-Desktop/blob/main/README.md',
-          tags:[
-            'python',
-            'pyqt',
-            'health',
-            'automation'
           ]
         }
       ],

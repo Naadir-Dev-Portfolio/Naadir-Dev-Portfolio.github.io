@@ -60,6 +60,23 @@ OUTPUT_FILE   = 'assets/js/data.js'
 RAW_BASE      = 'https://raw.githubusercontent.com'
 TOKEN         = os.environ.get('PORTFOLIO_TOKEN', '')
 
+# Central portfolio visibility/order controls. Repos stay intact; this only
+# controls what the compiled website data includes.
+EXCLUDED_REPOS = {
+    'MS-ToDo-Dashboard',
+}
+
+PYTHON_DESKTOP_ORDER = {
+    'Finance-Dashboard': 1,
+    'Health-Dashboard': 2,
+    'Health-Planner-Desktop': 3,
+    'Document-OCR-Studio': 4,
+    'Mortgage-Overpayment-Tracker': 5,
+    'YouTube-Stats-Dashboard': 6,
+    'Income-Prophet': 7,
+    'Desktop-Widgets': 8,
+}
+
 # ── Section / category manifest (single source of truth) ──────────────────────
 #
 # This is the ordered manifest of tabs and sub-tabs the portfolio site renders.
@@ -291,6 +308,10 @@ def compile_all() -> tuple[dict, list]:
     for repo in repos:
         repo_name = repo['name']
 
+        if repo_name in EXCLUDED_REPOS:
+            print(f'  [{repo_name}] skipped by portfolio visibility rules')
+            continue
+
         tree = gh_request(f'/repos/{ORG}/{repo_name}/git/trees/HEAD?recursive=1')
         if not tree or 'tree' not in tree:
             continue
@@ -324,6 +345,11 @@ def compile_all() -> tuple[dict, list]:
             data.setdefault(section, {})
             data[section].setdefault(category, [])
             discovered.setdefault(section, set()).add(category)
+
+            if section == 'python' and category == 'desktop':
+                forced_order = PYTHON_DESKTOP_ORDER.get(repo_name)
+                if forced_order is not None:
+                    card['n'] = forced_order
 
             # ── Resolve image filenames → raw GitHub URLs ──────────────────
             img = card.get('img', '').strip()
