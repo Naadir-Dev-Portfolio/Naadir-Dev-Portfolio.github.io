@@ -10,7 +10,7 @@
    It is built from scripts/compile_projects.py SECTIONS plus auto-discovery
    of any (section, category) keys that show up in project JSONs.
 
-   Last compiled: 2026-05-21 21:25 UTC
+   Last compiled: 2026-05-21 21:43 UTC
    ============================================================ */
 window.__PORTFOLIO = {
 
@@ -608,7 +608,23 @@ window.__PORTFOLIO = {
       ]
     },
     mobile:{
-      'react-native':[],
+      'react-native':[
+        {
+          n:1,
+          title:'Mobile-Health-Planner',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Mobile-Health-Planner/main/portfolio/mobile-health-planner.png?v=20260521T214316Z',
+          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Mobile-Health-Planner/main/portfolio/mobile-health-planner-featured.png?v=20260521T214316Z',
+          desc:'Mobile version of custom workout plan library built in React Native and HTML CSS & Javascript via webview.',
+          code:'https://github.com/Naadir-Dev-Portfolio/Mobile-Health-Planner/blob/main/README.md',
+          details:'https://github.com/Naadir-Dev-Portfolio/Mobile-Health-Planner/blob/main/README.md',
+          tags:[
+            'React Native',
+            'HTML',
+            'CSS',
+            'Javascript'
+          ]
+        }
+      ],
       kotlin:[]
     },
     browserextensions:{
