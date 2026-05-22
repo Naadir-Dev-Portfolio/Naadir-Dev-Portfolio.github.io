@@ -10,7 +10,7 @@
    It is built from scripts/compile_projects.py SECTIONS plus auto-discovery
    of any (section, category) keys that show up in project JSONs.
 
-   Last compiled: 2026-05-22 06:12 UTC
+   Last compiled: 2026-05-22 09:29 UTC
    ============================================================ */
 window.__PORTFOLIO = {
 
@@ -110,13 +110,21 @@ window.__PORTFOLIO = {
         {
           n:7,
           title:'Income Prophet',
-          desc:'Time-series income forecasting — models growth trajectories and projects future earnings using statistical modelling.',
-          code:'https://github.com/Naadir-Dev-Portfolio/Income-Prophet/blob/main/main.py',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Income-Prophet/main/portfolio/income-prophet.png?v=20260522T092205Z',
+          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Income-Prophet/main/portfolio/income-prophet-featured.png?v=20260522T092205Z',
+          desc:'PyQt6 desktop app I\'ve built to turn bank statements into interactive income and expenditure forecasts using selectable SARIMA, ETS, optional Prophet, and fallback trend forecasting models.',
+          code:'https://github.com/Naadir-Dev-Portfolio/Income-Prophet/blob/main/README.md',
           details:'https://github.com/Naadir-Dev-Portfolio/Income-Prophet/blob/main/README.md',
           tags:[
-            'python',
-            'forecasting',
-            'finance'
+            'Python',
+            'PyQt6',
+            'Pandas',
+            'NumPy',
+            'Matplotlib',
+            'SARIMA',
+            'ETS',
+            'Prophet',
+            'Time Series Forecasting'
           ]
         },
         {
