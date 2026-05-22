@@ -10,7 +10,7 @@
    It is built from scripts/compile_projects.py SECTIONS plus auto-discovery
    of any (section, category) keys that show up in project JSONs.
 
-   Last compiled: 2026-05-22 10:15 UTC
+   Last compiled: 2026-05-22 10:23 UTC
    ============================================================ */
 window.__PORTFOLIO = {
 
@@ -652,9 +652,9 @@ window.__PORTFOLIO = {
         {
           n:1,
           title:'Android-HealthSync-Exporter',
-          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Android-HealthSync-Exporter/main/portfolio/android-healthsync-exporter.png?v=20260522T101501Z',
-          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Android-HealthSync-Exporter/main/portfolio/android-healthsync-exporter-featured.png?v=20260522T101501Z',
-          desc:'An App I built in Kotlin Programmling language using Android Studio to parse, standardize and consolidate health data and upload to onedrive as CSV with built in automated schedules.',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Android-HealthSync-Exporter/main/portfolio/android-healthsync-exporter.png?v=20260522T102320Z',
+          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Android-HealthSync-Exporter/main/portfolio/android-healthsync-exporter-featured.png?v=20260522T102320Z',
+          desc:'An App I built in the Kotlin programming language using Android Studio to parse, standardize and consolidate health data and upload to onedrive as CSV with built in automated schedules.',
           code:'https://github.com/Naadir-Dev-Portfolio/Android-HealthSync-Exporter/blob/main/README.md',
           details:'https://github.com/Naadir-Dev-Portfolio/Android-HealthSync-Exporter/blob/main/README.md',
           tags:[
