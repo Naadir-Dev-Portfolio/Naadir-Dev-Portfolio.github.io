@@ -10,7 +10,7 @@
    It is built from scripts/compile_projects.py SECTIONS plus auto-discovery
    of any (section, category) keys that show up in project JSONs.
 
-   Last compiled: 2026-05-22 10:23 UTC
+   Last compiled: 2026-05-23 05:43 UTC
    ============================================================ */
 window.__PORTFOLIO = {
 
