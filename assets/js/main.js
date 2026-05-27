@@ -592,7 +592,7 @@
             ...p,
             section,
             category,
-            tagSet:new Set((p.tags||[]).map(t=>String(t).toLowerCase().replace(/\s+/g,'-')))
+            bucket:`${section}/${category}`
           });
         });
       }
@@ -607,21 +607,21 @@
 
     function skillMatch(p,d){
       if((d.sections||[]).includes(p.section)) return true;
-      if((d.categories||[]).includes(`${p.section}/${p.category}`)) return true;
-      return (d.tags||[]).some(t=>p.tagSet.has(t));
+      if((d.categories||[]).includes(p.bucket)) return true;
+      return false;
     }
 
     const defs=[
-      {name:'Python', sections:['python'], tags:['python','pyqt','pyqt6','tkinter','pandas','openpyxl']},
-      {name:'VBA / Excel', sections:['excelvba'], tags:['vba','excel','vbs']},
-      {name:'Power BI', sections:['powerbi'], tags:['powerbi','power-bi']},
-      {name:'AI / Agents', sections:['ai'], tags:['ai','agent','agents','gemini','openai','llm','comfyui','stable-diffusion']},
-      {name:'Websites', sections:['web'], tags:['website']},
-      {name:'Mobile Apps', sections:['mobile'], tags:['react-native','expo','mobile','android','kotlin']},
-      {name:'Automation', categories:['python/automation','excelvba/vba-macros'], tags:['automation','power-automate','sap','extendscript','jsx']},
-      {name:'Data Visualisation', sections:['powerbi'], tags:['dashboard','dashboards','data-viz','visualisation','visualization','pyqtcharts','matplotlib']},
-      {name:'Data Transformation', categories:['excelvba/powerquery'], tags:['power-query','powerquery','etl','dataflow','pandas','openpyxl']},
-      {name:'Browser Extensions', sections:['browserextensions'], tags:['browser','extension','chrome','chromium']}
+      {name:'Python', categories:['python/desktop','python/automation','python/quant']},
+      {name:'VBA / Excel', categories:['excelvba/vba-macros','excelvba/powerquery']},
+      {name:'Power BI', categories:['powerbi/dashboards']},
+      {name:'AI / Agents', categories:['ai/agents','ai/generativeai','ai/workflows']},
+      {name:'Websites', categories:['web/enterprise-hubs','web/cognitive']},
+      {name:'Mobile Development', categories:['mobile/react-native','mobile/kotlin']},
+      {name:'Automation', categories:['python/automation','excelvba/vba-macros']},
+      {name:'Data Visualisation', categories:['powerbi/dashboards','python/desktop','python/quant']},
+      {name:'Data Transformation', categories:['excelvba/powerquery','powerbi/dashboards']},
+      {name:'Browser Extensions', categories:['browserextensions/chromium']}
     ];
     const skills=defs
       .map(d=>{
