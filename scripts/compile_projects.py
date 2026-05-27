@@ -135,17 +135,16 @@ SECTIONS = [
     },
     {
         "key": "web",
-        "label": "Web Apps",
-        "desc": "Enterprise hubs, interactive utilities, and browser-based cognitive training sites.",
+        "label": "Websites",
+        "desc": "Live websites, production portals, and browser-based cognitive training apps.",
         "categories": [
-            {"key": "enterprise-hubs",  "label": "Enterprise Hubs"},
-            {"key": "tools",            "label": "Utilities"},
-            {"key": "cognitive",        "label": "Cognitive Training Sites"},
+            {"key": "enterprise-hubs",  "label": "Live Websites"},
+            {"key": "cognitive",        "label": "Cognitive Training Apps"},
         ],
     },
     {
         "key": "mobile",
-        "label": "Mobile",
+        "label": "Mobile Apps",
         "desc": "Cross-platform mobile apps built with React Native and Expo, plus native Kotlin Android work.",
         "categories": [
             {"key": "react-native",  "label": "React Native"},
@@ -167,7 +166,7 @@ SECTIONS = [
 # category won't break anything until the JSON itself is migrated.
 LEGACY_KEY_ALIAS = {
     # section: { old_category_key: new_category_key }
-    "web":               {"teamsites": "enterprise-hubs"},
+    "web":               {"teamsites": "enterprise-hubs", "tools": "enterprise-hubs"},
     "mobile":            {"android": "react-native"},
     "browserextensions": {"google-chrome": "chromium"},
     "ai":                {"prompt": "generativeai"},

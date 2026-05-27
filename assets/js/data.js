@@ -10,7 +10,7 @@
    It is built from scripts/compile_projects.py SECTIONS plus auto-discovery
    of any (section, category) keys that show up in project JSONs.
 
-   Last compiled: 2026-05-27 06:25 UTC
+   Last compiled: 2026-05-27 17:53 UTC
    ============================================================ */
 window.__PORTFOLIO = {
 
@@ -559,7 +559,6 @@ window.__PORTFOLIO = {
           ]
         }
       ],
-      tools:[],
       cognitive:[
         {
           n:1,
@@ -803,26 +802,22 @@ window.__PORTFOLIO = {
     },
     {
       key:'web',
-      label:'Web Apps',
-      desc:'Enterprise hubs, interactive utilities, and browser-based cognitive training sites.',
+      label:'Websites',
+      desc:'Live websites, production portals, and browser-based cognitive training apps.',
       categories:[
         {
           key:'enterprise-hubs',
-          label:'Enterprise Hubs'
-        },
-        {
-          key:'tools',
-          label:'Utilities'
+          label:'Live Websites'
         },
         {
           key:'cognitive',
-          label:'Cognitive Training Sites'
+          label:'Cognitive Training Apps'
         }
       ]
     },
     {
       key:'mobile',
-      label:'Mobile',
+      label:'Mobile Apps',
       desc:'Cross-platform mobile apps built with React Native and Expo, plus native Kotlin Android work.',
       categories:[
         {

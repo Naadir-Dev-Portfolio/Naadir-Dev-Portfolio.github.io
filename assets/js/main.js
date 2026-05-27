@@ -583,36 +583,52 @@
   function initSkills(){
     const grid=document.getElementById('skills-grid');
     if(!grid) return;
-    const tagN={}, catN={};
-    for(const [cat,subs] of Object.entries(DATA)){
-      let n=0;
-      for(const arr of Object.values(subs)){
-        n+=arr.length;
-        arr.forEach(p=>(p.tags||[]).forEach(t=>{ tagN[t]=(tagN[t]||0)+1; }));
+
+    const projects=[];
+    for(const [section,subs] of Object.entries(DATA)){
+      for(const [category,arr] of Object.entries(subs)){
+        arr.forEach(p=>{
+          projects.push({
+            ...p,
+            section,
+            category,
+            tagSet:new Set((p.tags||[]).map(t=>String(t).toLowerCase().replace(/\s+/g,'-')))
+          });
+        });
       }
-      catN[cat]=n;
     }
+
+    function skillLevel(projectCount){
+      if(projectCount<=0) return 0;
+      if(projectCount<=7) return projectCount*10;
+      if(projectCount<=11) return 70+((projectCount-7)*5);
+      return Math.min(100, Math.floor(90+((projectCount-11)*2.5)));
+    }
+
+    function skillMatch(p,d){
+      if((d.sections||[]).includes(p.section)) return true;
+      if((d.categories||[]).includes(`${p.section}/${p.category}`)) return true;
+      return (d.tags||[]).some(t=>p.tagSet.has(t));
+    }
+
     const defs=[
-      {name:'Python',               cats:['python'],                    tags:['python','pyqt'],                base:22},
-      {name:'VBA / Excel',          cats:['excelvba'],                  tags:['vba','excel'],                  base:26},
-      {name:'Power BI',             cats:['powerbi'],                   tags:['powerbi'],                      base:21},
-      {name:'JavaScript / Web',     cats:['web','browserextensions'],   tags:['js','web','html','css','game'], base:12},
-      {name:'AI / Agents',          cats:['ai'],                        tags:['ai','gemini'],                  base:16},
-      {name:'Automation',           cats:[],                            tags:['automation','extendscript'],    base:22},
-      {name:'Data Visualisation',   cats:[],                            tags:['data-viz','pyqt'],              base:16},
-      {name:'Data Transformation',  cats:['excelvba','powerbi'],        tags:['power-query','etl','vba','excel','dataflow'], base:20},
-      {name:'React Native / Mobile',cats:['mobile'],                    tags:['react-native','mobile'],        base:8},
-      {name:'Power Automate',       cats:['excelvba'],                  tags:['power-automate'],               base:19}
+      {name:'Python', sections:['python'], tags:['python','pyqt','pyqt6','tkinter','pandas','openpyxl']},
+      {name:'VBA / Excel', sections:['excelvba'], tags:['vba','excel','vbs']},
+      {name:'Power BI', sections:['powerbi'], tags:['powerbi','power-bi']},
+      {name:'AI / Agents', sections:['ai'], tags:['ai','agent','agents','gemini','openai','llm','comfyui','stable-diffusion']},
+      {name:'Websites', sections:['web'], tags:['website']},
+      {name:'Mobile Apps', sections:['mobile'], tags:['react-native','expo','mobile','android','kotlin']},
+      {name:'Automation', categories:['python/automation','excelvba/vba-macros'], tags:['automation','power-automate','sap','extendscript','jsx']},
+      {name:'Data Visualisation', sections:['powerbi'], tags:['dashboard','dashboards','data-viz','visualisation','visualization','pyqtcharts','matplotlib']},
+      {name:'Data Transformation', categories:['excelvba/powerquery'], tags:['power-query','powerquery','etl','dataflow','pandas','openpyxl']},
+      {name:'Browser Extensions', sections:['browserextensions'], tags:['browser','extension','chrome','chromium']}
     ];
-    const scores=defs.map(d=>{
-      let s=d.base;
-      d.cats.forEach(c=>{s+=(catN[c]||0)*8});
-      d.tags.forEach(t=>{s+=(tagN[t]||0)*5});
-      return {name:d.name,s};
-    });
-    const max=Math.max(...scores.map(x=>x.s));
-    const skills=scores
-      .map(x=>({name:x.name, pct:Math.min(96,Math.max(30,Math.round(x.s/max*96)))}))
+    const skills=defs
+      .map(d=>{
+        const count=projects.filter(p=>skillMatch(p,d)).length;
+        return {name:d.name, count, pct:skillLevel(count)};
+      })
+      .filter(s=>s.pct>0)
       .sort((a,b)=>b.pct-a.pct);
     grid.innerHTML=skills.map(s=>`
       <div class="skill-item">

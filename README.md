@@ -83,21 +83,18 @@ Clicking the card body (not a button) opens the first available link in this pri
 |---|---|---|
 | `python` | `desktop` | PyQt6 / Tkinter desktop apps |
 | `python` | `automation` | Scripts, pipelines, batch tools |
-| `python` | `trading` | Trading bots, crypto tools |
 | `python` | `quant` | Quantitative finance, forecasting |
 | `excelvba` | `vba-macros` | Excel VBA macros |
 | `excelvba` | `powerquery` | Power Query M templates |
-| `excelvba` | `power-automate` | Power Automate flows |
 | `powerbi` | `dashboards` | Power BI dashboards |
-| `powerbi` | `dataflow` | Dataflows and data models |
 | `ai` | `agents` | Multi-agent systems, AI OS |
 | `ai` | `generativeai` | LLM apps, Streamlit tools |
-| `ai` | `prompt` | Prompt engineering tools |
-| `web` | `teamsites` | Internal team portals |
-| `web` | `tools` | Utility web tools |
-| `web` | `cognitive` | Educational games |
-| `mobile` | `android` | React Native / Android apps |
-| `browserextensions` | `google-chrome` | Chrome extensions |
+| `ai` | `workflows` | AI workflow and image-generation pipelines |
+| `web` | `enterprise-hubs` | Live websites and production portals |
+| `web` | `cognitive` | Cognitive training apps |
+| `mobile` | `react-native` | React Native / Expo mobile apps |
+| `mobile` | `kotlin` | Native Kotlin Android apps |
+| `browserextensions` | `chromium` | Chromium browser extensions |
 
 ---
 

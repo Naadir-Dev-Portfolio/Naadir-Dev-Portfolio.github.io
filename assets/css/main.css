@@ -1378,7 +1378,7 @@ a.hero-panel-content:focus-visible{
   .exp-bullets li { font-size: .85rem; }
 }
 
-/* ── PARALLAX STRIP C (between experience and books) ──────── */
+/* ── PARALLAX STRIP C (between experience and contact while Books is disabled) ──────── */
 .parallax-strip-c {
   background-image: var(--parallax-img);
   background-attachment: fixed;
