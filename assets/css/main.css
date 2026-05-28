@@ -1070,7 +1070,7 @@ a.hero-panel-content:focus-visible{
   z-index:1;
 }
 
-/* Shared body-area artwork. This sits on the dark section surfaces only;
+/* Shared body-area artwork. Each dark section gets its own image copy;
    parallax strips continue to use --parallax-img unchanged. */
 #projects.section,
 #about.section,
@@ -1096,7 +1096,6 @@ a.hero-panel-content:focus-visible{
   background-repeat:no-repeat;
   background-size:cover;
   background-position:center;
-  background-attachment:fixed;
   opacity:.27;
   mix-blend-mode:lighten;
 }
