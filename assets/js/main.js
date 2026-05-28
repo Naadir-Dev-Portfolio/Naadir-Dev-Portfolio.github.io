@@ -941,6 +941,7 @@
 
       /* ── Zoom feature ── */
       let zoomed = false;
+      let zoomTransitioning = false;
       let pendingOriginReset = null;
       if(!mobilePreview){
         img.addEventListener('click', (e)=>{
@@ -954,10 +955,15 @@
             const ox = ((e.clientX - rect.left) / rect.width  * 100).toFixed(1) + '%';
             const oy = ((e.clientY - rect.top)  / rect.height * 100).toFixed(1) + '%';
             img.style.transformOrigin = ox + ' ' + oy;
+            zoomTransitioning = true;
             img.style.transform = 'scale(2.6)';
             img.classList.add('zoomed');
             zoomed = true;
+            img.addEventListener('transitionend', (ev)=>{
+              if(ev.propertyName === 'transform') zoomTransitioning = false;
+            }, {once:true});
           } else {
+            zoomTransitioning = true;
             img.style.transform = 'scale(1)';
             img.classList.remove('zoomed');
             zoomed = false;
@@ -965,6 +971,7 @@
               if(ev.propertyName !== 'transform' || zoomed) return;
               img.style.transform = '';
               img.style.transformOrigin = '50% 50%';
+              zoomTransitioning = false;
               pendingOriginReset = null;
             };
             img.addEventListener('transitionend', pendingOriginReset, {once:true});
@@ -1018,6 +1025,7 @@
       } else {
         overlay.addEventListener('pointerleave', ()=>{
           if(!activeOverlay || !allowMouseLeaveCollapse) return;
+          if(zoomed || zoomTransitioning || pendingOriginReset) return;
           const er = activeExpandRect;
           activeOverlay    = null;
           activeExpandRect = null;

@@ -1653,10 +1653,10 @@ a.hero-panel-content:focus-visible{
   position:relative;
   background:#0a0804;
   padding:1.1rem 1.5rem 1.25rem;
-  opacity:0;
-  transform:translateY(12px);
-  transition:opacity .38s .28s var(--ease), transform .38s .28s var(--ease);
-  pointer-events:none;
+  opacity:1;
+  transform:none;
+  transition:none;
+  pointer-events:auto;
 }
 .card-expand-overlay.expanded .card-expand-caption{
   opacity:1;
