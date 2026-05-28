@@ -755,15 +755,15 @@ a.hero-panel-content:focus-visible{
 .card.card-gallery>img{
   position:absolute;inset:0;
   width:100%;height:100%;object-fit:cover;
-  filter:brightness(.78);
+  filter:brightness(.9);
   transition:transform .5s var(--ease),filter .4s;
 }
-.card.card-gallery:hover>img{transform:scale(1.06);filter:brightness(.52)}
+.card.card-gallery:hover>img{transform:scale(1.06);filter:brightness(.76)}
 /* Overlay: title+desc always visible at bottom, links revealed on hover */
 .card-gal-body{
   position:absolute;inset:0 0 -6px 0;padding:.9rem;
   display:flex;flex-direction:column;justify-content:flex-end;
-  background:linear-gradient(0deg,rgba(6,8,10,.96) 0%,rgba(6,8,10,.90) 34%,rgba(6,8,10,.68) 62%,rgba(6,8,10,.34) 82%,rgba(6,8,10,.08) 100%);
+  background:linear-gradient(0deg,rgba(6,8,10,.96) 0%,rgba(6,8,10,.92) 24%,rgba(6,8,10,.76) 38%,rgba(6,8,10,.34) 49%,rgba(6,8,10,0) 58%,rgba(6,8,10,0) 100%);
   transition:transform .38s var(--ease);
   text-shadow:0 1px 10px rgba(0,0,0,.75);
 }
@@ -786,7 +786,7 @@ a.hero-panel-content:focus-visible{
    Card-body click-to-popup is desktop-only, so reset cursor to default here. */
 @media(hover:none){
   .card.card-gallery:hover{transform:none;box-shadow:none}
-  .card.card-gallery:hover>img{transform:none;filter:brightness(.78)}
+  .card.card-gallery:hover>img{transform:none;filter:brightness(.9)}
   .card.card-gallery:hover .card-gal-body{transform:none}
   .card.card-gallery .card-links{opacity:1;transform:none}
   .card.card-featured:hover{box-shadow:none}
@@ -798,7 +798,7 @@ a.hero-panel-content:focus-visible{
    above and disable the hover lift/shadow at this width regardless of input. */
 @media(max-width:900px){
   .card.card-gallery:hover{transform:none;box-shadow:none}
-  .card.card-gallery:hover>img{transform:none;filter:brightness(.78)}
+  .card.card-gallery:hover>img{transform:none;filter:brightness(.9)}
   .card.card-gallery:hover .card-gal-body{transform:none}
   .card.card-gallery .card-links{opacity:1;transform:none}
   .card.card-featured:hover{box-shadow:none}
