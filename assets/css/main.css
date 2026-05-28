@@ -526,6 +526,13 @@ a.hero-panel-content:focus-visible{
   box-shadow:0 8px 56px rgba(0,0,0,.48), 0 1px 0 rgba(255,255,255,.06), 0 -2px 24px rgba(154,163,173,.06);
 }
 
+#projects .container,
+#experience .container,
+#books .container,
+#contact .container{
+  border-radius:24px;
+}
+
 /* ── CONTAINER TEXTURE OVERLAY ─────────────────────────────────
    Drop any image into assets/images/card-texture.png to apply it.
    Remove the file and this pseudo-element simply disappears.
@@ -1063,6 +1070,46 @@ a.hero-panel-content:focus-visible{
   z-index:1;
 }
 
+/* Shared body-area artwork. This sits on the dark section surfaces only;
+   parallax strips continue to use --parallax-img unchanged. */
+#projects.section,
+#about.section,
+#experience.section,
+#books.section,
+#contact.section{
+  position:relative;
+  overflow:hidden;
+  isolation:isolate;
+}
+
+#projects.section::before,
+#about.section::before,
+#experience.section::before,
+#books.section::before,
+#contact.section::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  background-image:url('../images/Background_image.png');
+  background-repeat:no-repeat;
+  background-size:cover;
+  background-position:center;
+  background-attachment:fixed;
+  opacity:.27;
+  mix-blend-mode:lighten;
+}
+
+#projects.section > *,
+#about.section > *,
+#experience.section > *,
+#books.section > *,
+#contact.section > *{
+  position:relative;
+  z-index:1;
+}
+
 /* About + Books: full pill-shaped sections — large curve top & bottom,
    parallax strip between them reveals the background photo */
 #about.section{
@@ -1100,6 +1147,15 @@ a.hero-panel-content:focus-visible{
   #about.section{border-top-left-radius:24px;border-top-right-radius:24px;border-bottom-left-radius:0;border-bottom-right-radius:0;padding-top:1.5rem;padding-bottom:1.5rem;margin-top:0;margin-bottom:0}
   #books.section{border-top-left-radius:24px;border-top-right-radius:24px;border-bottom-left-radius:0;border-bottom-right-radius:0;padding-top:1.5rem;padding-bottom:1.5rem;margin-top:0;margin-bottom:0}
   #contact.section{border-radius:20px;margin-top:0;margin-bottom:1.25rem}
+}
+
+@media(max-width:900px){
+  #projects .container,
+  #experience .container,
+  #books .container,
+  #contact .container{
+    border-radius:20px;
+  }
 }
 
 /* ── Mobile carousel scroll-hint: arrow tabs on each side ──
