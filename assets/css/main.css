@@ -1616,9 +1616,9 @@ a.hero-panel-content:focus-visible{
   display:flex;
   flex-direction:column;
   overflow:hidden;
-  background:#0f0d0b;
+  background:#0a0804;
   box-sizing:border-box;
-  border:8px solid #0f0d0b;
+  border:none;
 }
 .card-expand-img-wrap{
   flex:1 1 0;
@@ -1635,6 +1635,9 @@ a.hero-panel-content:focus-visible{
 }
 .card-expand-overlay img.zoomed{
   cursor:zoom-out;
+}
+.card-expand-overlay.mobile-preview img{
+  cursor:pointer;
 }
 .card-expand-overlay .expand-close{
   position:absolute;top:.75rem;right:.75rem;

@@ -830,6 +830,10 @@
     let activeSourceCard = null;
     let preloadImg       = null;  /* full-res image preloaded on click */
 
+    function isMobilePreview(){
+      return window.matchMedia('(max-width: 1023px), (hover: none)').matches;
+    }
+
     /* Derive the full-res src for a card (replaces .ext with -full.ext) */
     function fullSrcFor(card){
       const imgEl = card.querySelector('img') || card.querySelector('.card-editorial-img img');
@@ -881,6 +885,7 @@
 
     function spawnOverlay(card){
       if(activeOverlay) return;
+      const mobilePreview = isMobilePreview();
       const imgEl = card.querySelector('img') || card.querySelector('.card-editorial-img img');
       if(!imgEl) return;
       const cardSrc = imgEl.src.includes('img.youtube.com')
@@ -911,13 +916,14 @@
 
       const overlay = document.createElement('div');
       overlay.className = 'card-expand-overlay';
+      if(mobilePreview) overlay.classList.add('mobile-preview');
       overlay.style.cssText = [
         'transition:none',
         'left:'   + expandRect.left   + 'px',
         'top:'    + expandRect.top    + 'px',
         'width:'  + expandRect.width  + 'px',
         'height:' + expandRect.height + 'px',
-        'border-radius:16px',
+        'border-radius:8px',
         'box-shadow:0 32px 80px rgba(0,0,0,.75)',
         'opacity:1',
         'transform:translate(' + tx + 'px,' + ty + 'px) scale(' + sx + ',' + sy + ')'
@@ -935,23 +941,36 @@
 
       /* ── Zoom feature ── */
       let zoomed = false;
-      img.addEventListener('click', (e)=>{
-        e.stopPropagation();
-        if(!zoomed){
-          const rect = img.getBoundingClientRect();
-          const ox = ((e.clientX - rect.left) / rect.width  * 100).toFixed(1) + '%';
-          const oy = ((e.clientY - rect.top)  / rect.height * 100).toFixed(1) + '%';
-          img.style.transformOrigin = ox + ' ' + oy;
-          img.style.transform = 'scale(2.6)';
-          img.classList.add('zoomed');
-          zoomed = true;
-        } else {
-          img.style.transform = 'none';
-          img.style.transformOrigin = '50% 50%';
-          img.classList.remove('zoomed');
-          zoomed = false;
-        }
-      });
+      let pendingOriginReset = null;
+      if(!mobilePreview){
+        img.addEventListener('click', (e)=>{
+          e.stopPropagation();
+          if(pendingOriginReset){
+            img.removeEventListener('transitionend', pendingOriginReset);
+            pendingOriginReset = null;
+          }
+          if(!zoomed){
+            const rect = img.getBoundingClientRect();
+            const ox = ((e.clientX - rect.left) / rect.width  * 100).toFixed(1) + '%';
+            const oy = ((e.clientY - rect.top)  / rect.height * 100).toFixed(1) + '%';
+            img.style.transformOrigin = ox + ' ' + oy;
+            img.style.transform = 'scale(2.6)';
+            img.classList.add('zoomed');
+            zoomed = true;
+          } else {
+            img.style.transform = 'scale(1)';
+            img.classList.remove('zoomed');
+            zoomed = false;
+            pendingOriginReset = (ev)=>{
+              if(ev.propertyName !== 'transform' || zoomed) return;
+              img.style.transform = '';
+              img.style.transformOrigin = '50% 50%';
+              pendingOriginReset = null;
+            };
+            img.addEventListener('transitionend', pendingOriginReset, {once:true});
+          }
+        });
+      }
 
       /* Wrap image in its own container so zoom overflow is clipped
          without affecting the caption flex item below */
@@ -990,15 +1009,23 @@
         }
       });
 
-      overlay.addEventListener('pointerleave', ()=>{
-        if(!activeOverlay || !allowMouseLeaveCollapse) return;
-        const er = activeExpandRect;
-        activeOverlay    = null;
-        activeExpandRect = null;
-        activeSourceCard = null;
-        preloadImg       = null;
-        collapse(overlay, card.getBoundingClientRect(), er, null);
-      });
+      if(mobilePreview){
+        overlay.addEventListener('click', e=>{
+          if(e.target.closest('a, button')) return;
+          e.stopPropagation();
+          collapseActive();
+        });
+      } else {
+        overlay.addEventListener('pointerleave', ()=>{
+          if(!activeOverlay || !allowMouseLeaveCollapse) return;
+          const er = activeExpandRect;
+          activeOverlay    = null;
+          activeExpandRect = null;
+          activeSourceCard = null;
+          preloadImg       = null;
+          collapse(overlay, card.getBoundingClientRect(), er, null);
+        });
+      }
     }
 
     // Collapse any active overlay
@@ -1032,8 +1059,8 @@
     /* Delegated click handler: opens the preview overlay when the card body is
        clicked. Clicks on the explicit link pills inside .card-links still
        navigate normally. Delegated rather than per-card so it keeps working
-       after pagination re-renders the gallery. Disabled on mobile — narrow
-       viewports already show the link pills inline, so a popup adds noise.
+       after pagination re-renders the gallery. On mobile, tapping the popup
+       itself closes it and image zoom is disabled.
 
        The popup is sized to the full-res image's aspect ratio, so we wait for
        it to decode before opening — that prevents the "first click opens
@@ -1046,8 +1073,10 @@
       if(e.target.closest('a, button')) return;
       const card = e.target.closest('.card.card-gallery, .card.card-featured');
       if(!card) return;
-      if(window.innerWidth < 1024) return;
-      if(activeOverlay) return;
+      if(activeOverlay){
+        if(isMobilePreview()) collapseActive();
+        return;
+      }
 
       const fs = fullSrcFor(card);
       if(!fs){
