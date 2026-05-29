@@ -517,7 +517,7 @@ window.__PORTFOLIO = {
     web:{
       'live-websites':[
         {
-          n:1,
+          n:3,
           title:'Team Hub Website',
           img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Team-Hub-Website/main/portfolio/ccmisite_demo.webp?v=20260427T110703Z',
           desc:'Professional front end portal for an internal data team, showcasing tools, projects and team info with a clean, responsive layout.',
@@ -546,7 +546,7 @@ window.__PORTFOLIO = {
           ]
         },
         {
-          n:3,
+          n:1,
           title:'Economics Dashboard Web',
           desc:'Interactive browser-based economics dashboard — live macro data, yield curves, housing, employment and inflation. Currently in development.',
           code:'https://github.com/Naadir-Dev-Portfolio/Economics-Dashboard-Web',
