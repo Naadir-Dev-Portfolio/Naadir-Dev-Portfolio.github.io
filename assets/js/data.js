@@ -10,7 +10,7 @@
    It is built from scripts/compile_projects.py SECTIONS plus auto-discovery
    of any (section, category) keys that show up in project JSONs.
 
-   Last compiled: 2026-05-29 20:07 UTC
+   Last compiled: 2026-05-29 20:47 UTC
    ============================================================ */
 window.__PORTFOLIO = {
 
@@ -517,7 +517,7 @@ window.__PORTFOLIO = {
     web:{
       'live-websites':[
         {
-          n:3,
+          n:1,
           title:'Team Hub Website',
           img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Team-Hub-Website/main/portfolio/ccmisite_demo.webp?v=20260427T110703Z',
           desc:'Professional front end portal for an internal data team, showcasing tools, projects and team info with a clean, responsive layout.',
@@ -546,7 +546,7 @@ window.__PORTFOLIO = {
           ]
         },
         {
-          n:1,
+          n:3,
           title:'Economics Dashboard Web',
           desc:'Interactive browser-based economics dashboard — live macro data, yield curves, housing, employment and inflation. Currently in development.',
           code:'https://github.com/Naadir-Dev-Portfolio/Economics-Dashboard-Web',
