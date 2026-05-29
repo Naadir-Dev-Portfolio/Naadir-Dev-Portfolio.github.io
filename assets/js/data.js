@@ -10,7 +10,7 @@
    It is built from scripts/compile_projects.py SECTIONS plus auto-discovery
    of any (section, category) keys that show up in project JSONs.
 
-   Last compiled: 2026-05-29 21:10 UTC
+   Last compiled: 2026-05-29 21:16 UTC
    ============================================================ */
 window.__PORTFOLIO = {
 
@@ -196,19 +196,6 @@ window.__PORTFOLIO = {
             'crypto',
             'trading',
             'excel'
-          ]
-        },
-        {
-          n:4,
-          title:'Economic Dashboard',
-          desc:'26 Python data pipelines pulling FRED API data — yield curves, housing starts, unemployment, CAPE ratio, credit spreads and more.',
-          code:'https://github.com/Naadir-Dev-Portfolio/Economic-Dashboard',
-          details:'https://github.com/Naadir-Dev-Portfolio/Economic-Dashboard/blob/main/README.md',
-          tags:[
-            'python',
-            'economics',
-            'api',
-            'data-viz'
           ]
         }
       ]
