@@ -529,11 +529,11 @@ a.hero-panel-content:focus-visible{
     0 8px 56px rgba(0,0,0,.48),
     0 1px 0 rgba(255,255,255,.06),
     0 -2px 24px rgba(154,163,173,.06),
-    inset 0 8px 28px rgba(0,0,0,.28),
-    inset 0 -8px 24px rgba(0,0,0,.15),
-    inset 18px 0 32px rgba(0,0,0,.10),
-    inset -18px 0 32px rgba(0,0,0,.10),
-    inset 0 0 0 1px rgba(0,0,0,.11);
+    inset 0 4px 12px rgba(0,0,0,.36),
+    inset 0 -3px 10px rgba(0,0,0,.2),
+    inset 7px 0 12px rgba(0,0,0,.18),
+    inset -7px 0 12px rgba(0,0,0,.18),
+    inset 0 0 0 1px rgba(0,0,0,.16);
 }
 
 #projects .container,
@@ -587,11 +587,11 @@ a.hero-panel-content:focus-visible{
   pointer-events:none;
   z-index:0;
   box-shadow:
-    inset 0 12px 34px rgba(0,0,0,.26),
-    inset 0 -10px 28px rgba(0,0,0,.14),
-    inset 20px 0 34px rgba(0,0,0,.10),
-    inset -20px 0 34px rgba(0,0,0,.10),
-    inset 0 0 0 1px rgba(0,0,0,.10);
+    inset 0 5px 14px rgba(0,0,0,.34),
+    inset 0 -4px 12px rgba(0,0,0,.18),
+    inset 8px 0 14px rgba(0,0,0,.2),
+    inset -8px 0 14px rgba(0,0,0,.2),
+    inset 0 0 0 1px rgba(0,0,0,.14);
 }
 
 /* Ensure all container content sits above the texture and inset shadow overlays */

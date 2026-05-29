@@ -81,6 +81,12 @@ PYTHON_DESKTOP_ORDER = {
     'Desktop-Widgets': 8,
 }
 
+WEB_LIVE_WEBSITE_ORDER = {
+    'Economics-Dashboard-Web': 1,
+    'PowerBI-Request-Portal': 2,
+    'Team-Hub-Website': 3,
+}
+
 # ── Section / category manifest (single source of truth) ──────────────────────
 #
 # This is the ordered manifest of tabs and sub-tabs the portfolio site renders.
@@ -367,6 +373,10 @@ def compile_all() -> tuple[dict, list]:
 
             if section == 'python' and category == 'desktop':
                 forced_order = PYTHON_DESKTOP_ORDER.get(repo_name)
+                if forced_order is not None:
+                    card['n'] = forced_order
+            if section == 'web' and category == 'live-websites':
+                forced_order = WEB_LIVE_WEBSITE_ORDER.get(repo_name)
                 if forced_order is not None:
                     card['n'] = forced_order
 

@@ -10,7 +10,7 @@
    It is built from scripts/compile_projects.py SECTIONS plus auto-discovery
    of any (section, category) keys that show up in project JSONs.
 
-   Last compiled: 2026-05-29 20:47 UTC
+   Last compiled: 2026-05-29 21:10 UTC
    ============================================================ */
 window.__PORTFOLIO = {
 
@@ -518,17 +518,15 @@ window.__PORTFOLIO = {
       'live-websites':[
         {
           n:1,
-          title:'Team Hub Website',
-          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Team-Hub-Website/main/portfolio/ccmisite_demo.webp?v=20260427T110703Z',
-          desc:'Professional front end portal for an internal data team, showcasing tools, projects and team info with a clean, responsive layout.',
-          code:'https://github.com/Naadir-Dev-Portfolio/Team-Hub-Website/tree/main',
-          demo:'https://ccmiteamsite-by-naadir.netlify.app/',
-          details:'https://github.com/Naadir-Dev-Portfolio/Team-Hub-Website/blob/main/README.md',
+          title:'Economics Dashboard Web',
+          desc:'Interactive browser-based economics dashboard — live macro data, yield curves, housing, employment and inflation. Currently in development.',
+          code:'https://github.com/Naadir-Dev-Portfolio/Economics-Dashboard-Web',
+          details:'https://github.com/Naadir-Dev-Portfolio/Economics-Dashboard-Web/blob/main/README.md',
           tags:[
             'web',
-            'html',
-            'css',
-            'js'
+            'js',
+            'economics',
+            'data-viz'
           ]
         },
         {
@@ -547,15 +545,17 @@ window.__PORTFOLIO = {
         },
         {
           n:3,
-          title:'Economics Dashboard Web',
-          desc:'Interactive browser-based economics dashboard — live macro data, yield curves, housing, employment and inflation. Currently in development.',
-          code:'https://github.com/Naadir-Dev-Portfolio/Economics-Dashboard-Web',
-          details:'https://github.com/Naadir-Dev-Portfolio/Economics-Dashboard-Web/blob/main/README.md',
+          title:'Team Hub Website',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Team-Hub-Website/main/portfolio/ccmisite_demo.webp?v=20260427T110703Z',
+          desc:'Professional front end portal for an internal data team, showcasing tools, projects and team info with a clean, responsive layout.',
+          code:'https://github.com/Naadir-Dev-Portfolio/Team-Hub-Website/tree/main',
+          demo:'https://ccmiteamsite-by-naadir.netlify.app/',
+          details:'https://github.com/Naadir-Dev-Portfolio/Team-Hub-Website/blob/main/README.md',
           tags:[
             'web',
-            'js',
-            'economics',
-            'data-viz'
+            'html',
+            'css',
+            'js'
           ]
         }
       ],
