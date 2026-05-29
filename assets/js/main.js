@@ -562,14 +562,11 @@
       });
     });
 
-    /* Initial state: first section's first category visible, sub-nav open via
-       HTML class, no buttons carry an 'active' class — looks clean and
-       unselected on load. Driven by MANIFEST so it adapts when sections change. */
+    /* Initial state: first section's first category visible, but no main tab or
+       sub-tab is selected. The sub-nav stays collapsed until a main tab is clicked. */
     const firstSec = MANIFEST[0];
     const firstCat = firstSec && firstSec.categories[0];
     if(firstSec && firstCat){
-      const subnav = document.getElementById(`sub-${firstSec.key}`);
-      if(subnav) subnav.classList.add('open');
       showPanel(firstSec.key, firstCat.key);
     }
   }
