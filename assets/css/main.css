@@ -522,12 +522,11 @@ a.hero-panel-content:focus-visible{
     radial-gradient(ellipse 45% 35% at 82% 92%, rgba(180,190,205,.32) 0%, transparent 50%),
     radial-gradient(circle at 50% 45%, rgba(210,215,225,.28) 0%, transparent 70%),
     linear-gradient(168deg, #eef2f8 0%, #e6eaf2 30%, #dde2ec 60%, #d5dbe7 100%);
-  border:1px solid rgba(255,255,255,.04);
+  border:none;
   border-radius:28px;
   padding:var(--pad);
   box-shadow:
     0 8px 56px rgba(0,0,0,.48),
-    0 1px 0 rgba(255,255,255,.06),
     0 -2px 24px rgba(154,163,173,.06),
     inset 0 4px 12px rgba(0,0,0,.36),
     inset 0 -3px 10px rgba(0,0,0,.2),
