@@ -51,6 +51,10 @@ from urllib.parse import quote
 from urllib.request import Request, urlopen
 from urllib.error import HTTPError, URLError
 
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
+    sys.stderr.reconfigure(encoding="utf-8")
+
 # ── Config ────────────────────────────────────────────────────────────────────
 ORG           = 'Naadir-Dev-Portfolio'
 PORTFOLIO_DIR = 'portfolio'
@@ -138,7 +142,7 @@ SECTIONS = [
         "label": "Websites",
         "desc": "Live websites, production portals, and browser-based cognitive training apps.",
         "categories": [
-            {"key": "enterprise-hubs",  "label": "Live Websites"},
+            {"key": "live-websites",    "label": "Live Websites"},
             {"key": "cognitive",        "label": "Cognitive Training Apps"},
         ],
     },
@@ -166,10 +170,26 @@ SECTIONS = [
 # category won't break anything until the JSON itself is migrated.
 LEGACY_KEY_ALIAS = {
     # section: { old_category_key: new_category_key }
-    "web":               {"teamsites": "enterprise-hubs", "tools": "enterprise-hubs"},
+    "web":               {
+        "teamsites": "live-websites",
+        "tools": "live-websites",
+        "enterprise-hubs": "live-websites",
+        "cognitive-training-sites": "cognitive",
+        "cognitive-training-apps": "cognitive",
+    },
     "mobile":            {"android": "react-native"},
     "browserextensions": {"google-chrome": "chromium"},
     "ai":                {"prompt": "generativeai"},
+}
+
+# Keys that must never appear in generated DATA or MANIFEST. They are accepted
+# only as legacy inputs through LEGACY_KEY_ALIAS above.
+FORBIDDEN_OUTPUT_CATEGORIES = {
+    ("web", "teamsites"),
+    ("web", "tools"),
+    ("web", "enterprise-hubs"),
+    ("web", "cognitive-training-sites"),
+    ("web", "cognitive-training-apps"),
 }
 
 def auto_label(key: str) -> str:
@@ -421,6 +441,22 @@ def build_manifest(declared: list, discovered: dict[str, set[str]]) -> list:
     return manifest
 
 
+def validate_output_keys(data: dict, manifest: list) -> None:
+    """Fail fast if a legacy category leaks into generated site data."""
+    leaked = []
+    for section, category in sorted(FORBIDDEN_OUTPUT_CATEGORIES):
+        if category in data.get(section, {}):
+            leaked.append(f"{section}/{category} in DATA")
+        for sec in manifest:
+            if sec.get("key") != section:
+                continue
+            if any(cat.get("key") == category for cat in sec.get("categories", [])):
+                leaked.append(f"{section}/{category} in MANIFEST")
+    if leaked:
+        joined = ", ".join(leaked)
+        raise RuntimeError(f"Legacy portfolio category leaked into output: {joined}")
+
+
 def to_js_value(obj, indent=0) -> str:
     """Serialise a Python object to compact-ish JS literal (not JSON)."""
     pad  = '  ' * indent
@@ -456,6 +492,7 @@ def to_js_value(obj, indent=0) -> str:
 
 
 def write_data_js(data: dict, manifest: list):
+    validate_output_keys(data, manifest)
     timestamp = datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')
     js_data     = to_js_value(data,     indent=1)
     js_manifest = to_js_value(manifest, indent=1)

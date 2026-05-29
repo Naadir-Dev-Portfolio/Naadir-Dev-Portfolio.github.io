@@ -10,7 +10,7 @@
    It is built from scripts/compile_projects.py SECTIONS plus auto-discovery
    of any (section, category) keys that show up in project JSONs.
 
-   Last compiled: 2026-05-29 06:19 UTC
+   Last compiled: 2026-05-29 20:07 UTC
    ============================================================ */
 window.__PORTFOLIO = {
 
@@ -515,7 +515,7 @@ window.__PORTFOLIO = {
       ]
     },
     web:{
-      'enterprise-hubs':[
+      'live-websites':[
         {
           n:1,
           title:'Team Hub Website',
@@ -806,7 +806,7 @@ window.__PORTFOLIO = {
       desc:'Live websites, production portals, and browser-based cognitive training apps.',
       categories:[
         {
-          key:'enterprise-hubs',
+          key:'live-websites',
           label:'Live Websites'
         },
         {

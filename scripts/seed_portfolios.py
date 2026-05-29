@@ -80,13 +80,11 @@ SEED_DATA = {
             {'n':1,'title':'Adobe Script Toolkit','videoId':'JtVEtAiz0UU','desc':'Full Adobe automation toolkit — Python drives Illustrator via COM to run a complete sticker pack export pipeline (multi-size PNG/JPEG/SVG, watermarked previews, PDF sticker sheets, promo video). Plus native JSX scripts for Illustrator and After Effects: batch artboard export, vectorize, layer renaming, render queue automation.','code':'https://github.com/Naadir-Dev-Portfolio/Adobe-Script-Toolkit/blob/main/illustrator/sticker_pack_export_pipeline.py','details':'https://github.com/Naadir-Dev-Portfolio/Adobe-Script-Toolkit/blob/main/README.md','tags':['python','automation','extendscript','adobe','jsx']},
             {'n':2,'title':'PDF Data Extractor','img':'','desc':'Batch PDF text and table extraction pipeline — processes folders of PDFs, pulls structured data into usable formats.','code':'https://github.com/Naadir-Dev-Portfolio/PDF-Data-Extractor/blob/main/main.py','details':'https://github.com/Naadir-Dev-Portfolio/PDF-Data-Extractor/blob/main/README.md','tags':['python','automation','ocr']},
         ],
-        'trading': [
+        'quant': [
             {'n':1,'title':'Trading Algo Backtester','img':'','desc':'Multi-strategy algorithmic trading backtester with a scikit-learn ML layer — runs historical analysis and live market signals on crypto and equities.','code':'https://github.com/Naadir-Dev-Portfolio/Trading-Algo-Backtester/blob/main/main.py','details':'https://github.com/Naadir-Dev-Portfolio/Trading-Algo-Backtester/blob/main/README.md','tags':['python','trading','ml','backtesting']},
             {'n':2,'title':'Crypto News Aggregator','img':'','desc':'Scrapes CryptoPanic, organises articles by coin and sentiment, outputs clean Excel reports for market research.','code':'https://github.com/Naadir-Dev-Portfolio/Crypto-News-Aggregator/blob/main/main.py','details':'https://github.com/Naadir-Dev-Portfolio/Crypto-News-Aggregator/blob/main/README.md','tags':['python','crypto','trading','excel']},
-        ],
-        'quant': [
-            {'n':1,'title':'Quant Research Scripts','img':'','desc':'Quantitative finance experiments — NeuralProphet neural time-series forecasting and inflation-adjusted stock price analysis.','code':'https://github.com/Naadir-Dev-Portfolio/Quant-Research-Scripts','details':'https://github.com/Naadir-Dev-Portfolio/Quant-Research-Scripts/blob/main/README.md','tags':['python','quant','ml','forecasting']},
-            {'n':2,'title':'Economic Dashboard','img':'','desc':'26 Python data pipelines pulling FRED API data — yield curves, housing starts, unemployment, CAPE ratio, credit spreads and more.','code':'https://github.com/Naadir-Dev-Portfolio/Economic-Dashboard','details':'https://github.com/Naadir-Dev-Portfolio/Economic-Dashboard/blob/main/README.md','tags':['python','economics','api','data-viz']},
+            {'n':3,'title':'Quant Research Scripts','img':'','desc':'Quantitative finance experiments — NeuralProphet neural time-series forecasting and inflation-adjusted stock price analysis.','code':'https://github.com/Naadir-Dev-Portfolio/Quant-Research-Scripts','details':'https://github.com/Naadir-Dev-Portfolio/Quant-Research-Scripts/blob/main/README.md','tags':['python','quant','ml','forecasting']},
+            {'n':4,'title':'Economic Dashboard','img':'','desc':'26 Python data pipelines pulling FRED API data — yield curves, housing starts, unemployment, CAPE ratio, credit spreads and more.','code':'https://github.com/Naadir-Dev-Portfolio/Economic-Dashboard','details':'https://github.com/Naadir-Dev-Portfolio/Economic-Dashboard/blob/main/README.md','tags':['python','economics','api','data-viz']},
         ],
     },
     'excelvba': {
@@ -99,9 +97,8 @@ SEED_DATA = {
             {'n':1,'title':'Power Query Toolkit','img':'','desc':'Power Query M templates for common data transformation patterns — cleaning, reshaping, merging and loading data in Excel. Production-ready and reusable across projects.','code':'https://github.com/Naadir-Dev-Portfolio/Power-Query-Toolkit','details':'https://github.com/Naadir-Dev-Portfolio/Power-Query-Toolkit/blob/main/README.md','tags':['excel','power-query','etl']},
             {'n':2,'title':'Excel Report Templates','img':'','desc':'Collection of professional Excel workbook templates — operational reports, team analytics, financial tools and SAP-integrated extracts. Sanitised for public use.','code':'https://github.com/Naadir-Dev-Portfolio/Excel-Report-Templates','details':'https://github.com/Naadir-Dev-Portfolio/Excel-Report-Templates/blob/main/README.md','tags':['excel','vba','reporting']},
         ],
-        'power-automate': [],
     },
-    'powerbi':  {'dashboards': [], 'dataflow': []},
+    'powerbi':  {'dashboards': []},
     'ai': {
         'agents': [
             {'n':1,'title':'Spheria','img':'','desc':'Hero project — AI desktop OS with multi-agent orchestration, tool calling, persistent memory, and a custom animated orb interface. A fully autonomous desktop AI built in Python and PyQt6.','code':'https://github.com/Naadir-Dev-Portfolio/Spheria','details':'https://github.com/Naadir-Dev-Portfolio/Spheria/blob/main/README.md','tags':['ai','multi-agent','python','pyqt']},
@@ -112,18 +109,15 @@ SEED_DATA = {
             {'n':3,'title':'Finance NL Query','img':'','desc':'Natural language interface for financial data — ask plain-English questions and get structured, queryable answers without writing code.','code':'https://github.com/Naadir-Dev-Portfolio/Finance-NL-Query/blob/main/main.py','details':'https://github.com/Naadir-Dev-Portfolio/Finance-NL-Query/blob/main/README.md','tags':['ai','nlp','finance','python']},
             {'n':4,'title':'ComfyUI Workflows','img':'','desc':'ComfyUI node-graph workflows for AI image generation pipelines — txt2img, img2img with 4x ESRGAN upscaling, plus Python automation scripts for batch queuing and auto-renaming generated outputs.','code':'https://github.com/Naadir-Dev-Portfolio/ComfyUI-Workflows','details':'https://github.com/Naadir-Dev-Portfolio/ComfyUI-Workflows/blob/main/README.md','tags':['ai','comfyui','stable-diffusion','python']},
             {'n':5,'title':'Portfolio AI Assistant','img':'','desc':'The AI assistant embedded in this portfolio — a Gemini-powered chat interface that knows my full project history and answers questions about my skills and experience in real time.','code':'https://github.com/Naadir-Dev-Portfolio/Naadir-Dev-Portfolio.github.io','details':'https://github.com/Naadir-Dev-Portfolio/Naadir-Dev-Portfolio.github.io/blob/main/README.md','tags':['ai','gemini','prompt-eng','js']},
-        ],
-        'prompt': [
-            {'n':1,'title':'AI Prompt Generator','img':'','desc':'Generates 1000+ diverse, categorised AI prompts and appends them to a master library — covers creative, technical, educational and analytical domains.','code':'https://github.com/Naadir-Dev-Portfolio/AI-Prompt-Generator/blob/main/main.py','details':'https://github.com/Naadir-Dev-Portfolio/AI-Prompt-Generator/blob/main/README.md','tags':['ai','prompt-eng','python']},
+            {'n':6,'title':'AI Prompt Generator','img':'','desc':'Generates 1000+ diverse, categorised AI prompts and appends them to a master library — covers creative, technical, educational and analytical domains.','code':'https://github.com/Naadir-Dev-Portfolio/AI-Prompt-Generator/blob/main/main.py','details':'https://github.com/Naadir-Dev-Portfolio/AI-Prompt-Generator/blob/main/README.md','tags':['ai','prompt-eng','python']},
         ],
     },
     'web': {
-        'teamsites': [
+        'live-websites': [
             {'n':1,'title':'Team Hub Website','img':'ccmisite_demo.webp','desc':'Professional front-end portal for an internal data team — showcasing tools, projects and team info with a clean, responsive layout.','code':'https://github.com/Naadir-Dev-Portfolio/Team-Hub-Website/tree/main','demo':'https://ccmiteamsite-by-naadir.netlify.app/','details':'https://github.com/Naadir-Dev-Portfolio/Team-Hub-Website/blob/main/README.md','tags':['web','html','css','js']},
             {'n':2,'title':'Power BI Request Portal','img':'pbirequest.webp','desc':'Interactive request portal that walks stakeholders through the Power BI report commissioning process — replaces email back-and-forth.','code':'https://github.com/Naadir-Dev-Portfolio/PowerBI-Request-Portal/blob/main/index.html','demo':'https://powerbirequest-by-naadir.netlify.app/','details':'https://github.com/Naadir-Dev-Portfolio/PowerBI-Request-Portal/blob/main/README.md','tags':['web','html','powerbi']},
             {'n':3,'title':'Economics Dashboard Web','img':'','desc':'Interactive browser-based economics dashboard — live macro data, yield curves, housing, employment and inflation. Currently in development.','code':'https://github.com/Naadir-Dev-Portfolio/Economics-Dashboard-Web','details':'https://github.com/Naadir-Dev-Portfolio/Economics-Dashboard-Web/blob/main/README.md','tags':['web','js','economics','data-viz']},
         ],
-        'tools': [],
         'cognitive': [
             {'n':1,'title':'Rain Drops Arithmetics','img':'raindropsScreen.webp','desc':"Fast-paced arithmetic training game inspired by Lumosity's Rain Drops — tests mental calculation speed under pressure.",'code':'https://github.com/Naadir-Dev-Portfolio/RainDrops/blob/main/index.html','demo':'https://raindrops-by-naadir.netlify.app/','tags':['web','js','game']},
             {'n':2,'title':'Hexamatch Fractions','img':'hexamatchScreen.webp','desc':'Hexagonal tile-matching game that builds intuitive understanding of equivalent fractions through play.','code':'https://github.com/Naadir-Dev-Portfolio/Hexamatch/blob/main/index.html','demo':'https://hexamatch-by-naadir.netlify.app/','tags':['web','js','game']},
@@ -132,11 +126,11 @@ SEED_DATA = {
         ],
     },
     'mobile': {
-        'android': [
+        'react-native': [
             {'n':1,'title':'Mobile Health Planner','img':'','desc':'React Native health planning app for Android — workout logger, regimen tracker and health metrics built with Expo SDK 54 and TypeScript. Deep-link ready with custom URI scheme.','code':'https://github.com/Naadir-Dev-Portfolio/Mobile-Health-Planner','details':'https://github.com/Naadir-Dev-Portfolio/Mobile-Health-Planner/blob/main/README.md','tags':['react-native','mobile','health','typescript']},
         ],
     },
-    'browserextensions': {'google-chrome': []},
+    'browserextensions': {'chromium': []},
 }
 # fmt: on
 

@@ -616,7 +616,7 @@
       {name:'VBA / Excel', categories:['excelvba/vba-macros','excelvba/powerquery']},
       {name:'Power BI', categories:['powerbi/dashboards']},
       {name:'AI / Agents', categories:['ai/agents','ai/generativeai','ai/workflows']},
-      {name:'Websites', categories:['web/enterprise-hubs','web/cognitive']},
+      {name:'Websites', categories:['web/live-websites','web/cognitive']},
       {name:'Mobile Development', categories:['mobile/react-native','mobile/kotlin']},
       {name:'Automation', categories:['python/automation','excelvba/vba-macros']},
       {name:'Data Visualisation', categories:['powerbi/dashboards','python/desktop','python/quant']},

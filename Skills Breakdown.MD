@@ -10,7 +10,7 @@ Each visible project contributes to a skill by its portfolio bucket only:
 
 - its `section/category` pair, such as `python/automation`
 
-Tags are deliberately ignored. This keeps each percentage tied to the number of projects displayed in the matching "What I've Built" tabs.
+Tags are deliberately ignored. This keeps each percentage tied to the number of projects displayed in the matching project tabs.
 
 ## Percentage rule
 
@@ -41,7 +41,7 @@ Examples:
 | VBA / Excel | `excelvba/vba-macros`, `excelvba/powerquery` |
 | Power BI | `powerbi/dashboards` |
 | AI / Agents | `ai/agents`, `ai/generativeai`, `ai/workflows` |
-| Websites | `web/enterprise-hubs`, `web/cognitive` |
+| Websites | `web/live-websites`, `web/cognitive` |
 | Mobile Development | `mobile/react-native`, `mobile/kotlin` |
 | Automation | `python/automation`, `excelvba/vba-macros` |
 | Data Visualisation | `powerbi/dashboards`, `python/desktop`, `python/quant` |
