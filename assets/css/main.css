@@ -529,11 +529,11 @@ a.hero-panel-content:focus-visible{
     0 8px 56px rgba(0,0,0,.48),
     0 1px 0 rgba(255,255,255,.06),
     0 -2px 24px rgba(154,163,173,.06),
-    inset 0 2px 12px rgba(0,0,0,.15),
-    inset 0 -2px 8px rgba(0,0,0,.08),
-    inset 12px 0 22px rgba(0,0,0,.045),
-    inset -12px 0 22px rgba(0,0,0,.045),
-    inset 0 0 0 1px rgba(0,0,0,.07);
+    inset 0 8px 28px rgba(0,0,0,.28),
+    inset 0 -8px 24px rgba(0,0,0,.15),
+    inset 18px 0 32px rgba(0,0,0,.10),
+    inset -18px 0 32px rgba(0,0,0,.10),
+    inset 0 0 0 1px rgba(0,0,0,.11);
 }
 
 #projects .container,
@@ -579,7 +579,22 @@ a.hero-panel-content:focus-visible{
   z-index:0;
 }
 
-/* Ensure all container content sits above the texture overlay */
+.container::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  pointer-events:none;
+  z-index:0;
+  box-shadow:
+    inset 0 12px 34px rgba(0,0,0,.26),
+    inset 0 -10px 28px rgba(0,0,0,.14),
+    inset 20px 0 34px rgba(0,0,0,.10),
+    inset -20px 0 34px rgba(0,0,0,.10),
+    inset 0 0 0 1px rgba(0,0,0,.10);
+}
+
+/* Ensure all container content sits above the texture and inset shadow overlays */
 .container > *{
   position:relative;
   z-index:1;
