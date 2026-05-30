@@ -10,7 +10,7 @@
    It is built from scripts/compile_projects.py SECTIONS plus auto-discovery
    of any (section, category) keys that show up in project JSONs.
 
-   Last compiled: 2026-05-30 05:52 UTC
+   Last compiled: 2026-05-30 13:11 UTC
    ============================================================ */
 window.__PORTFOLIO = {
 
@@ -506,8 +506,8 @@ window.__PORTFOLIO = {
         {
           n:1,
           title:'Economics Dashboard Web',
-          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Economics-Dashboard-Web/main/portfolio/economics-dashboard-web.png?v=20260530T054657Z',
-          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Economics-Dashboard-Web/main/portfolio/economics-dashboard-web-featured.png?v=20260530T054657Z',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Economics-Dashboard-Web/main/portfolio/economics-dashboard-web.png?v=20260530T120110Z',
+          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Economics-Dashboard-Web/main/portfolio/economics-dashboard-web-featured.png?v=20260530T120110Z',
           desc:'Interactive custome browser-based economics dashboard - live macro data, yield curves, housing, employment and inflation.',
           code:'https://github.com/Naadir-Dev-Portfolio/Economics-Dashboard-Web',
           details:'https://github.com/Naadir-Dev-Portfolio/Economics-Dashboard-Web/blob/main/README.md',
@@ -535,10 +535,11 @@ window.__PORTFOLIO = {
         {
           n:3,
           title:'Team Hub Website',
-          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Team-Hub-Website/main/portfolio/ccmisite_demo.webp?v=20260427T110703Z',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Team-Hub-Website/main/portfolio/team-hub-website.png?v=20260530T131029Z',
+          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Team-Hub-Website/main/portfolio/team-hub-website-featured.png?v=20260530T131029Z',
           desc:'Professional front end portal for an internal data team, showcasing tools, projects and team info with a clean, responsive layout.',
-          code:'https://github.com/Naadir-Dev-Portfolio/Team-Hub-Website/tree/main',
           demo:'https://ccmiteamsite-by-naadir.netlify.app/',
+          code:'https://github.com/Naadir-Dev-Portfolio/Team-Hub-Website/tree/main',
           details:'https://github.com/Naadir-Dev-Portfolio/Team-Hub-Website/blob/main/README.md',
           tags:[
             'web',
