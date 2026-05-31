@@ -10,7 +10,7 @@
    It is built from scripts/compile_projects.py SECTIONS plus auto-discovery
    of any (section, category) keys that show up in project JSONs.
 
-   Last compiled: 2026-05-31 07:28 UTC
+   Last compiled: 2026-05-31 07:43 UTC
    ============================================================ */
 window.__PORTFOLIO = {
 
@@ -234,17 +234,17 @@ window.__PORTFOLIO = {
         },
         {
           n:3,
-          title:'Automated Monthly Reporting Command Center',
-          desc:'An Excel reporting system that refreshes Power Queries, updates PivotTables, validates totals, generates dashboard sheets, exports PDF and Excel packs, and supports one-click month-end reporting.',
-          code:'https://github.com/Naadir-Dev-Portfolio/Automated-Monthly-Reporting-Command-Center/blob/main/README.md',
-          details:'https://github.com/Naadir-Dev-Portfolio/Automated-Monthly-Reporting-Command-Center/blob/main/README.md',
+          title:'Automated Weekly Reporting',
+          desc:'An Excel reporting system that refreshes Power Queries, updates PivotTables, validates totals, generates dashboard sheets, exports PDF and Excel packs, and supports one-click weekly reporting.',
+          code:'https://github.com/Naadir-Dev-Portfolio/Automated-Weekly-Reporting/blob/main/README.md',
+          details:'https://github.com/Naadir-Dev-Portfolio/Automated-Weekly-Reporting/blob/main/README.md',
           tags:[
             'Excel',
             'VBA',
             'Power Query',
             'PivotTables',
             'Reporting',
-            'Month End'
+            'Weekly Reporting'
           ]
         },
         {
