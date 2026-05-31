@@ -84,8 +84,8 @@ Clicking the card body (not a button) opens the first available link in this pri
 | `python` | `desktop` | PyQt6 / Tkinter desktop apps |
 | `python` | `automation` | Scripts, pipelines, batch tools |
 | `python` | `quant` | Quantitative finance, forecasting |
-| `excelvba` | `vba-macros` | Excel VBA macros |
-| `excelvba` | `powerquery` | Power Query M templates |
+| `excelvba` | `vba-macros` | Excel VBA applications |
+| `data-transformation` | `sql-power-query-etl` | SQL and Power Query ETL projects |
 | `powerbi` | `dashboards` | Power BI dashboards |
 | `ai` | `agents` | Multi-agent systems, AI OS |
 | `ai` | `generativeai` | LLM apps, Streamlit tools |

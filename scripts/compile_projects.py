@@ -68,6 +68,11 @@ TOKEN         = os.environ.get('PORTFOLIO_TOKEN', '')
 # controls what the compiled website data includes.
 EXCLUDED_REPOS = {
     'MS-ToDo-Dashboard',
+    'VBA-Toolkit',
+    'VBA-Report-Automation',
+    'SAP-GUI-Automation',
+    'Power-Query-Toolkit',
+    'Excel-Report-Templates',
 }
 
 PYTHON_DESKTOP_ORDER = {
@@ -119,10 +124,17 @@ SECTIONS = [
     {
         "key": "excelvba",
         "label": "Excel & VBA",
-        "desc": "VBA macros, Power Query transformations and Excel automation tools that eliminate repetitive manual work.",
+        "desc": "Excel VBA applications, reporting tools and office automation systems that eliminate repetitive manual work.",
         "categories": [
-            {"key": "vba-macros",  "label": "VBA & Macros"},
-            {"key": "powerquery",  "label": "Power Query"},
+            {"key": "vba-macros",  "label": "Excel VBA Applications"},
+        ],
+    },
+    {
+        "key": "data-transformation",
+        "label": "Data Transformation",
+        "desc": "SQL and Power Query ETL projects for cleaning, reshaping, reconciling and staging business data.",
+        "categories": [
+            {"key": "sql-power-query-etl",  "label": "SQL & Power Query ETL"},
         ],
     },
     {
@@ -188,9 +200,17 @@ LEGACY_KEY_ALIAS = {
     "ai":                {"prompt": "generativeai"},
 }
 
+# Optional: legacy bucket remap where both section and category changed.
+# This prevents old Excel Power Query JSONs from resurrecting a removed
+# Excel & VBA sub-tab if a stale project repo is discovered.
+LEGACY_BUCKET_ALIAS = {
+    ("excelvba", "powerquery"): ("data-transformation", "sql-power-query-etl"),
+}
+
 # Keys that must never appear in generated DATA or MANIFEST. They are accepted
-# only as legacy inputs through LEGACY_KEY_ALIAS above.
+# only as legacy inputs through aliases above.
 FORBIDDEN_OUTPUT_CATEGORIES = {
+    ("excelvba", "powerquery"),
     ("web", "teamsites"),
     ("web", "tools"),
     ("web", "enterprise-hubs"),
@@ -260,7 +280,7 @@ def fetch_json_content(repo_name: str, file_path: str) -> dict | None:
     data = gh_request(f'/repos/{ORG}/{repo_name}/contents/{file_path}')
     if not data or 'content' not in data:
         return None
-    raw = base64.b64decode(data['content']).decode('utf-8')
+    raw = base64.b64decode(data['content']).decode('utf-8-sig')
     try:
         return json.loads(raw)
     except json.JSONDecodeError as e:
@@ -365,6 +385,12 @@ def compile_all() -> tuple[dict, list]:
                 new_cat = alias_map[category]
                 print(f'    → legacy alias: {section}/{category} → {section}/{new_cat}')
                 category = new_cat
+
+            bucket_alias = LEGACY_BUCKET_ALIAS.get((section, category))
+            if bucket_alias:
+                new_section, new_category = bucket_alias
+                print(f'    -> legacy bucket alias: {section}/{category} -> {new_section}/{new_category}')
+                section, category = new_section, new_category
 
             # ── Auto-create unknown section/category ───────────────────────
             data.setdefault(section, {})

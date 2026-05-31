@@ -10,7 +10,7 @@
    It is built from scripts/compile_projects.py SECTIONS plus auto-discovery
    of any (section, category) keys that show up in project JSONs.
 
-   Last compiled: 2026-05-31 06:24 UTC
+   Last compiled: 2026-05-31 07:28 UTC
    ============================================================ */
 window.__PORTFOLIO = {
 
@@ -204,65 +204,215 @@ window.__PORTFOLIO = {
       'vba-macros':[
         {
           n:1,
-          title:'VBA Toolkit',
-          desc:'General-purpose VBA macro library — reusable patterns for data processing, report formatting, file handling and Excel automation.',
-          code:'https://github.com/Naadir-Dev-Portfolio/VBA-Toolkit',
-          details:'https://github.com/Naadir-Dev-Portfolio/VBA-Toolkit/blob/main/README.md',
+          title:'SAP Analysis for Office Report Orchestrator',
+          desc:'A premium AFO/AO automation cockpit for refreshing a full inventory of SAP Analysis Office reports from an Excel control panel, with prompt updates, status capture, timestamps, failure logging, and clean output exports.',
+          code:'https://github.com/Naadir-Dev-Portfolio/SAP-Analysis-for-Office-Report-Orchestrator/blob/main/README.md',
+          details:'https://github.com/Naadir-Dev-Portfolio/SAP-Analysis-for-Office-Report-Orchestrator/blob/main/README.md',
           tags:[
-            'vba',
-            'excel',
-            'automation'
+            'Excel',
+            'VBA',
+            'SAP Analysis for Office',
+            'Reporting Automation',
+            'AFO',
+            'AO'
           ]
         },
         {
           n:2,
-          title:'VBA Report Automation',
-          desc:'VBA macro suite automating end-to-end audit and operational reporting pipelines — from raw data extraction to formatted, distributable output.',
-          code:'https://github.com/Naadir-Dev-Portfolio/VBA-Report-Automation',
-          details:'https://github.com/Naadir-Dev-Portfolio/VBA-Report-Automation/blob/main/README.md',
+          title:'SAP GUI Extraction & Processing Studio',
+          desc:'A VBA tool that connects to SAP GUI scripting, runs transactions, enters parameters, exports raw data, cleans it with Power Query or VBA, and loads structured tables with audit logs and exception reporting.',
+          code:'https://github.com/Naadir-Dev-Portfolio/SAP-GUI-Extraction-Processing-Studio/blob/main/README.md',
+          details:'https://github.com/Naadir-Dev-Portfolio/SAP-GUI-Extraction-Processing-Studio/blob/main/README.md',
           tags:[
-            'vba',
-            'excel',
-            'automation',
-            'reporting'
+            'Excel',
+            'VBA',
+            'SAP GUI Scripting',
+            'Power Query',
+            'ETL',
+            'Automation'
           ]
         },
         {
           n:3,
-          title:'SAP GUI Automation',
-          desc:'SAP GUI scripting templates using VBA — automates standard SAP transactions, data pulls and form submissions.',
-          code:'https://github.com/Naadir-Dev-Portfolio/SAP-GUI-Automation',
-          details:'https://github.com/Naadir-Dev-Portfolio/SAP-GUI-Automation/blob/main/README.md',
+          title:'Automated Monthly Reporting Command Center',
+          desc:'An Excel reporting system that refreshes Power Queries, updates PivotTables, validates totals, generates dashboard sheets, exports PDF and Excel packs, and supports one-click month-end reporting.',
+          code:'https://github.com/Naadir-Dev-Portfolio/Automated-Monthly-Reporting-Command-Center/blob/main/README.md',
+          details:'https://github.com/Naadir-Dev-Portfolio/Automated-Monthly-Reporting-Command-Center/blob/main/README.md',
           tags:[
-            'vba',
-            'sap',
-            'automation'
+            'Excel',
+            'VBA',
+            'Power Query',
+            'PivotTables',
+            'Reporting',
+            'Month End'
+          ]
+        },
+        {
+          n:4,
+          title:'Advanced File Management & Batch Processing Tool',
+          desc:'A desktop-style Excel/VBA utility for bulk file listing, metadata preview, duplicate detection, formula-driven renaming, moving, archiving, split rules, and audit trail generation.',
+          code:'https://github.com/Naadir-Dev-Portfolio/Advanced-File-Management-Batch-Processing-Tool/blob/main/README.md',
+          details:'https://github.com/Naadir-Dev-Portfolio/Advanced-File-Management-Batch-Processing-Tool/blob/main/README.md',
+          tags:[
+            'Excel',
+            'VBA',
+            'FileSystemObject',
+            'Batch Processing',
+            'File Automation'
+          ]
+        },
+        {
+          n:5,
+          title:'Business Budgeting, Forecasting & Scenario Planner',
+          desc:'A polished Excel budgeting model with actuals vs budget, rolling forecasts, scenario toggles, assumptions, variance commentary, dashboard outputs, scenario saving, and budget pack generation.',
+          code:'https://github.com/Naadir-Dev-Portfolio/Business-Budgeting-Forecasting-Scenario-Planner/blob/main/README.md',
+          details:'https://github.com/Naadir-Dev-Portfolio/Business-Budgeting-Forecasting-Scenario-Planner/blob/main/README.md',
+          tags:[
+            'Excel',
+            'VBA',
+            'Budgeting',
+            'Forecasting',
+            'Scenario Planning',
+            'Finance'
+          ]
+        },
+        {
+          n:6,
+          title:'Employee Scheduler & Dynamic Gantt Planner',
+          desc:'An Excel/VBA workforce planning app with employee availability, shifts, leave, project allocation, capacity warnings, dynamic Gantt views, conflict detection, exports, and employee-specific schedules.',
+          code:'https://github.com/Naadir-Dev-Portfolio/Employee-Scheduler-Dynamic-Gantt-Planner/blob/main/README.md',
+          details:'https://github.com/Naadir-Dev-Portfolio/Employee-Scheduler-Dynamic-Gantt-Planner/blob/main/README.md',
+          tags:[
+            'Excel',
+            'VBA',
+            'Scheduling',
+            'Gantt',
+            'Workforce Planning',
+            'Operations'
+          ]
+        },
+        {
+          n:7,
+          title:'Data Reconciliation & Exception Management Engine',
+          desc:'A finance and operations reconciliation engine that compares two datasets, flags matched items, missing records, duplicates, amount variances, and date mismatches, then produces an exception dashboard.',
+          code:'https://github.com/Naadir-Dev-Portfolio/Data-Reconciliation-Exception-Management-Engine/blob/main/README.md',
+          details:'https://github.com/Naadir-Dev-Portfolio/Data-Reconciliation-Exception-Management-Engine/blob/main/README.md',
+          tags:[
+            'Excel',
+            'VBA',
+            'Reconciliation',
+            'Exception Management',
+            'Finance',
+            'Controls'
           ]
         }
-      ],
-      powerquery:[
+      ]
+    },
+    'data-transformation':{
+      'sql-power-query-etl':[
         {
           n:1,
-          title:'Power Query Toolkit',
-          desc:'Power Query M templates for common data transformation patterns — cleaning, reshaping, merging and loading data in Excel. Production-ready and reusable across projects.',
-          code:'https://github.com/Naadir-Dev-Portfolio/Power-Query-Toolkit',
-          details:'https://github.com/Naadir-Dev-Portfolio/Power-Query-Toolkit/blob/main/README.md',
+          title:'Power Query - Multi-File Consolidation Pipeline',
+          desc:'A folder-based Power Query pipeline where users drop monthly CSV or Excel files, standardise headers, handle missing columns, append into a master table, and generate a rejected-files log.',
+          code:'https://github.com/Naadir-Dev-Portfolio/Power-Query-Multi-File-Consolidation-Pipeline/blob/main/README.md',
+          details:'https://github.com/Naadir-Dev-Portfolio/Power-Query-Multi-File-Consolidation-Pipeline/blob/main/README.md',
           tags:[
-            'excel',
-            'power-query',
-            'etl'
+            'Power Query',
+            'Excel',
+            'ETL',
+            'Folder Ingestion',
+            'Schema Drift',
+            'Data Consolidation'
           ]
         },
         {
           n:2,
-          title:'Excel Report Templates',
-          desc:'Collection of professional Excel workbook templates — operational reports, team analytics, financial tools and SAP-integrated extracts. Sanitised for public use.',
-          code:'https://github.com/Naadir-Dev-Portfolio/Excel-Report-Templates',
-          details:'https://github.com/Naadir-Dev-Portfolio/Excel-Report-Templates/blob/main/README.md',
+          title:'Power Query - Bank Transaction Categorisation Engine',
+          desc:'A Power Query engine that imports bank statements, cleans descriptions, removes noise, categorises transactions using a rules table, detects recurring payments, and outputs a clean finance dataset.',
+          code:'https://github.com/Naadir-Dev-Portfolio/Power-Query-Bank-Transaction-Categorisation-Engine/blob/main/README.md',
+          details:'https://github.com/Naadir-Dev-Portfolio/Power-Query-Bank-Transaction-Categorisation-Engine/blob/main/README.md',
           tags:[
-            'excel',
-            'vba',
-            'reporting'
+            'Power Query',
+            'Excel',
+            'Text Cleaning',
+            'Merge Queries',
+            'Lookup Tables',
+            'Finance'
+          ]
+        },
+        {
+          n:3,
+          title:'Power Query - Messy Excel Cleanup & Reshaping Tool',
+          desc:'A Power Query cleanup tool that turns ugly Excel exports with repeated headers, blank rows, cross-tab columns, bad dates, and inconsistent formats into clean database-style tables.',
+          code:'https://github.com/Naadir-Dev-Portfolio/Power-Query-Messy-Excel-Cleanup-Reshaping-Tool/blob/main/README.md',
+          details:'https://github.com/Naadir-Dev-Portfolio/Power-Query-Messy-Excel-Cleanup-Reshaping-Tool/blob/main/README.md',
+          tags:[
+            'Power Query',
+            'Excel',
+            'Unpivot',
+            'Fill Down',
+            'Data Cleaning',
+            'Normalisation'
+          ]
+        },
+        {
+          n:4,
+          title:'SQL - Sales Database Analysis Project',
+          desc:'A relational sales database project with customers, orders, products, regions, and targets, plus SQL queries for revenue, margin, top customers, product performance, trends, and variance.',
+          code:'https://github.com/Naadir-Dev-Portfolio/SQL-Sales-Database-Analysis-Project/blob/main/README.md',
+          details:'https://github.com/Naadir-Dev-Portfolio/SQL-Sales-Database-Analysis-Project/blob/main/README.md',
+          tags:[
+            'SQL',
+            'Relational Modelling',
+            'Joins',
+            'CTEs',
+            'Window Functions',
+            'Business Analysis'
+          ]
+        },
+        {
+          n:5,
+          title:'SQL - HR Workforce Analytics Database',
+          desc:'An HR analytics database with employees, departments, managers, absence records, and salary bands, queried for headcount, attrition, absence, manager span, tenure, and department movement.',
+          code:'https://github.com/Naadir-Dev-Portfolio/SQL-HR-Workforce-Analytics-Database/blob/main/README.md',
+          details:'https://github.com/Naadir-Dev-Portfolio/SQL-HR-Workforce-Analytics-Database/blob/main/README.md',
+          tags:[
+            'SQL',
+            'HR Analytics',
+            'Self Joins',
+            'CASE Logic',
+            'Data Quality',
+            'Management Reporting'
+          ]
+        },
+        {
+          n:6,
+          title:'SQL - Invoice & Accounts Payable Exception Analysis',
+          desc:'A SQL controls project using supplier, invoice, payment, and purchase order tables to detect duplicate invoices, overdue items, payment delays, missing POs, and VAT or tax inconsistencies.',
+          code:'https://github.com/Naadir-Dev-Portfolio/SQL-Invoice-Accounts-Payable-Exception-Analysis/blob/main/README.md',
+          details:'https://github.com/Naadir-Dev-Portfolio/SQL-Invoice-Accounts-Payable-Exception-Analysis/blob/main/README.md',
+          tags:[
+            'SQL',
+            'Accounts Payable',
+            'Exception Reporting',
+            'Anti Joins',
+            'Duplicate Detection',
+            'Aging Analysis'
+          ]
+        },
+        {
+          n:7,
+          title:'Hybrid - Inventory Reconciliation Pipeline',
+          desc:'A hybrid SQL and Power Query pipeline that stages SAP stock, warehouse counts, and product master data, then merges, classifies exceptions, and produces a clean inventory reconciliation report.',
+          code:'https://github.com/Naadir-Dev-Portfolio/Hybrid-Inventory-Reconciliation-Pipeline/blob/main/README.md',
+          details:'https://github.com/Naadir-Dev-Portfolio/Hybrid-Inventory-Reconciliation-Pipeline/blob/main/README.md',
+          tags:[
+            'SQL',
+            'Power Query',
+            'Inventory',
+            'Reconciliation',
+            'ETL',
+            'Variance Analysis'
           ]
         }
       ]
@@ -506,8 +656,8 @@ window.__PORTFOLIO = {
         {
           n:1,
           title:'Economics Dashboard Web',
-          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Economics-Dashboard-Web/main/portfolio/economics-dashboard-web.png?v=20260531T021423Z',
-          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Economics-Dashboard-Web/main/portfolio/economics-dashboard-web-featured.png?v=20260531T021423Z',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Economics-Dashboard-Web/main/portfolio/economics-dashboard-web.png?v=20260531T064724Z',
+          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Economics-Dashboard-Web/main/portfolio/economics-dashboard-web-featured.png?v=20260531T064724Z',
           desc:'Interactive custome browser-based economics dashboard - live macro data, yield curves, housing, employment and inflation.',
           code:'https://github.com/Naadir-Dev-Portfolio/Economics-Dashboard-Web',
           details:'https://github.com/Naadir-Dev-Portfolio/Economics-Dashboard-Web/blob/main/README.md',
@@ -748,15 +898,22 @@ window.__PORTFOLIO = {
     {
       key:'excelvba',
       label:'Excel & VBA',
-      desc:'VBA macros, Power Query transformations and Excel automation tools that eliminate repetitive manual work.',
+      desc:'Excel VBA applications, reporting tools and office automation systems that eliminate repetitive manual work.',
       categories:[
         {
           key:'vba-macros',
-          label:'VBA & Macros'
-        },
+          label:'Excel VBA Applications'
+        }
+      ]
+    },
+    {
+      key:'data-transformation',
+      label:'Data Transformation',
+      desc:'SQL and Power Query ETL projects for cleaning, reshaping, reconciling and staging business data.',
+      categories:[
         {
-          key:'powerquery',
-          label:'Power Query'
+          key:'sql-power-query-etl',
+          label:'SQL & Power Query ETL'
         }
       ]
     },

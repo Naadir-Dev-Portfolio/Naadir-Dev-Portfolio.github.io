@@ -38,14 +38,14 @@ Examples:
 | Skill label | Matching source |
 |---|---|
 | Python | `python/desktop`, `python/automation`, `python/quant` |
-| VBA / Excel | `excelvba/vba-macros`, `excelvba/powerquery` |
+| Excel VBA | `excelvba/vba-macros` |
 | Power BI | `powerbi/dashboards` |
 | AI / Agents | `ai/agents`, `ai/generativeai`, `ai/workflows` |
 | Websites | `web/live-websites`, `web/cognitive` |
 | Mobile Development | `mobile/react-native`, `mobile/kotlin` |
 | Automation | `python/automation`, `excelvba/vba-macros` |
 | Data Visualisation | `powerbi/dashboards`, `python/desktop`, `python/quant` |
-| Data Transformation | `excelvba/powerquery`, `powerbi/dashboards` |
+| Data Transformation | `data-transformation/sql-power-query-etl` |
 | Browser Extensions | `browserextensions/chromium` |
 
 The implementation lives in `assets/js/main.js` inside `initSkills()`.

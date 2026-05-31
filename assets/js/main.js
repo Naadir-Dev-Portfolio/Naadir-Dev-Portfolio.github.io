@@ -610,14 +610,14 @@
 
     const defs=[
       {name:'Python', categories:['python/desktop','python/automation','python/quant']},
-      {name:'VBA / Excel', categories:['excelvba/vba-macros','excelvba/powerquery']},
+      {name:'Excel VBA', categories:['excelvba/vba-macros']},
       {name:'Power BI', categories:['powerbi/dashboards']},
       {name:'AI / Agents', categories:['ai/agents','ai/generativeai','ai/workflows']},
       {name:'Websites', categories:['web/live-websites','web/cognitive']},
       {name:'Mobile Development', categories:['mobile/react-native','mobile/kotlin']},
       {name:'Automation', categories:['python/automation','excelvba/vba-macros']},
       {name:'Data Visualisation', categories:['powerbi/dashboards','python/desktop','python/quant']},
-      {name:'Data Transformation', categories:['excelvba/powerquery','powerbi/dashboards']},
+      {name:'Data Transformation', categories:['data-transformation/sql-power-query-etl']},
       {name:'Browser Extensions', categories:['browserextensions/chromium']}
     ];
     const skills=defs
