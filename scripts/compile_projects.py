@@ -131,7 +131,7 @@ SECTIONS = [
     },
     {
         "key": "data-transformation",
-        "label": "ETL",
+        "label": "Data Transformation",
         "desc": "SQL and Power Query ETL projects for cleaning, reshaping, reconciling and staging business data.",
         "categories": [
             {"key": "sql-power-query-etl",  "label": "SQL & Power Query ETL"},
@@ -157,8 +157,8 @@ SECTIONS = [
     },
     {
         "key": "web",
-        "label": "Websites",
-        "desc": "Live websites, production portals, and browser-based cognitive training apps.",
+        "label": "Web Development",
+        "desc": "Web development projects, production portals, and browser-based cognitive training apps.",
         "categories": [
             {"key": "live-websites",    "label": "Live Websites"},
             {"key": "cognitive",        "label": "Cognitive Training Apps"},
@@ -166,8 +166,8 @@ SECTIONS = [
     },
     {
         "key": "mobile",
-        "label": "Mobile Apps",
-        "desc": "Cross-platform mobile apps built with React Native and Expo, plus native Kotlin Android work.",
+        "label": "Mobile Applications",
+        "desc": "Cross-platform mobile applications built with React Native and Expo, plus native Kotlin Android work.",
         "categories": [
             {"key": "react-native",  "label": "React Native"},
             {"key": "kotlin",        "label": "Kotlin"},

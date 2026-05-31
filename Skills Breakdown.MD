@@ -41,7 +41,7 @@ Examples:
 | Excel VBA | `excelvba/vba-macros` |
 | Power BI | `powerbi/dashboards` |
 | AI / Agents | `ai/agents`, `ai/generativeai`, `ai/workflows` |
-| Websites | `web/live-websites`, `web/cognitive` |
+| Web Development | `web/live-websites`, `web/cognitive` |
 | Mobile Development | `mobile/react-native`, `mobile/kotlin` |
 | Automation | `python/automation`, `excelvba/vba-macros` |
 | Data Visualisation | `powerbi/dashboards`, `python/desktop`, `python/quant` |
