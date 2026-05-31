@@ -10,7 +10,7 @@
    It is built from scripts/compile_projects.py SECTIONS plus auto-discovery
    of any (section, category) keys that show up in project JSONs.
 
-   Last compiled: 2026-05-31 07:50 UTC
+   Last compiled: 2026-05-31 07:58 UTC
    ============================================================ */
 window.__PORTFOLIO = {
 
@@ -204,15 +204,15 @@ window.__PORTFOLIO = {
       'vba-macros':[
         {
           n:1,
-          title:'SAP Analysis for Office Report Orchestrator',
-          desc:'A premium AFO/AO automation cockpit for refreshing a full inventory of SAP Analysis Office reports from an Excel control panel, with prompt updates, status capture, timestamps, failure logging, and clean output exports.',
-          code:'https://github.com/Naadir-Dev-Portfolio/SAP-Analysis-for-Office-Report-Orchestrator/blob/main/README.md',
-          details:'https://github.com/Naadir-Dev-Portfolio/SAP-Analysis-for-Office-Report-Orchestrator/blob/main/README.md',
+          title:'SAP Analysis for Office VBA Automation',
+          desc:'A premium Excel VBA automation cockpit for refreshing a full inventory of SAP Analysis for Office reports from a control panel, with prompt updates, status capture, timestamps, failure logging, and clean output exports.',
+          code:'https://github.com/Naadir-Dev-Portfolio/SAP-Analysis-for-Office-VBA-Automation/blob/main/README.md',
+          details:'https://github.com/Naadir-Dev-Portfolio/SAP-Analysis-for-Office-VBA-Automation/blob/main/README.md',
           tags:[
             'Excel',
             'VBA',
             'SAP Analysis for Office',
-            'Reporting Automation',
+            'VBA Automation',
             'AFO',
             'AO'
           ]
