@@ -45,7 +45,7 @@ Examples:
 | Mobile Development | `mobile/react-native`, `mobile/kotlin` |
 | Automation | `python/automation`, `excelvba/vba-macros` |
 | Data Visualisation | `powerbi/dashboards`, `python/desktop`, `python/quant` |
-| Data Transformation | `data-transformation/sql-power-query-etl` |
+| ETL | `data-transformation/sql-power-query-etl` |
 | Browser Extensions | `browserextensions/chromium` |
 
 The implementation lives in `assets/js/main.js` inside `initSkills()`.

@@ -131,7 +131,7 @@ SECTIONS = [
     },
     {
         "key": "data-transformation",
-        "label": "Data Transformation",
+        "label": "ETL",
         "desc": "SQL and Power Query ETL projects for cleaning, reshaping, reconciling and staging business data.",
         "categories": [
             {"key": "sql-power-query-etl",  "label": "SQL & Power Query ETL"},

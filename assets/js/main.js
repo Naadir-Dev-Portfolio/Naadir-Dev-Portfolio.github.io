@@ -617,7 +617,7 @@
       {name:'Mobile Development', categories:['mobile/react-native','mobile/kotlin']},
       {name:'Automation', categories:['python/automation','excelvba/vba-macros']},
       {name:'Data Visualisation', categories:['powerbi/dashboards','python/desktop','python/quant']},
-      {name:'Data Transformation', categories:['data-transformation/sql-power-query-etl']},
+      {name:'ETL', categories:['data-transformation/sql-power-query-etl']},
       {name:'Browser Extensions', categories:['browserextensions/chromium']}
     ];
     const skills=defs

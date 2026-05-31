@@ -10,7 +10,7 @@
    It is built from scripts/compile_projects.py SECTIONS plus auto-discovery
    of any (section, category) keys that show up in project JSONs.
 
-   Last compiled: 2026-05-31 12:41 UTC
+   Last compiled: 2026-05-31 15:21 UTC
    ============================================================ */
 window.__PORTFOLIO = {
 
@@ -656,8 +656,8 @@ window.__PORTFOLIO = {
         {
           n:1,
           title:'Economics Dashboard Web',
-          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Economics-Dashboard-Web/main/portfolio/economics-dashboard-web.png?v=20260531T112606Z',
-          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Economics-Dashboard-Web/main/portfolio/economics-dashboard-web-featured.png?v=20260531T112606Z',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Economics-Dashboard-Web/main/portfolio/economics-dashboard-web.png?v=20260531T151049Z',
+          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Economics-Dashboard-Web/main/portfolio/economics-dashboard-web-featured.png?v=20260531T151049Z',
           desc:'Interactive custome browser-based economics dashboard - live macro data, yield curves, housing, employment and inflation.',
           code:'https://github.com/Naadir-Dev-Portfolio/Economics-Dashboard-Web',
           details:'https://github.com/Naadir-Dev-Portfolio/Economics-Dashboard-Web/blob/main/README.md',
@@ -908,7 +908,7 @@ window.__PORTFOLIO = {
     },
     {
       key:'data-transformation',
-      label:'Data Transformation',
+      label:'ETL',
       desc:'SQL and Power Query ETL projects for cleaning, reshaping, reconciling and staging business data.',
       categories:[
         {

@@ -94,7 +94,7 @@ SEED_DATA = {
             {'n':3,'title':'SAP GUI Automation','img':'','desc':'SAP GUI scripting templates using VBA — automates standard SAP transactions, data pulls and form submissions.','code':'https://github.com/Naadir-Dev-Portfolio/SAP-GUI-Automation','details':'https://github.com/Naadir-Dev-Portfolio/SAP-GUI-Automation/blob/main/README.md','tags':['vba','sap','automation']},
         ],
         'powerquery': [
-            {'n':1,'title':'Power Query Toolkit','img':'','desc':'Power Query M templates for common data transformation patterns — cleaning, reshaping, merging and loading data in Excel. Production-ready and reusable across projects.','code':'https://github.com/Naadir-Dev-Portfolio/Power-Query-Toolkit','details':'https://github.com/Naadir-Dev-Portfolio/Power-Query-Toolkit/blob/main/README.md','tags':['excel','power-query','etl']},
+            {'n':1,'title':'Power Query Toolkit','img':'','desc':'Power Query M templates for common ETL patterns — cleaning, reshaping, merging and loading data in Excel. Production-ready and reusable across projects.','code':'https://github.com/Naadir-Dev-Portfolio/Power-Query-Toolkit','details':'https://github.com/Naadir-Dev-Portfolio/Power-Query-Toolkit/blob/main/README.md','tags':['excel','power-query','etl']},
             {'n':2,'title':'Excel Report Templates','img':'','desc':'Collection of professional Excel workbook templates — operational reports, team analytics, financial tools and SAP-integrated extracts. Sanitised for public use.','code':'https://github.com/Naadir-Dev-Portfolio/Excel-Report-Templates','details':'https://github.com/Naadir-Dev-Portfolio/Excel-Report-Templates/blob/main/README.md','tags':['excel','vba','reporting']},
         ],
     },
