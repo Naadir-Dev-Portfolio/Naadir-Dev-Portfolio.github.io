@@ -10,7 +10,7 @@
    It is built from scripts/compile_projects.py SECTIONS plus auto-discovery
    of any (section, category) keys that show up in project JSONs.
 
-   Last compiled: 2026-06-04 06:47 UTC
+   Last compiled: 2026-06-05 06:36 UTC
    ============================================================ */
 window.__PORTFOLIO = {
 
@@ -656,8 +656,8 @@ window.__PORTFOLIO = {
         {
           n:1,
           title:'Economics Dashboard Web',
-          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Economics-Dashboard-Web/main/portfolio/economics-dashboard-web.png?v=20260604T055008Z',
-          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Economics-Dashboard-Web/main/portfolio/economics-dashboard-web-featured.png?v=20260604T055008Z',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Economics-Dashboard-Web/main/portfolio/economics-dashboard-web.png?v=20260605T021156Z',
+          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Economics-Dashboard-Web/main/portfolio/economics-dashboard-web-featured.png?v=20260605T021156Z',
           desc:'Interactive custome browser-based economics dashboard - live macro data, yield curves, housing, employment and inflation.',
           code:'https://github.com/Naadir-Dev-Portfolio/Economics-Dashboard-Web',
           details:'https://github.com/Naadir-Dev-Portfolio/Economics-Dashboard-Web/blob/main/README.md',
@@ -920,7 +920,7 @@ window.__PORTFOLIO = {
     {
       key:'powerbi',
       label:'Power BI',
-      desc:'Interactive Power BI dashboards to demonstrate my ability to create data-driven insights.',
+      desc:'Interactive Power BI dashboards giving teams instant clarity.',
       categories:[
         {
           key:'dashboards',
