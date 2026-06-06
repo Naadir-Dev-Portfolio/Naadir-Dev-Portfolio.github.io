@@ -140,7 +140,7 @@ SECTIONS = [
     {
         "key": "powerbi",
         "label": "Power BI",
-        "desc": "Interactive Power BI dashboards giving teams instant clarity.",
+        "desc": "Interactive Power BI dashboards to demonstrate my ability to create data-driven insights.",
         "categories": [
             {"key": "dashboards",  "label": "Dashboards"},
         ],
