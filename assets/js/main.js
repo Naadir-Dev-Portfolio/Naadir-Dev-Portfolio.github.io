@@ -222,17 +222,23 @@
      so the browser prioritises the visible panels on initial load.            */
   function injectPanelMedia(panels, mirrors){
 
+    function webmCandidate(src){
+      return /\.mp4([?#].*)?$/i.test(src)
+        ? src.replace(/\.mp4([?#].*)?$/i, '.webm$1')
+        : '';
+    }
+
     function makeVideo(targetPanel){
       if(targetPanel.querySelector('.panel-media')) return;
       const src = targetPanel.dataset.media;
       if(!src) return;
 
       const video = document.createElement('video');
-      video.src         = src;
       video.autoplay    = true;
       video.muted       = true;
       video.loop        = true;
       video.playsInline = true;
+      video.preload     = 'auto';
       video.setAttribute('autoplay','');
       video.setAttribute('muted','');
       video.setAttribute('loop','');
@@ -240,7 +246,21 @@
       video.setAttribute('aria-hidden','true');
       video.className   = 'panel-media';
 
+      const webmSrc = targetPanel.dataset.mediaWebm || webmCandidate(src);
+      if(webmSrc){
+        const webmSource = document.createElement('source');
+        webmSource.src = webmSrc;
+        webmSource.type = 'video/webm; codecs="vp9"';
+        video.appendChild(webmSource);
+      }
+
+      const mp4Source = document.createElement('source');
+      mp4Source.src = src;
+      mp4Source.type = 'video/mp4';
+      video.appendChild(mp4Source);
+
       targetPanel.insertBefore(video, targetPanel.querySelector('.hero-panel-glass'));
+      video.load();
       video.play().catch(()=>{});
     }
 
