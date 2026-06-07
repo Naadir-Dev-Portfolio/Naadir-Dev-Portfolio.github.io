@@ -8,6 +8,18 @@
   const GITHUB  = 'https://github.com/Naadir-Dev-Portfolio';
   const BOOK_IMGS = 'assets/images/books/';
   const CARD_IMG_FALLBACK = 'assets/images/screenshot-unavailable.png';
+  const IS_QT_EMBED = (() => {
+    try {
+      return new URLSearchParams(window.location.search).get('embed') === 'qt';
+    } catch {
+      return false;
+    }
+  })();
+
+  if(IS_QT_EMBED){
+    document.documentElement.classList.add('is-qt-embed');
+  }
+
   /* img fields are raw.githubusercontent.com URLs (set by compile script).
      Keep raw GitHub first for freshness; jsDelivr is only a fallback. */
   function cdnImgSrc(url){
@@ -142,6 +154,13 @@
        --hero-prep-w shifts the whole keyframe so the prepended clone sits
        offscreen-left and the first ORIGINAL panel starts at the viewport edge. */
     function startScroll(){
+      if(IS_QT_EMBED){
+        track.classList.remove('is-scrolling');
+        track.style.animationDelay = '';
+        track.style.transform = `translate3d(${-Math.round(prepW + x)}px,0,0)`;
+        return;
+      }
+
       const dur = loopW / PX_PER_SEC;
       document.documentElement.style.setProperty('--hero-loop-w', loopW + 'px');
       document.documentElement.style.setProperty('--hero-prep-w', prepW + 'px');
@@ -213,7 +232,7 @@
     // appendClones are visible after the loop wraps; prepClone is offscreen-left
     // by default but becomes visible if the user drags the rail rightward.
     const appendClones = Array.from(all).slice(1 + orig.length);
-    injectPanelMedia(orig, [...appendClones, prepClone]);
+    injectPanelMedia(orig, IS_QT_EMBED ? [] : [...appendClones, prepClone]);
   }
 
   /* injectPanelMedia — MP4/WebM video injection for hero parallelograms.
@@ -221,6 +240,65 @@
      Clones stagger at 150ms intervals starting after all originals have begun,
      so the browser prioritises the visible panels on initial load.            */
   function injectPanelMedia(panels, mirrors){
+    const qtManagedVideos = new Set();
+    let qtVideoObserver = null;
+
+    function ensureQtVideoObserver(){
+      if(qtVideoObserver !== null) return qtVideoObserver;
+      if(!('IntersectionObserver' in window)){
+        qtVideoObserver = false;
+        return qtVideoObserver;
+      }
+
+      qtVideoObserver = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          const video = entry.target;
+          const visible = entry.isIntersecting &&
+            entry.intersectionRatio > 0.05 &&
+            document.visibilityState !== 'hidden';
+
+          video.dataset.qtVisible = visible ? '1' : '0';
+          if(visible) video.play().catch(()=>{});
+          else video.pause();
+        });
+      }, {threshold:[0, 0.05, 0.25]});
+
+      document.addEventListener('visibilitychange', () => {
+        qtManagedVideos.forEach(video => {
+          if(document.visibilityState === 'hidden'){
+            video.pause();
+            return;
+          }
+          if(video.dataset.qtVisible === '1'){
+            video.play().catch(()=>{});
+          }
+        });
+      });
+
+      return qtVideoObserver;
+    }
+
+    function manageQtVideo(video){
+      video.dataset.qtVisible = '0';
+
+      // Some hosts patch videos after load. Keep offscreen embed videos paused
+      // even if external code calls play() repeatedly.
+      video.addEventListener('play', () => {
+        if(video.dataset.qtVisible !== '1'){
+          requestAnimationFrame(() => {
+            if(video.dataset.qtVisible !== '1') video.pause();
+          });
+        }
+      });
+
+      qtManagedVideos.add(video);
+      const observer = ensureQtVideoObserver();
+      if(observer) observer.observe(video);
+      else {
+        video.dataset.qtVisible = '1';
+        video.play().catch(()=>{});
+      }
+    }
 
     function webmCandidate(src){
       return /\.mp4([?#].*)?$/i.test(src)
@@ -234,17 +312,20 @@
       if(!src) return;
 
       const video = document.createElement('video');
-      video.autoplay    = true;
       video.muted       = true;
       video.loop        = true;
       video.playsInline = true;
-      video.preload     = 'auto';
-      video.setAttribute('autoplay','');
+      video.preload     = IS_QT_EMBED ? 'metadata' : 'auto';
       video.setAttribute('muted','');
       video.setAttribute('loop','');
       video.setAttribute('playsinline','');
       video.setAttribute('aria-hidden','true');
       video.className   = 'panel-media';
+
+      if(!IS_QT_EMBED){
+        video.autoplay = true;
+        video.setAttribute('autoplay','');
+      }
 
       const webmSrc = targetPanel.dataset.mediaWebm || webmCandidate(src);
       if(webmSrc){
@@ -261,7 +342,8 @@
 
       targetPanel.insertBefore(video, targetPanel.querySelector('.hero-panel-glass'));
       video.load();
-      video.play().catch(()=>{});
+      if(IS_QT_EMBED) manageQtVideo(video);
+      else video.play().catch(()=>{});
     }
 
     // Originals: 0ms, 150ms, 300ms, 450ms, 600ms
@@ -670,16 +752,35 @@
         <span>${b.title}</span>
       </a></div>`).join('');
     let pos=0,spd=0.2,tgt=0.2,drag=false,dx0=0,dp0=0,vel=0,lx=0,lt=0,held=false;
+    let booksRaf = 0;
+    let booksActive = !IS_QT_EMBED;
     const bw=170+14.4, loop=bw*BOOKS.length;
-    (function frame(){
+
+    function frame(){
+      booksRaf = 0;
+      if(!booksActive) return;
       if(!drag) spd+=(tgt-spd)*0.07;
       if(!drag) pos-=spd;
       if(pos<=-loop) pos+=loop; if(pos>0) pos-=loop;
       track.style.transform=`translateX(${pos}px)`;
-      requestAnimationFrame(frame);
-    })();
-    track.addEventListener('mousedown',e=>{drag=true;dx0=e.clientX;dp0=pos;lx=dx0;lt=Date.now();track.classList.add('dragging')});
-    track.addEventListener('touchstart',e=>{drag=true;dx0=e.touches[0].clientX;dp0=pos;lx=dx0;lt=Date.now()},{passive:true});
+      booksRaf = requestAnimationFrame(frame);
+    }
+
+    function setBooksActive(active){
+      booksActive = active;
+      if(booksActive && !booksRaf) booksRaf = requestAnimationFrame(frame);
+    }
+
+    if(IS_QT_EMBED && 'IntersectionObserver' in window){
+      new IntersectionObserver(entries => {
+        setBooksActive(entries.some(entry => entry.isIntersecting));
+      }, {threshold:0.01}).observe(track);
+    } else {
+      setBooksActive(true);
+    }
+
+    track.addEventListener('mousedown',e=>{setBooksActive(true);drag=true;dx0=e.clientX;dp0=pos;lx=dx0;lt=Date.now();track.classList.add('dragging')});
+    track.addEventListener('touchstart',e=>{setBooksActive(true);drag=true;dx0=e.touches[0].clientX;dp0=pos;lx=dx0;lt=Date.now()},{passive:true});
     document.addEventListener('mousemove',e=>{if(!drag)return;pos=dp0+(e.clientX-dx0);const n=Date.now();if(n-lt>0){vel=(lx-e.clientX)/(n-lt);lx=e.clientX;lt=n}});
     document.addEventListener('touchmove',e=>{if(!drag)return;const cx=e.touches[0].clientX;pos=dp0+(cx-dx0);const n=Date.now();if(n-lt>0){vel=(lx-cx)/(n-lt);lx=cx;lt=n}},{passive:true});
     function end(){if(!drag)return;drag=false;track.classList.remove('dragging');if(Math.abs(vel)>0.1){tgt=vel*18;setTimeout(()=>{tgt=0.2},700)}}
