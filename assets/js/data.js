@@ -10,7 +10,7 @@
    It is built from scripts/compile_projects.py SECTIONS plus auto-discovery
    of any (section, category) keys that show up in project JSONs.
 
-   Last compiled: 2026-06-19 07:15 UTC
+   Last compiled: 2026-06-19 09:52 UTC
    ============================================================ */
 window.__PORTFOLIO = {
 
@@ -785,6 +785,23 @@ window.__PORTFOLIO = {
             'HTML',
             'CSS',
             'Javascript'
+          ]
+        },
+        {
+          n:3,
+          title:'Mobile-Mind-Map',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Mobile-Mind-Map/main/portfolio/mobile-mind-map.png?v=20260619T095138Z',
+          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Mobile-Mind-Map/main/portfolio/mobile-mind-map-featured.png?v=20260619T095138Z',
+          desc:'A personal mobile mind mapping app for creating, organizing, importing, and exporting visual idea maps, with an AI assisted import feature that can turn structured prompts or generated JSON into editable maps',
+          code:'https://github.com/Naadir-Dev-Portfolio/Mobile-Mind-Map/blob/main/README.md',
+          details:'https://github.com/Naadir-Dev-Portfolio/Mobile-Mind-Map/blob/main/README.md',
+          tags:[
+            'React Native',
+            'Expo',
+            'TypeScript',
+            'Android',
+            'Json',
+            'Flow Chart'
           ]
         }
       ],
