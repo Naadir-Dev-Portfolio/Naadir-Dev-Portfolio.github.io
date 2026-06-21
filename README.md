@@ -107,6 +107,8 @@ Project screenshots live in `assets/images/projects/` in **this repo**. When add
 
 Preferred format: `.webp` for performance. `.png` and `.jpg` also work.
 
+Private project repos cannot serve `raw.githubusercontent.com` images to the public site. During compile, private repo images are mirrored into `assets/images/projects/<repo>/` and `data.js` points at that public copy.
+
 ---
 
 ## GitHub Actions — Compile Workflow

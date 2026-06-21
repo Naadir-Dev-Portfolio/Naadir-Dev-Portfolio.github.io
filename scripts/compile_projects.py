@@ -63,6 +63,8 @@ IMG_EXTS      = {'.webp', '.png', '.jpg', '.jpeg'}
 OUTPUT_FILE   = 'assets/js/data.js'
 RAW_BASE      = 'https://raw.githubusercontent.com'
 TOKEN         = os.environ.get('PORTFOLIO_TOKEN', '')
+MIRRORED_IMG_DIR = Path('assets/images/projects')
+MIRROR_IMAGE_REPOS = {'EchoSphereWorks'}
 
 # Central portfolio visibility/order controls. Repos stay intact; this only
 # controls what the compiled website data includes.
@@ -98,28 +100,6 @@ WEB_CATEGORY_OVERRIDES = {
     'LogicGrid': 'interactive-learning',
 }
 
-WEB_CATEGORY_ORDER = {
-    ('web', 'independent-projects'): {
-        'Economics-Dashboard-Web': 1,
-    },
-    ('web', 'business-solutions'): {
-        'team-enablement-platform': 1,
-        'internal-team-portal': 2,
-        'Team-Hub-Website': 2,
-        'PowerBI-Request-Portal': 3,
-    },
-    ('web', 'interactive-learning'): {
-        'RainDrops': 1,
-        'Hexamatch': 2,
-        'Algebraverse': 3,
-        'LogicGrid': 4,
-    },
-}
-
-WEB_TITLE_OVERRIDES = {
-    'Team-Hub-Website': 'Internal Team Portal',
-    'internal-team-portal': 'Internal Team Portal',
-}
 
 # ── Section / category manifest (single source of truth) ──────────────────────
 #
@@ -328,17 +308,103 @@ def repo_cache_token(repo: dict) -> str:
     return re.sub(r'[^0-9A-Za-z]+', '', raw)
 
 
-def resolve_image_url(repo: dict, filename: str) -> str:
-    """
-    Return the raw.githubusercontent.com URL for portfolio/{filename} in the repo.
-    Uses the repo's default branch and appends a cache-busting version token so
-    same-filename screenshot replacements propagate without renaming files.
-    """
+def public_raw_image_url(repo: dict, filename: str) -> str:
+    """Return a raw.githubusercontent.com URL for a public repo image."""
     repo_name = repo['name']
     branch = repo.get('default_branch') or 'main'
     url = f'{RAW_BASE}/{ORG}/{repo_name}/{branch}/portfolio/{filename}'
     token = repo_cache_token(repo)
     return f'{url}?v={quote(token, safe="")}' if token else url
+
+
+def safe_asset_segment(value: str) -> str:
+    """Filesystem-safe path segment for mirrored public portfolio assets."""
+    return re.sub(r'[^0-9A-Za-z._-]+', '-', str(value)).strip('-') or 'asset'
+
+
+def needs_image_mirror(repo: dict) -> bool:
+    """Private repo raw.githubusercontent URLs are not visible to GitHub Pages."""
+    return (
+        bool(repo.get('private'))
+        or str(repo.get('visibility', '')).lower() == 'private'
+        or repo.get('name') in MIRROR_IMAGE_REPOS
+    )
+
+
+def fetch_repo_file_bytes(repo_name: str, file_path: str, branch: str) -> bytes | None:
+    """Fetch a repo file as bytes through the GitHub API, including private repos."""
+    encoded_path = quote(file_path.replace('\\', '/'), safe='/')
+    encoded_ref = quote(branch, safe='')
+    url = f'https://api.github.com/repos/{ORG}/{repo_name}/contents/{encoded_path}?ref={encoded_ref}'
+    headers = {
+        'Accept': 'application/vnd.github.raw',
+        'X-GitHub-Api-Version': '2022-11-28',
+    }
+    if TOKEN:
+        headers['Authorization'] = f'Bearer {TOKEN}'
+
+    try:
+        with urlopen(Request(url, headers=headers), timeout=30) as resp:
+            return resp.read()
+    except HTTPError as e:
+        if e.code != 404:
+            print(f'  HTTP {e.code} while mirroring {repo_name}/{file_path}', file=sys.stderr)
+        return None
+    except URLError as e:
+        print(f'  Network error while mirroring {repo_name}/{file_path}: {e}', file=sys.stderr)
+        return None
+
+
+def companion_full_image_name(filename: str) -> str | None:
+    """Return the hover-popup full image name implied by the front-end convention."""
+    name = Path(filename.replace('\\', '/')).name
+    suffix = Path(name).suffix
+    if suffix.lower() not in IMG_EXTS:
+        return None
+    stem = name[:-len(suffix)]
+    if stem.endswith('-full'):
+        return None
+    if stem.endswith('-featured'):
+        stem = stem[:-len('-featured')]
+    return f'{stem}-full{suffix}'
+
+
+def mirror_image_url(repo: dict, filename: str, mirror_full: bool = True) -> str:
+    """Mirror a private repo image into this public portfolio repo and return it."""
+    repo_name = repo['name']
+    branch = repo.get('default_branch') or 'main'
+    safe_name = Path(filename.replace('\\', '/')).name
+    if Path(safe_name).suffix.lower() not in IMG_EXTS:
+        return filename
+
+    data = fetch_repo_file_bytes(repo_name, f'{PORTFOLIO_DIR}/{safe_name}', branch)
+    if data is None:
+        print(f'    ! could not mirror {repo_name}/{PORTFOLIO_DIR}/{safe_name}; using raw URL fallback')
+        return public_raw_image_url(repo, safe_name)
+
+    out_dir = MIRRORED_IMG_DIR / safe_asset_segment(repo_name)
+    out_dir.mkdir(parents=True, exist_ok=True)
+    out_path = out_dir / safe_name
+    if not out_path.exists() or out_path.read_bytes() != data:
+        out_path.write_bytes(data)
+        print(f'    -> mirrored image: {out_path.as_posix()}')
+
+    if mirror_full:
+        full_name = companion_full_image_name(safe_name)
+        if full_name and full_name != safe_name:
+            mirror_image_url(repo, full_name, mirror_full=False)
+
+    token = repo_cache_token(repo)
+    url = out_path.as_posix()
+    return f'{url}?v={quote(token, safe="")}' if token else url
+
+
+def resolve_image_url(repo: dict, filename: str) -> str:
+    """Resolve portfolio/{filename} to a browser-visible image URL."""
+    safe_name = Path(filename.replace('\\', '/')).name
+    if needs_image_mirror(repo):
+        return mirror_image_url(repo, safe_name)
+    return public_raw_image_url(repo, safe_name)
 
 
 # ── Main compile logic ─────────────────────────────────────────────────────────
@@ -440,14 +506,6 @@ def compile_all() -> tuple[dict, list]:
                 forced_order = PYTHON_DESKTOP_ORDER.get(repo_name)
                 if forced_order is not None:
                     card['n'] = forced_order
-            if section == 'web':
-                forced_order = WEB_CATEGORY_ORDER.get((section, category), {}).get(repo_name)
-                if forced_order is not None:
-                    card['n'] = forced_order
-                title_override = WEB_TITLE_OVERRIDES.get(repo_name)
-                if title_override:
-                    card['title'] = title_override
-
             # ── Resolve image filenames → raw GitHub URLs ──────────────────
             img = card.get('img', '').strip()
             if img and Path(img).suffix.lower() in IMG_EXTS:
