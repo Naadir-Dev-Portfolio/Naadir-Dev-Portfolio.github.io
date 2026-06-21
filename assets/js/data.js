@@ -10,7 +10,7 @@
    It is built from scripts/compile_projects.py SECTIONS plus auto-discovery
    of any (section, category) keys that show up in project JSONs.
 
-   Last compiled: 2026-06-21 15:46 UTC
+   Last compiled: 2026-06-21 16:57 UTC
    ============================================================ */
 window.__PORTFOLIO = {
 
@@ -652,13 +652,13 @@ window.__PORTFOLIO = {
       ]
     },
     web:{
-      'live-websites':[
+      'independent-projects':[
         {
           n:1,
           title:'Economics Dashboard Web',
-          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Economics-Dashboard-Web/main/portfolio/economics-dashboard-web.png?v=20260621T154508Z',
-          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Economics-Dashboard-Web/main/portfolio/economics-dashboard-web-featured.png?v=20260621T154508Z',
-          desc:'Interactive custome browser-based economics dashboard - live macro data, yield curves, housing, employment and inflation.',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Economics-Dashboard-Web/main/portfolio/economics-dashboard-web.png?v=20260621T165250Z',
+          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Economics-Dashboard-Web/main/portfolio/economics-dashboard-web-featured.png?v=20260621T165250Z',
+          desc:'Interactive custom browser-based economics dashboard - live macro data, yield curves, housing, employment and inflation.',
           demo:'https://naadir-dev-portfolio.github.io/Economics-Dashboard-Web/',
           code:'https://github.com/Naadir-Dev-Portfolio/Economics-Dashboard-Web',
           details:'https://github.com/Naadir-Dev-Portfolio/Economics-Dashboard-Web/blob/main/README.md',
@@ -668,11 +668,29 @@ window.__PORTFOLIO = {
             'economics',
             'data-viz'
           ]
-        },
+        }
+      ],
+      'business-solutions':[
         {
           n:2,
+          title:'Internal Team Portal',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/internal-team-portal/main/portfolio/team-hub-website.png?v=20260621T165254Z',
+          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/internal-team-portal/main/portfolio/team-hub-website-featured.png?v=20260621T165254Z',
+          desc:'Professional front end portal for an internal data team, showcasing tools, projects and team info with a clean, responsive layout.',
+          demo:'https://ccmiteamsite-by-naadir.netlify.app/',
+          code:'https://github.com/Naadir-Dev-Portfolio/internal-team-portal/tree/main',
+          details:'https://github.com/Naadir-Dev-Portfolio/internal-team-portal/blob/main/README.md',
+          tags:[
+            'web',
+            'html',
+            'css',
+            'js'
+          ]
+        },
+        {
+          n:3,
           title:'Power BI Request Portal',
-          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/PowerBI-Request-Portal/main/portfolio/pbirequest.webp?v=20260427T111138Z',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/PowerBI-Request-Portal/main/portfolio/pbirequest.webp?v=20260621T165252Z',
           desc:'Interactive request portal that walks stakeholders through the Power BI report commissioning process, replaces email back and forth.',
           code:'https://github.com/Naadir-Dev-Portfolio/PowerBI-Request-Portal/blob/main/index.html',
           demo:'https://powerbirequest-by-naadir.netlify.app/',
@@ -682,29 +700,13 @@ window.__PORTFOLIO = {
             'html',
             'powerbi'
           ]
-        },
-        {
-          n:3,
-          title:'Team Hub Website',
-          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Team-Hub-Website/main/portfolio/team-hub-website.png?v=20260530T131029Z',
-          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Team-Hub-Website/main/portfolio/team-hub-website-featured.png?v=20260530T131029Z',
-          desc:'Professional front end portal for an internal data team, showcasing tools, projects and team info with a clean, responsive layout.',
-          demo:'https://ccmiteamsite-by-naadir.netlify.app/',
-          code:'https://github.com/Naadir-Dev-Portfolio/Team-Hub-Website/tree/main',
-          details:'https://github.com/Naadir-Dev-Portfolio/Team-Hub-Website/blob/main/README.md',
-          tags:[
-            'web',
-            'html',
-            'css',
-            'js'
-          ]
         }
       ],
-      cognitive:[
+      'interactive-learning':[
         {
           n:1,
           title:'Rain Drops Arithmetics',
-          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/RainDrops/main/portfolio/raindropsScreen.webp?v=20260323T171136Z',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/RainDrops/main/portfolio/raindropsScreen.webp?v=20260621T165255Z',
           desc:'Fast paced arithmetic training game inspired by Lumosity\'s Rain Drops, tests mental calculation speed under pressure.',
           code:'https://github.com/Naadir-Dev-Portfolio/RainDrops/blob/main/index.html',
           demo:'https://raindrops-by-naadir.netlify.app/',
@@ -717,7 +719,7 @@ window.__PORTFOLIO = {
         {
           n:2,
           title:'Hexamatch Fractions',
-          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Hexamatch/main/portfolio/hexamatchScreen.webp?v=20260323T171129Z',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Hexamatch/main/portfolio/hexamatchScreen.webp?v=20260621T165257Z',
           desc:'Hexagonal tile matching game that builds intuitive understanding of equivalent fractions through play.',
           code:'https://github.com/Naadir-Dev-Portfolio/Hexamatch/blob/main/index.html',
           demo:'https://hexamatch-by-naadir.netlify.app/',
@@ -730,7 +732,7 @@ window.__PORTFOLIO = {
         {
           n:3,
           title:'AlgebraVerse',
-          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Algebraverse/main/portfolio/algebraverseScreen.webp?v=20260323T171052Z',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Algebraverse/main/portfolio/algebraverseScreen.webp?v=20260621T165259Z',
           desc:'Progressive algebra challenge system, from basic equations to multi-step problem solving, with difficulty scaling.',
           code:'https://github.com/Naadir-Dev-Portfolio/Algebraverse/blob/main/index.html',
           demo:'https://algebraverse-by-naadir.netlify.app/',
@@ -743,7 +745,7 @@ window.__PORTFOLIO = {
         {
           n:4,
           title:'Logic Grid Boolean',
-          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/LogicGrid/main/portfolio/logicgridscreen.webp?v=20260323T171131Z',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/LogicGrid/main/portfolio/logicgridscreen.webp?v=20260621T165301Z',
           desc:'Visual boolean logic gate puzzle, helps players build intuitive understanding of AND, OR and NOT operations.',
           code:'https://github.com/Naadir-Dev-Portfolio/LogicGrid/blob/main/index.html',
           demo:'https://logicgrid-by-naadir.netlify.app/',
@@ -968,15 +970,19 @@ window.__PORTFOLIO = {
     {
       key:'web',
       label:'Web Development',
-      desc:'Web development projects, production portals, and browser-based cognitive training apps.',
+      desc:'Independent web projects, business-facing portals, and browser-based interactive learning tools.',
       categories:[
         {
-          key:'live-websites',
-          label:'Live Websites'
+          key:'independent-projects',
+          label:'Independent Projects'
         },
         {
-          key:'cognitive',
-          label:'Cognitive Training Apps'
+          key:'business-solutions',
+          label:'Business Solutions'
+        },
+        {
+          key:'interactive-learning',
+          label:'Interactive Learning'
         }
       ]
     },
