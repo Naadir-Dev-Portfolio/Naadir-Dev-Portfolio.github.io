@@ -86,10 +86,39 @@ PYTHON_DESKTOP_ORDER = {
     'Desktop-Widgets': 8,
 }
 
-WEB_LIVE_WEBSITE_ORDER = {
-    'Economics-Dashboard-Web': 1,
-    'PowerBI-Request-Portal': 2,
-    'Team-Hub-Website': 3,
+WEB_CATEGORY_OVERRIDES = {
+    'Economics-Dashboard-Web': 'independent-projects',
+    'PowerBI-Request-Portal': 'business-solutions',
+    'Team-Hub-Website': 'business-solutions',
+    'internal-team-portal': 'business-solutions',
+    'team-enablement-platform': 'business-solutions',
+    'RainDrops': 'interactive-learning',
+    'Hexamatch': 'interactive-learning',
+    'Algebraverse': 'interactive-learning',
+    'LogicGrid': 'interactive-learning',
+}
+
+WEB_CATEGORY_ORDER = {
+    ('web', 'independent-projects'): {
+        'Economics-Dashboard-Web': 1,
+    },
+    ('web', 'business-solutions'): {
+        'team-enablement-platform': 1,
+        'internal-team-portal': 2,
+        'Team-Hub-Website': 2,
+        'PowerBI-Request-Portal': 3,
+    },
+    ('web', 'interactive-learning'): {
+        'RainDrops': 1,
+        'Hexamatch': 2,
+        'Algebraverse': 3,
+        'LogicGrid': 4,
+    },
+}
+
+WEB_TITLE_OVERRIDES = {
+    'Team-Hub-Website': 'Internal Team Portal',
+    'internal-team-portal': 'Internal Team Portal',
 }
 
 # ── Section / category manifest (single source of truth) ──────────────────────
@@ -158,10 +187,11 @@ SECTIONS = [
     {
         "key": "web",
         "label": "Web Development",
-        "desc": "Web development projects, production portals, and browser-based cognitive training apps.",
+        "desc": "Independent web projects, business-facing portals, and browser-based interactive learning tools.",
         "categories": [
-            {"key": "live-websites",    "label": "Live Websites"},
-            {"key": "cognitive",        "label": "Cognitive Training Apps"},
+            {"key": "independent-projects", "label": "Independent Projects"},
+            {"key": "business-solutions",   "label": "Business Solutions"},
+            {"key": "interactive-learning", "label": "Interactive Learning"},
         ],
     },
     {
@@ -189,11 +219,13 @@ SECTIONS = [
 LEGACY_KEY_ALIAS = {
     # section: { old_category_key: new_category_key }
     "web":               {
-        "teamsites": "live-websites",
-        "tools": "live-websites",
-        "enterprise-hubs": "live-websites",
-        "cognitive-training-sites": "cognitive",
-        "cognitive-training-apps": "cognitive",
+        "live-websites": "independent-projects",
+        "teamsites": "business-solutions",
+        "tools": "business-solutions",
+        "enterprise-hubs": "business-solutions",
+        "cognitive": "interactive-learning",
+        "cognitive-training-sites": "interactive-learning",
+        "cognitive-training-apps": "interactive-learning",
     },
     "mobile":            {"android": "react-native"},
     "browserextensions": {"google-chrome": "chromium"},
@@ -214,6 +246,8 @@ FORBIDDEN_OUTPUT_CATEGORIES = {
     ("web", "teamsites"),
     ("web", "tools"),
     ("web", "enterprise-hubs"),
+    ("web", "live-websites"),
+    ("web", "cognitive"),
     ("web", "cognitive-training-sites"),
     ("web", "cognitive-training-apps"),
 }
@@ -392,6 +426,11 @@ def compile_all() -> tuple[dict, list]:
                 print(f'    -> legacy bucket alias: {section}/{category} -> {new_section}/{new_category}')
                 section, category = new_section, new_category
 
+            web_category = WEB_CATEGORY_OVERRIDES.get(repo_name)
+            if section == 'web' and web_category and category != web_category:
+                print(f'    -> web category override: {section}/{category} -> {section}/{web_category}')
+                category = web_category
+
             # ── Auto-create unknown section/category ───────────────────────
             data.setdefault(section, {})
             data[section].setdefault(category, [])
@@ -401,10 +440,13 @@ def compile_all() -> tuple[dict, list]:
                 forced_order = PYTHON_DESKTOP_ORDER.get(repo_name)
                 if forced_order is not None:
                     card['n'] = forced_order
-            if section == 'web' and category == 'live-websites':
-                forced_order = WEB_LIVE_WEBSITE_ORDER.get(repo_name)
+            if section == 'web':
+                forced_order = WEB_CATEGORY_ORDER.get((section, category), {}).get(repo_name)
                 if forced_order is not None:
                     card['n'] = forced_order
+                title_override = WEB_TITLE_OVERRIDES.get(repo_name)
+                if title_override:
+                    card['title'] = title_override
 
             # ── Resolve image filenames → raw GitHub URLs ──────────────────
             img = card.get('img', '').strip()

@@ -72,7 +72,7 @@
     });
   }
   const AI_URL  = 'https://subtle-khapse-c232ff.netlify.app/.netlify/functions/gemini-proxy';
-  const AI_SYS  = `You are Naadir's AI Assistant. Professional and concise. Naadir builds automation tools, AI systems, data pipelines and mobile apps. Projects include: Spheria (hero project, AI desktop OS with multi-agent orchestration, tool calling and persistent memory), Mobile Health Planner (React Native / Expo SDK 54 cross-platform health app for Android), Health Planner Desktop (PyQt6 + QWebEngineView hybrid desktop health app), Trading Algo Backtester (ML-powered backtester), Finance & Health PyQt6 dashboards, Adobe Script Toolkit (Python+COM sticker pack pipeline, JSX automation for Illustrator & After Effects), ComfyUI Workflows (Stable Diffusion image generation pipelines with Python batch automation), Enterprise GenAI assistant, AI Quiz Bot, Finance NL Query (natural language financial data interface), economic data scripts, educational web games, VBA/SAP automation tools, Power Query M templates, Power BI dashboards, crypto news aggregator, and more. Skills: Python, VBA/Excel, Power Query, Power BI, Power Automate, JavaScript, React Native, TypeScript, AI/ML, multi-agent systems, prompt engineering, ExtendScript/JSX, ComfyUI, PyQt6, Streamlit. Keep answers brief and professional.`.trim();
+  const AI_BASE = `You are Naadir's AI Assistant. Professional, concise, and grounded in the portfolio data provided below. Naadir builds automation tools, AI systems, data pipelines, dashboards, desktop apps, mobile apps, browser extensions, and web products. Use the project inventory as the source of truth. If a project is not listed, say you do not have it in the current portfolio data instead of inventing details. Keep answers brief and professional.`.trim();
 
   /* DATA + MANIFEST are loaded from assets/js/data.js (compiled by GitHub Actions).
      MANIFEST is the ordered list of {key, label, desc, categories:[{key,label}]}
@@ -94,6 +94,83 @@
       desc: '',
       categories: Object.keys(cats).map(ck => ({ key: ck, label: titleCase(ck) }))
     }));
+  }
+
+
+  function manifestSection(skey){
+    return MANIFEST.find(sec => sec.key === skey) || null;
+  }
+
+  function sectionLabel(skey){
+    return manifestSection(skey)?.label || titleCase(skey);
+  }
+
+  function categoryLabel(skey, ckey){
+    const sec = manifestSection(skey);
+    return sec?.categories?.find(cat => cat.key === ckey)?.label || titleCase(ckey);
+  }
+
+  function compactText(value, max=240){
+    const text = String(value || '').replace(/\s+/g, ' ').trim();
+    return text.length > max ? text.slice(0, max - 1).trimEnd() + '...' : text;
+  }
+
+  function portfolioProjects(){
+    const sectionOrder = new Map(MANIFEST.map((sec, i) => [sec.key, i]));
+    const categoryOrder = new Map();
+    MANIFEST.forEach(sec => {
+      (sec.categories || []).forEach((cat, i) => {
+        categoryOrder.set(`${sec.key}/${cat.key}`, i);
+      });
+    });
+
+    const projects = [];
+    for(const [section, subs] of Object.entries(DATA || {})){
+      for(const [category, arr] of Object.entries(subs || {})){
+        (arr || []).forEach(p => {
+          projects.push({
+            ...p,
+            section,
+            category,
+            bucket: `${section}/${category}`,
+            sectionLabel: sectionLabel(section),
+            categoryLabel: categoryLabel(section, category)
+          });
+        });
+      }
+    }
+
+    return projects.sort((a, b) => {
+      const sectionDelta = (sectionOrder.get(a.section) ?? 999) - (sectionOrder.get(b.section) ?? 999);
+      if(sectionDelta) return sectionDelta;
+      const categoryDelta = (categoryOrder.get(a.bucket) ?? 999) - (categoryOrder.get(b.bucket) ?? 999);
+      if(categoryDelta) return categoryDelta;
+      const orderDelta = (a.n ?? 99) - (b.n ?? 99);
+      if(orderDelta) return orderDelta;
+      return String(a.title || '').localeCompare(String(b.title || ''));
+    });
+  }
+
+  function buildAISystemPrompt(){
+    const projectLines = portfolioProjects().map(p => {
+      const tags = Array.isArray(p.tags) && p.tags.length
+        ? ` Tags: ${p.tags.slice(0, 8).join(', ')}.`
+        : '';
+      const links = [
+        p.demo ? 'live demo' : null,
+        p.details ? 'details' : null,
+        p.code ? 'code' : null
+      ].filter(Boolean);
+      const linkText = links.length ? ` Links available: ${links.join(', ')}.` : '';
+      return `- ${compactText(p.title, 80)} [${p.sectionLabel} / ${p.categoryLabel}]: ${compactText(p.desc)}${tags}${linkText}`;
+    }).join('\n');
+
+    return `${AI_BASE}
+
+Current portfolio inventory from assets/js/data.js:
+${projectLines}
+
+When comparing skills, use the project categories and descriptions above. Mention live links only when the user asks to view or try a project.`.trim();
   }
 
   const BOOKS = [
@@ -715,7 +792,7 @@
       {name:'Excel VBA', categories:['excelvba/vba-macros']},
       {name:'Power BI', categories:['powerbi/dashboards']},
       {name:'AI / Agents', categories:['ai/agents','ai/generativeai','ai/workflows']},
-      {name:'Web Development', categories:['web/live-websites','web/cognitive']},
+      {name:'Web Development', categories:['web/independent-projects','web/business-solutions','web/interactive-learning']},
       {name:'Mobile Development', categories:['mobile/react-native','mobile/kotlin']},
       {name:'Automation', categories:['python/automation','excelvba/vba-macros']},
       {name:'Data Visualisation', categories:['powerbi/dashboards','python/desktop','python/quant']},
@@ -803,7 +880,7 @@
     const msgs=document.getElementById('ai-messages'),initEl=document.getElementById('ai-initial-text');
     if(!fab||!chat||!form) return;
     let open=false,typing=false,typed=false;
-    let history=[{role:'user',parts:[{text:AI_SYS}]}];
+    let history=[{role:'user',parts:[{text:buildAISystemPrompt()}]}];
 
     fab.addEventListener('click',()=>{
       open=true;chat.classList.add('open');fab.classList.add('hidden');

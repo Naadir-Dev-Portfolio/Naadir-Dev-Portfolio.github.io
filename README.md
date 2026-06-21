@@ -90,8 +90,9 @@ Clicking the card body (not a button) opens the first available link in this pri
 | `ai` | `agents` | Multi-agent systems, AI OS |
 | `ai` | `generativeai` | LLM apps, Streamlit tools |
 | `ai` | `workflows` | AI workflow and image-generation pipelines |
-| `web` | `live-websites` | Live websites and production portals |
-| `web` | `cognitive` | Cognitive training apps |
+| `web` | `independent-projects` | Independent web projects and self-directed sites |
+| `web` | `business-solutions` | Business-facing portals and team enablement tools |
+| `web` | `interactive-learning` | Browser-based interactive learning games |
 | `mobile` | `react-native` | React Native / Expo mobile apps |
 | `mobile` | `kotlin` | Native Kotlin Android apps |
 | `browserextensions` | `chromium` | Chromium browser extensions |
