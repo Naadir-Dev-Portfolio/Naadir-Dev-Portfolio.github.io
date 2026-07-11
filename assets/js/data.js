@@ -10,7 +10,7 @@
    It is built from scripts/compile_projects.py SECTIONS plus auto-discovery
    of any (section, category) keys that show up in project JSONs.
 
-   Last compiled: 2026-07-10 06:10 UTC
+   Last compiled: 2026-07-11 05:17 UTC
    ============================================================ */
 window.__PORTFOLIO = {
 
@@ -672,8 +672,8 @@ window.__PORTFOLIO = {
         {
           n:2,
           title:'Economics Dashboard Web',
-          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Economics-Dashboard-Web/main/portfolio/economics-dashboard-web.png?v=20260710T055309Z',
-          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Economics-Dashboard-Web/main/portfolio/economics-dashboard-web-featured.png?v=20260710T055309Z',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Economics-Dashboard-Web/main/portfolio/economics-dashboard-web.png?v=20260711T045300Z',
+          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Economics-Dashboard-Web/main/portfolio/economics-dashboard-web-featured.png?v=20260711T045300Z',
           desc:'Interactive custom browser-based economics dashboard - live macro data, yield curves, housing, employment and inflation.',
           demo:'https://naadir-dev-portfolio.github.io/Economics-Dashboard-Web/',
           code:'https://github.com/Naadir-Dev-Portfolio/Economics-Dashboard-Web',
@@ -867,6 +867,22 @@ window.__PORTFOLIO = {
           desc:'Chrome extension that scrapes any article and sends the full text directly to ChatGPT, Claude, Gemini, or Perplexity.',
           code:'https://github.com/Naadir-Dev-Portfolio/AI-Article-Sender/blob/main/sidepanel.js',
           details:'https://github.com/Naadir-Dev-Portfolio/AI-Article-Sender/blob/main/README.md',
+          tags:[
+            'Browser Extensions',
+            'Chrome',
+            'JavaScript',
+            'HTML',
+            'CSS'
+          ]
+        },
+        {
+          n:3,
+          title:'AI Tab Organiser',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/AI-Tab-Organiser/main/portfolio/ai-tab-organiser.png?v=20260429T193259Z',
+          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/AI-Tab-Organiser/main/portfolio/ai-tab-organiser-featured.png?v=20260429T193259Z',
+          desc:'Chrome extension that instantly groups all your open tabs into colour-coded categories using Claude or Gemini.',
+          code:'https://github.com/Naadir-Dev-Portfolio/AI-Tab-Organiser/blob/main/sidepanel.js',
+          details:'https://github.com/Naadir-Dev-Portfolio/AI-Tab-Organiser/blob/main/README.md',
           tags:[
             'Browser Extensions',
             'Chrome',
