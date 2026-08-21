@@ -10,7 +10,7 @@
    It is built from scripts/compile_projects.py SECTIONS plus auto-discovery
    of any (section, category) keys that show up in project JSONs.
 
-   Last compiled: 2026-08-21 20:28 UTC
+   Last compiled: 2026-08-21 21:04 UTC
    ============================================================ */
 window.__PORTFOLIO = {
 
@@ -205,8 +205,8 @@ window.__PORTFOLIO = {
         {
           n:1,
           title:'SAP Analysis for Office VBA Automation',
-          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/SAP-Analysis-for-Office-VBA-Automation/main/portfolio/sap-analysis-for-office-vba-automation.png?v=20260815T214105Z',
-          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/SAP-Analysis-for-Office-VBA-Automation/main/portfolio/sap-analysis-for-office-vba-automation-featured.png?v=20260815T214105Z',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/SAP-Analysis-for-Office-VBA-Automation/main/portfolio/sap-analysis-for-office-vba-automation.png?v=20260821T210330Z',
+          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/SAP-Analysis-for-Office-VBA-Automation/main/portfolio/sap-analysis-for-office-vba-automation-featured.png?v=20260821T210330Z',
           desc:'A reusable Excel/VBA template that exposes the core SAPLogon, SAPSetFilter and RefreshData calls, then adds table-driven prompts, live operational KPIs, six charts, audit history, portable exports and a runnable offline simulation.',
           code:'https://github.com/Naadir-Dev-Portfolio/SAP-Analysis-for-Office-VBA-Automation',
           details:'https://github.com/Naadir-Dev-Portfolio/SAP-Analysis-for-Office-VBA-Automation/blob/main/README.md',
@@ -253,8 +253,8 @@ window.__PORTFOLIO = {
         {
           n:4,
           title:'Advanced File Management & Batch Processing Tool',
-          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Advanced-File-Management-Batch-Processing-Tool/main/portfolio/advanced-file-management-batch-processing-tool.png?v=20260821T202621Z',
-          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Advanced-File-Management-Batch-Processing-Tool/main/portfolio/advanced-file-management-batch-processing-tool-featured.png?v=20260821T202621Z',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Advanced-File-Management-Batch-Processing-Tool/main/portfolio/advanced-file-management-batch-processing-tool.png?v=20260821T210243Z',
+          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Advanced-File-Management-Batch-Processing-Tool/main/portfolio/advanced-file-management-batch-processing-tool-featured.png?v=20260821T210243Z',
           desc:'A polished Excel/VBA desktop utility with a scalable file queue, recursive scanning, dry-run-safe batch operations, conversion engines, PDF tools, progress controls, and a complete audit trail.',
           code:'https://github.com/Naadir-Dev-Portfolio/Advanced-File-Management-Batch-Processing-Tool/blob/main/README.md',
           details:'https://github.com/Naadir-Dev-Portfolio/Advanced-File-Management-Batch-Processing-Tool/blob/main/README.md',
@@ -270,8 +270,8 @@ window.__PORTFOLIO = {
         {
           n:5,
           title:'Business Budgeting, Forecasting & Scenario Planner',
-          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Business-Budgeting-Forecasting-Scenario-Planner/main/portfolio/business-budgeting-forecasting-scenario-planner.png?v=20260821T202730Z',
-          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Business-Budgeting-Forecasting-Scenario-Planner/main/portfolio/business-budgeting-forecasting-scenario-planner-featured.png?v=20260821T202730Z',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Business-Budgeting-Forecasting-Scenario-Planner/main/portfolio/business-budgeting-forecasting-scenario-planner.png?v=20260821T210259Z',
+          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Business-Budgeting-Forecasting-Scenario-Planner/main/portfolio/business-budgeting-forecasting-scenario-planner-featured.png?v=20260821T210259Z',
           desc:'A polished Excel budgeting model with actuals vs budget, rolling forecasts, scenario toggles, assumptions, variance commentary, dashboard outputs, scenario saving, and budget pack generation.',
           code:'https://github.com/Naadir-Dev-Portfolio/Business-Budgeting-Forecasting-Scenario-Planner/blob/main/README.md',
           details:'https://github.com/Naadir-Dev-Portfolio/Business-Budgeting-Forecasting-Scenario-Planner/blob/main/README.md',
