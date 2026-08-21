@@ -10,7 +10,7 @@
    It is built from scripts/compile_projects.py SECTIONS plus auto-discovery
    of any (section, category) keys that show up in project JSONs.
 
-   Last compiled: 2026-08-21 20:27 UTC
+   Last compiled: 2026-08-21 20:28 UTC
    ============================================================ */
 window.__PORTFOLIO = {
 
@@ -270,8 +270,8 @@ window.__PORTFOLIO = {
         {
           n:5,
           title:'Business Budgeting, Forecasting & Scenario Planner',
-          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Business-Budgeting-Forecasting-Scenario-Planner/main/portfolio/business-budgeting-forecasting-scenario-planner.png?v=20260821T201741Z',
-          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Business-Budgeting-Forecasting-Scenario-Planner/main/portfolio/business-budgeting-forecasting-scenario-planner-featured.png?v=20260821T201741Z',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Business-Budgeting-Forecasting-Scenario-Planner/main/portfolio/business-budgeting-forecasting-scenario-planner.png?v=20260821T202730Z',
+          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Business-Budgeting-Forecasting-Scenario-Planner/main/portfolio/business-budgeting-forecasting-scenario-planner-featured.png?v=20260821T202730Z',
           desc:'A polished Excel budgeting model with actuals vs budget, rolling forecasts, scenario toggles, assumptions, variance commentary, dashboard outputs, scenario saving, and budget pack generation.',
           code:'https://github.com/Naadir-Dev-Portfolio/Business-Budgeting-Forecasting-Scenario-Planner/blob/main/README.md',
           details:'https://github.com/Naadir-Dev-Portfolio/Business-Budgeting-Forecasting-Scenario-Planner/blob/main/README.md',
