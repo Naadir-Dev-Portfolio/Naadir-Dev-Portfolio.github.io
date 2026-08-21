@@ -10,7 +10,7 @@
    It is built from scripts/compile_projects.py SECTIONS plus auto-discovery
    of any (section, category) keys that show up in project JSONs.
 
-   Last compiled: 2026-08-21 03:07 UTC
+   Last compiled: 2026-08-21 20:27 UTC
    ============================================================ */
 window.__PORTFOLIO = {
 
@@ -253,7 +253,9 @@ window.__PORTFOLIO = {
         {
           n:4,
           title:'Advanced File Management & Batch Processing Tool',
-          desc:'A desktop-style Excel/VBA utility for bulk file listing, metadata preview, duplicate detection, formula-driven renaming, moving, archiving, split rules, and audit trail generation.',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Advanced-File-Management-Batch-Processing-Tool/main/portfolio/advanced-file-management-batch-processing-tool.png?v=20260821T202621Z',
+          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Advanced-File-Management-Batch-Processing-Tool/main/portfolio/advanced-file-management-batch-processing-tool-featured.png?v=20260821T202621Z',
+          desc:'A polished Excel/VBA desktop utility with a scalable file queue, recursive scanning, dry-run-safe batch operations, conversion engines, PDF tools, progress controls, and a complete audit trail.',
           code:'https://github.com/Naadir-Dev-Portfolio/Advanced-File-Management-Batch-Processing-Tool/blob/main/README.md',
           details:'https://github.com/Naadir-Dev-Portfolio/Advanced-File-Management-Batch-Processing-Tool/blob/main/README.md',
           tags:[
@@ -261,12 +263,15 @@ window.__PORTFOLIO = {
             'VBA',
             'FileSystemObject',
             'Batch Processing',
-            'File Automation'
+            'Office Automation',
+            'Audit Logging'
           ]
         },
         {
           n:5,
           title:'Business Budgeting, Forecasting & Scenario Planner',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Business-Budgeting-Forecasting-Scenario-Planner/main/portfolio/business-budgeting-forecasting-scenario-planner.png?v=20260821T201741Z',
+          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Business-Budgeting-Forecasting-Scenario-Planner/main/portfolio/business-budgeting-forecasting-scenario-planner-featured.png?v=20260821T201741Z',
           desc:'A polished Excel budgeting model with actuals vs budget, rolling forecasts, scenario toggles, assumptions, variance commentary, dashboard outputs, scenario saving, and budget pack generation.',
           code:'https://github.com/Naadir-Dev-Portfolio/Business-Budgeting-Forecasting-Scenario-Planner/blob/main/README.md',
           details:'https://github.com/Naadir-Dev-Portfolio/Business-Budgeting-Forecasting-Scenario-Planner/blob/main/README.md',
@@ -675,8 +680,8 @@ window.__PORTFOLIO = {
         {
           n:2,
           title:'Economics Dashboard Web',
-          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Economics-Dashboard-Web/main/portfolio/economics-dashboard-web.png?v=20260821T021633Z',
-          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Economics-Dashboard-Web/main/portfolio/economics-dashboard-web-featured.png?v=20260821T021633Z',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Economics-Dashboard-Web/main/portfolio/economics-dashboard-web.png?v=20260821T201312Z',
+          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Economics-Dashboard-Web/main/portfolio/economics-dashboard-web-featured.png?v=20260821T201312Z',
           desc:'Interactive custom browser-based economics dashboard - live macro data, yield curves, housing, employment and inflation.',
           demo:'https://naadir-dev-portfolio.github.io/Economics-Dashboard-Web/',
           code:'https://github.com/Naadir-Dev-Portfolio/Economics-Dashboard-Web',
