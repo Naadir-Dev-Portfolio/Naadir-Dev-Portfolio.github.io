@@ -1013,8 +1013,6 @@ a.hero-panel-content:focus-visible{
 .footer-links{display:flex;gap:1rem;margin-left:auto}
 .footer-links a{font-size:.94rem;color:var(--on-dark-m);text-decoration:none;font-weight:500;transition:color .2s}
 .footer-links a:hover{color:var(--on-dark)}
-.footer-analytics-note{max-width:var(--body-section-max);margin:.75rem auto 0;padding:0 clamp(1rem,3vw,2rem);font-size:.72rem;line-height:1.5;color:rgba(238,240,242,.48);text-align:center}
-
 /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    RESPONSIVE
    â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
