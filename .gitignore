@@ -2,6 +2,7 @@
 node_modules/
 *.log
 .env
+.backups/
 .vscode/
 __pycache__/
 scripts/__pycache__/

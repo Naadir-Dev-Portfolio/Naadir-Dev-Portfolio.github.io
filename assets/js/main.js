@@ -81,6 +81,83 @@
      labels so the site never goes completely blank. */
   const DATA     = (window.__PORTFOLIO && window.__PORTFOLIO.DATA)     || {};
   const MANIFEST = (window.__PORTFOLIO && window.__PORTFOLIO.MANIFEST) || autoManifestFromData(DATA);
+  const PORTFOLIO_ROUTE_PARAM = 'portfolio-route';
+
+  /* GitHub Pages serves 404.html for direct requests such as /python. That
+     lightweight page returns here with the requested path in a temporary query
+     parameter. Resolve both canonical manifest keys and label slugs so /etl
+     maps to the data-transformation section while future manifest keys work
+     automatically without another hardcoded route list. */
+  function routeSlug(value){
+    return String(value || '')
+      .normalize('NFKD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .replace(/&/g, ' ')
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '');
+  }
+
+  function decodeRoutePart(value){
+    try { return decodeURIComponent(value); }
+    catch { return value; }
+  }
+
+  function resolvePortfolioRoute(){
+    let url;
+    try { url = new URL(window.location.href); }
+    catch { return null; }
+
+    const redirectedPath = url.searchParams.get(PORTFOLIO_ROUTE_PARAM);
+    const from404 = redirectedPath !== null;
+    let rawPath = from404 ? redirectedPath : url.pathname;
+    rawPath = String(rawPath || '').replace(/^\/+|\/+$/g, '');
+
+    if(!rawPath || /^index\.html$/i.test(rawPath)){
+      return from404 ? {valid:false, from404:true} : null;
+    }
+
+    const parts = rawPath.split('/').filter(Boolean).map(decodeRoutePart).map(routeSlug);
+    if(!parts.length || parts.length > 2){
+      return {valid:false, from404};
+    }
+
+    const section = MANIFEST.find(sec =>
+      routeSlug(sec.key) === parts[0] || routeSlug(sec.label) === parts[0]
+    );
+    if(!section) return {valid:false, from404};
+
+    let category = null;
+    if(parts[1]){
+      category = (section.categories || []).find(cat =>
+        routeSlug(cat.key) === parts[1] || routeSlug(cat.label) === parts[1]
+      ) || null;
+    }
+
+    return {
+      valid: true,
+      from404,
+      sectionKey: section.key,
+      categoryKey: category && category.key,
+      requestedPath: category || !parts[1]
+        ? parts.filter(Boolean).join('/')
+        : routeSlug(section.key)
+    };
+  }
+
+  function setPortfolioUrl(path, mode='push'){
+    try {
+      const url = new URL(window.location.href);
+      const cleanParts = String(path || '').split('/').filter(Boolean).map(routeSlug).filter(Boolean);
+      url.pathname = cleanParts.length
+        ? '/' + cleanParts.map(encodeURIComponent).join('/')
+        : '/';
+      url.searchParams.delete(PORTFOLIO_ROUTE_PARAM);
+      url.hash = '';
+      const method = mode === 'replace' ? 'replaceState' : 'pushState';
+      window.history[method](null, '', url.pathname + url.search + url.hash);
+    } catch {}
+  }
 
   function titleCase(k){
     return String(k).replace(/[-_]+/g,' ')
@@ -704,13 +781,13 @@ When comparing skills, use the project categories and descriptions above. Mentio
     }
 
     /* Switch to a new main tab: highlight it, open its sub-nav, show its panel */
-    function openTab(cat){
+    function openTab(cat, preferredSub){
       bar.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active', b.dataset.target===cat));
       document.querySelectorAll('.sub-nav').forEach(s=>s.classList.toggle('open', s.id===`sub-${cat}`));
       const desc = bar.querySelector(`[data-target="${cat}"]`)?.dataset.desc||'';
       if(sub$ && desc) sub$.textContent = desc;
       /* Show last-seen sub for this cat, or auto-select the first one */
-      const sub = lastSub[cat];
+      const sub = preferredSub || lastSub[cat];
       if(sub){
         activateSub(cat, sub);
       } else {
@@ -729,6 +806,7 @@ When comparing skills, use the project categories and descriptions above. Mentio
         document.getElementById(`sub-${cat}`)?.classList.toggle('open');
       } else {
         openTab(cat);
+        setPortfolioUrl(cat);
       }
     });
 
@@ -737,17 +815,56 @@ When comparing skills, use the project categories and descriptions above. Mentio
         const b = e.target.closest('.sub-btn');
         if(!b) return;
         /* Sub-tab always shows its panel — never collapses to blank */
-        activateSub(nav.id.replace('sub-',''), b.dataset.subtarget);
+        const cat = nav.id.replace('sub-','');
+        activateSub(cat, b.dataset.subtarget);
+        setPortfolioUrl(`${cat}/${b.dataset.subtarget}`);
       });
     });
 
-    /* Initial state: first section's first category visible, but no main tab or
-       sub-tab is selected. The sub-nav stays collapsed until a main tab is clicked. */
-    const firstSec = MANIFEST[0];
-    const firstCat = firstSec && firstSec.categories[0];
-    if(firstSec && firstCat){
-      showPanel(firstSec.key, firstCat.key);
+    function showDefaultState(){
+      bar.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll('.sub-nav').forEach(nav=>{
+        nav.classList.remove('open');
+        nav.querySelectorAll('.sub-btn').forEach(b=>b.classList.remove('active'));
+      });
+
+      const firstSec = MANIFEST[0];
+      const firstCat = firstSec && firstSec.categories[0];
+      if(firstSec && firstCat){
+        showPanel(firstSec.key, firstCat.key);
+        if(sub$ && firstSec.desc) sub$.textContent = firstSec.desc;
+      }
     }
+
+    function applyLocationRoute(scrollToProjects=false){
+      const route = resolvePortfolioRoute();
+      if(!route || !route.valid){
+        showDefaultState();
+        if(route && route.from404) setPortfolioUrl('', 'replace');
+        return false;
+      }
+
+      const section = manifestSection(route.sectionKey);
+      const firstCategory = section && section.categories && section.categories[0];
+      const categoryKey = route.categoryKey || (firstCategory && firstCategory.key);
+      if(categoryKey) openTab(route.sectionKey, categoryKey);
+
+      if(route.from404) setPortfolioUrl(route.requestedPath, 'replace');
+      if(scrollToProjects){
+        requestAnimationFrame(()=>{
+          document.getElementById('projects')?.scrollIntoView({block:'start'});
+        });
+      }
+      return true;
+    }
+
+    /* Root keeps the original unselected presentation. A route selects the
+       requested data-driven tab and scrolls directly to What I've Built. */
+    applyLocationRoute(true);
+
+    window.addEventListener('popstate', ()=>{
+      applyLocationRoute(false);
+    });
   }
 
   /* Card body clicks do nothing — only the explicit button links in .card-links navigate */

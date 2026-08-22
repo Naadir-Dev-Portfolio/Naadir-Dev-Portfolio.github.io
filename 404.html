@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Opening portfolio...</title>
+  <script>
+    (function(){
+      'use strict';
+      var route = window.location.pathname.replace(/^\/+|\/+$/g, '');
+      var target = new URL('/', window.location.origin);
+      target.search = window.location.search;
+      if(route) target.searchParams.set('portfolio-route', route);
+      target.hash = window.location.hash;
+      window.location.replace(target.href);
+    })();
+  </script>
+  <noscript><meta http-equiv="refresh" content="0;url=/"></noscript>
+</head>
+<body>
+  <p>Opening the requested portfolio section...</p>
+</body>
+</html>
