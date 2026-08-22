@@ -6,7 +6,9 @@ The implementation is deliberately minimal:
 - `schema.sql` — D1 table and indexes
 - `wrangler.jsonc` — optional CLI configuration; dashboard setup does not require Wrangler
 - `../assets/js/analytics.js` — browser client, kept separate from the main site logic
-- `../analytics.py` — dependency-free local D1 reader
+
+The dependency-free Python reader and its credentials are intentionally stored
+outside this public repository in a private local folder.
 
 Do not add the GitHub Pages domain to Cloudflare and do not change DNS. This
 system only needs a free `workers.dev` endpoint.
@@ -138,9 +140,10 @@ Expected results:
 
 Never paste the token into the Worker, `analytics.js`, GitHub, or a chat.
 
-## 7. Configure and use the Python client
+## 7. Configure and use the external Python client
 
-Copy `.env.example` to `.env`, then fill in:
+Keep `analytics.py`, `.env.example`, and the private `.env` together in a
+standalone folder outside this repository. Fill the private `.env` with:
 
 ```text
 CLOUDFLARE_ACCOUNT_ID=...
@@ -149,9 +152,10 @@ CLOUDFLARE_D1_TOKEN=...
 ```
 
 To copy the account ID in the current dashboard, press **Ctrl+K**, search for
-**Copy account ID**, and select it. `.env` is ignored by Git.
+**Copy account ID**, and select it. Never place the private `.env` in this
+repository.
 
-Run:
+Open PowerShell in the standalone folder and run:
 
 ```powershell
 python analytics.py recent
