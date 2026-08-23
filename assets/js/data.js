@@ -10,7 +10,7 @@
    It is built from scripts/compile_projects.py SECTIONS plus auto-discovery
    of any (section, category) keys that show up in project JSONs.
 
-   Last compiled: 2026-08-23 03:06 UTC
+   Last compiled: 2026-08-23 21:18 UTC
    ============================================================ */
 window.__PORTFOLIO = {
 
@@ -287,6 +287,8 @@ window.__PORTFOLIO = {
         {
           n:6,
           title:'Employee Scheduler & Dynamic Gantt Planner',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Employee-Scheduler-Dynamic-Gantt-Planner/main/portfolio/employee-scheduler-dynamic-gantt-planner.png?v=20260823T211733Z',
+          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Employee-Scheduler-Dynamic-Gantt-Planner/main/portfolio/employee-scheduler-dynamic-gantt-planner-featured.png?v=20260823T211733Z',
           desc:'An Excel/VBA workforce planning app with employee availability, shifts, leave, project allocation, capacity warnings, dynamic Gantt views, conflict detection, exports, and employee-specific schedules.',
           code:'https://github.com/Naadir-Dev-Portfolio/Employee-Scheduler-Dynamic-Gantt-Planner/blob/main/README.md',
           details:'https://github.com/Naadir-Dev-Portfolio/Employee-Scheduler-Dynamic-Gantt-Planner/blob/main/README.md',
@@ -680,8 +682,8 @@ window.__PORTFOLIO = {
         {
           n:2,
           title:'Economics Dashboard Web',
-          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Economics-Dashboard-Web/main/portfolio/economics-dashboard-web.png?v=20260823T021736Z',
-          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Economics-Dashboard-Web/main/portfolio/economics-dashboard-web-featured.png?v=20260823T021736Z',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Economics-Dashboard-Web/main/portfolio/economics-dashboard-web.png?v=20260823T211104Z',
+          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Economics-Dashboard-Web/main/portfolio/economics-dashboard-web-featured.png?v=20260823T211104Z',
           desc:'Interactive custom browser-based economics dashboard - live macro data, yield curves, housing, employment and inflation.',
           demo:'https://naadir-dev-portfolio.github.io/Economics-Dashboard-Web/',
           code:'https://github.com/Naadir-Dev-Portfolio/Economics-Dashboard-Web',
