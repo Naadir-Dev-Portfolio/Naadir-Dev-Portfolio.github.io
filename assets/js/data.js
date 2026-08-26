@@ -10,7 +10,7 @@
    It is built from scripts/compile_projects.py SECTIONS plus auto-discovery
    of any (section, category) keys that show up in project JSONs.
 
-   Last compiled: 2026-08-25 03:02 UTC
+   Last compiled: 2026-08-26 03:10 UTC
    ============================================================ */
 window.__PORTFOLIO = {
 
@@ -682,8 +682,8 @@ window.__PORTFOLIO = {
         {
           n:2,
           title:'Economics Dashboard Web',
-          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Economics-Dashboard-Web/main/portfolio/economics-dashboard-web.png?v=20260825T021128Z',
-          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Economics-Dashboard-Web/main/portfolio/economics-dashboard-web-featured.png?v=20260825T021128Z',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Economics-Dashboard-Web/main/portfolio/economics-dashboard-web.png?v=20260826T021755Z',
+          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Economics-Dashboard-Web/main/portfolio/economics-dashboard-web-featured.png?v=20260826T021755Z',
           desc:'Interactive custom browser-based economics dashboard - live macro data, yield curves, housing, employment and inflation.',
           demo:'https://naadir-dev-portfolio.github.io/Economics-Dashboard-Web/',
           code:'https://github.com/Naadir-Dev-Portfolio/Economics-Dashboard-Web',
