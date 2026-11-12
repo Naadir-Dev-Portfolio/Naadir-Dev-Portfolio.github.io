@@ -10,7 +10,7 @@
    It is built from scripts/compile_projects.py SECTIONS plus auto-discovery
    of any (section, category) keys that show up in project JSONs.
 
-   Last compiled: 2026-11-11 09:03 UTC
+   Last compiled: 2026-11-12 09:31 UTC
    ============================================================ */
 window.__PORTFOLIO = {
 
@@ -520,6 +520,25 @@ window.__PORTFOLIO = {
           ]
         },
         {
+          n:6,
+          title:'UK Energy Consumption',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/powerbi-uk-energy-consumption-dashboard/main/portfolio/powerbi-uk-energy-consumption-dashboard.png?v=20260517T211635Z',
+          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/powerbi-uk-energy-consumption-dashboard/main/portfolio/powerbi-uk-energy-consumption-dashboard-featured.png?v=20260517T211635Z',
+          desc:'Energy analytics dashboard using official DESNZ sub-national data to analyse UK electricity and gas consumption by region and local authority, and track whether patterns suggest structural change.',
+          demo:'https://app.powerbi.com/view?r=eyJrIjoiNGFmMWNlNmUtNTU0ZS00MDhhLWI1ZjgtMWZhZDA5MWQ5ZjA5IiwidCI6IjFmMjM5NGIwLWJiZmUtNDZlYS04MDIyLTFhZjJiZjg4ZDBkZCJ9',
+          code:'https://github.com/Naadir-Dev-Portfolio/powerbi-uk-energy-consumption-dashboard/blob/main/README.md',
+          details:'https://naadir-dev-portfolio.github.io/powerbi-uk-energy-consumption-dashboard/',
+          tags:[
+            'Power BI',
+            'DAX',
+            'Power Query',
+            'Python',
+            'PBIP',
+            'Energy',
+            'Open Data'
+          ]
+        },
+        {
           n:7,
           title:'UK Housing Affordability',
           img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/powerbi-uk-housing-affordability-dashboard/main/portfolio/powerbi-uk-housing-affordability-dashboard.png?v=20260517T211634Z',
@@ -663,8 +682,8 @@ window.__PORTFOLIO = {
         {
           n:2,
           title:'Economics Dashboard Web',
-          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Economics-Dashboard-Web/main/portfolio/economics-dashboard-web.png?v=20261111T060034Z',
-          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Economics-Dashboard-Web/main/portfolio/economics-dashboard-web-featured.png?v=20261111T060034Z',
+          img:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Economics-Dashboard-Web/main/portfolio/economics-dashboard-web.png?v=20261112T025401Z',
+          imgFeatured:'https://raw.githubusercontent.com/Naadir-Dev-Portfolio/Economics-Dashboard-Web/main/portfolio/economics-dashboard-web-featured.png?v=20261112T025401Z',
           desc:'Interactive custom browser-based economics dashboard - live macro data, yield curves, housing, employment and inflation.',
           demo:'https://naadir-dev-portfolio.github.io/Economics-Dashboard-Web/',
           code:'https://github.com/Naadir-Dev-Portfolio/Economics-Dashboard-Web',
